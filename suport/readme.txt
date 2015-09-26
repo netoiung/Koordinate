@@ -1,0 +1,1 @@
+Aqui ficam todos os documentos de suporte, como manuais de linguagem, manuais de ferramentas, manual de codificação, etc.
