@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="titulo">
+                Form de Curso
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <h:link styleClass="btn btn-primary" title="Voltar" outcome="lista">Voltar</h:link>
+                <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/>
+                <h1>Form de Curso</h1>
+                <h:form class="form-horizontal" role="form" prependId="false" >
+                    <h:inputHidden id="id" value="#{cursoBean.curso.id}"/>
+                    <div class="form-group">
+                        <label for="codigo" class="col-sm-2 control-label">Código</label>
+                        <div class="col-sm-10">
+                            <h:inputText id="cod" class="form-control" value="#{cursoBean.curso.cod}" required="true" requiredMessage="O campo código deve ser preenchido." >
+                                <f:validator validatorId="validacao.view.AlfaNumericoValidator" />
+                            </h:inputText>
+                            <h:message for="cod" style="color:red" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome" class="col-sm-2 control-label">Nome</label>
+                        <div class="col-sm-10">
+                            <h:inputText class="form-control" value="#{cursoBean.curso.nome}" id="nome" required="true" requiredMessage="O campo nome deve ser preenchido." >
+                                <f:validator validatorId="validacao.view.StringValidator" />
+                            </h:inputText>
+                            <h:message for="nome" style="color:red" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coodenador" class="col-sm-2 control-label">Coordenador</label>
+                        <div class="col-sm-10">
+                            <h:selectOneMenu value="#{cursoBean.curso.docente}" converter="docenteConverter">
+                                <f:selectItem itemValue="#{null}" itemLabel="Selecione o coordenador" />
+                                <f:selectItems value="#{docenteBean.docentes}" var="docente" itemLabel="#{docente.nome}" itemValue="#{docente.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <h:commandButton action="#{cursoBean.salvar()}" title="Salvar registro" class="btn btn-success" value="Salvar">
+                            </h:commandButton>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

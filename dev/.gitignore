@@ -1,0 +1,29 @@
+#Teste de gitignore.
+
+#ignorando os arquivos do maven
+.classpath
+.project
+.settings/
+
+# Tretas do netbeans
+# NetBeans specific #
+koordinate/nbproject/private/
+koordinate/build/
+koordinate/nbbuild/
+koordinate/dist/
+koordinate/nbdist/
+koordinate/nbactions.xml
+koordinate/nb-configuration.xml
+
+#Arquivo de configuracao do Hibernate
+koordinate/src/main/resources/hibernate.cfg.xml
+
+#ignorando arquivos do target
+koordinate/target/
+
+*.class
+*.war
+*.jar
+
+#Ignorar arquivos gerados no linux com o gedit
+*~

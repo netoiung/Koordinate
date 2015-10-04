@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/koordinate</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">minha senha</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.pool_size">10</property>
+    <!--Usamos o Update para atualizar nossos mapeamentos-->
+    <property name="hibernate.hbm2dll.auto">create</property>
+    <mapping class="model.ComponenteCurricular"/>
+    <mapping class="model.ComponenteCurso"/>
+    <mapping class="model.Concurso"/>
+    <mapping class="model.Curso"/>
+    <mapping class="model.CursoComponente"/>
+    <mapping class="model.Docente"/>
+    <mapping class="model.DocenteItemOferta"/>
+    <mapping class="model.Instrucao"/>
+    <mapping class="model.InstrucaoComponenteCurricular"/>
+    <mapping class="model.InstrucaoDocente"/>
+    <mapping class="model.ItemOferta"/>
+    <mapping class="model.Oferta"/>
+    <mapping class="model.Preferencia"/>
+  </session-factory>
+</hibernate-configuration>

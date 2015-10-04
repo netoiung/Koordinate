@@ -1,0 +1,229 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author eduar
+ */
+public class DocenteTest {
+
+    /**
+     * Teste do método Salvar da classe Docente.
+     */
+    @Test
+    public void testSalvar() {
+        System.out.println("Testando método Salvar");
+
+        Concurso concurso = new Concurso();
+        concurso.setArea("Suceeeesso244");
+        concurso.setEdital("2105");
+        concurso.setPrograma("adas");
+
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setConcurso(concurso);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Nero");
+        d.setSiape(5432);
+
+        boolean expResult = true;
+        boolean result = Docente.salvar(d);
+        assertEquals(expResult, result);
+        Docente.excluir(d);
+        Concurso.excluir(concurso);
+    }
+
+    /**
+     * Teste do método Consultar da classe Docente.
+     */
+    @Test
+    public void testConsultarTodos() {
+        System.out.println("Testando método Consultar");
+
+        Concurso concurso = new Concurso();
+        concurso.setArea("Suceeeesso2");
+        concurso.setEdital("2105");
+        concurso.setPrograma("adas");
+
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setConcurso(concurso);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Nero");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+
+        int expResult = Docente.count();
+        ArrayList<Docente> result = Docente.consultar();
+        assertEquals(expResult, result.size());
+        Concurso.excluir(concurso);
+        Docente.excluir(d);
+    }
+
+    /**
+     * Teste do método Consultar da classe Docente.
+     */
+    @Test
+    public void testConsultarId() {
+        System.out.println("Testando método Consultar");
+
+        Concurso concurso = new Concurso();
+        concurso.setArea("Suceeeesso2");
+        concurso.setEdital("2105");
+        concurso.setPrograma("adas");
+
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setConcurso(concurso);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Nero");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+
+        Docente expResult = d;
+        Docente result = Docente.consultar(d.getId());
+        assertEquals(expResult, result);
+        Docente.excluir(d);
+        Concurso.excluir(concurso);
+    }
+
+    /**
+     * Teste do método Consultar da classe Docente.
+     */
+    @Test
+    public void testConsultarPorNome() {
+        System.out.println("Testando método Consultar");
+
+        Concurso concurso = new Concurso();
+        concurso.setArea("Suceeeesso211");
+        concurso.setEdital("2105");
+        concurso.setPrograma("adas");
+
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setConcurso(concurso);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("???????");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+
+        Docente d2 = new Docente();
+        d2.setAreagraduacao("areaGraduação");
+        d2.setAtuaposgraduacao(true);
+        d2.setConcurso(concurso);
+        d2.setEmailinstitucional("1234@uni");
+        d2.setLinklattes("lattes");
+        d2.setLogin("login");
+        d2.setSenha("pass");
+        d2.setNome("??????");
+        d2.setSiape(5432);
+
+        Docente.salvar(d2);
+
+        Collection<Docente> result = Docente.consultar("Eduardo Amaral999");
+
+        assertNotNull(result);
+        Docente.excluir(d);
+        Docente.excluir(d2);
+        Concurso.excluir(concurso);
+
+    }
+
+    /**
+     * Teste do método Alterar da classe Docente.
+     */
+    @Test
+    public void testAlterar() {
+        System.out.println("alterar");
+
+        Concurso concurso = new Concurso();
+        concurso.setArea("Suceeeesso2");
+        concurso.setEdital("2105");
+        concurso.setPrograma("adas");
+
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setConcurso(concurso);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Eduardo Amaral999");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+
+        Docente expResult = d;
+        Docente result = Docente.consultar(d.getId());
+        assertEquals(expResult, result);
+
+        d.setNome("Alterado!!!!");
+
+        boolean test = Docente.alterar(d);
+        assertTrue(test);
+        Docente.excluir(d);
+    }
+
+    /**
+     * Test of excluir method, of class Docente.
+     */
+    @Test
+    public void testExcluir() {
+        System.out.println("excluir");
+        Concurso concurso = new Concurso();
+        concurso.setArea("Suceeeesso2");
+        concurso.setEdital("2105");
+        concurso.setPrograma("adas");
+
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setConcurso(concurso);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Eduardo Amaral999");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+
+        boolean result = Docente.excluir(d);
+        assertTrue(result);
+    }
+
+}

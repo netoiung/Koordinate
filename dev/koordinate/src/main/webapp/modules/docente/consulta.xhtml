@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="titulo">
+                Consulta de Docente
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <h:link title="Voltar" outcome="lista"> Voltar</h:link>
+                <h1>Consulta de Docente</h1>
+
+                <div class="box-content">
+                    <table>
+                        <tr>
+                            <td>Siape:</td>
+                            <td><h:outputText value="#{docenteBean.docente.siape}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Nome:</td>
+                            <td><h:outputText value="#{docenteBean.docente.nome}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><h:outputText value="#{docenteBean.docente.emailinstitucional}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Login:</td>
+                            <td><h:outputText value="#{docenteBean.docente.login}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Área Graduação</td>
+                            <td><h:outputText value="#{docenteBean.docente.areagraduacao}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Link Lattes</td>
+                            <td><h:outputText value="#{docenteBean.docente.linklattes}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Atua na pós-Graduação</td>
+                            <td><h:graphicImage name="ok.png" rendered="#{docenteBean.docente.atuaposgraduacao}"/></td>
+                        </tr>
+                    </table>
+                </div> 
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

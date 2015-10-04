@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="titulo">
+                Listagem dos Cursos
+            </ui:define>
+
+
+            <ui:define name="conteudo">
+
+                <h:link  title="Inserir novo registro" styleClass="btn btn-success" outcome="#{cursoBean.cadastrar()}"><span class='glyphicon glyphicon-plus'></span> Novo</h:link>
+                
+                <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="box-name">
+                                    <i class="fa fa-list-ul"></i>
+                                    <span>Listagem dos Cursos</span>
+                                </div>
+                                <div class="box-icons pull-right">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="expand-link">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                                <div class="no-move"></div>
+                            </div>
+
+                            <div class="box-content no-padding">
+
+
+                                <h:dataTable value="#{cursoBean.cursos}" var="o" styleClass="table table-striped table-hover table-heading table-responsive table-datatable" id="list-datatable">
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Código</f:facet>
+                                        <!-- row record -->
+                                        <h:outputText value="#{o.cod}"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Nome</f:facet>
+                                        <!-- row record -->
+                                        <h:outputText value="#{o.nome}"/>
+                                    </h:column>  
+
+                                    <h:column>
+                                        <f:facet name="header">Ações</f:facet>
+                                        <h:form>
+                                            <div class="btn-group">
+                                                <h:commandLink title="Consultar" action="#{cursoBean.consultar(o)}">Consultar </h:commandLink>
+                                                <h:commandLink title="Editar" action="#{cursoBean.alterar(o)}">Editar </h:commandLink>
+                                                <h:commandLink title="Excluir" action="#{cursoBean.excluir(o)}">Excluir</h:commandLink>
+                                            </div>
+                                        </h:form>
+                                    </h:column>
+
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
