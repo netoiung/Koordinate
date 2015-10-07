@@ -68,7 +68,6 @@ public class DocenteBean {
     public String salvar() {
         DAODocente dao = new DAODocente();
         dao.salvar(docente);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("docenteBean");
         return "/modules/docente/lista";
     }
 

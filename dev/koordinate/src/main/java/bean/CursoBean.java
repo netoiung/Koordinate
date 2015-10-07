@@ -67,9 +67,6 @@ public class CursoBean {
     public String salvar(){
         DAOCurso dao = new DAOCurso();
         dao.salvar(curso);
-        System.out.println("Akii");
-        System.out.println(curso.getDocente().getNome());
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cursoBean");
         return "/modules/curso/lista";
     }
 

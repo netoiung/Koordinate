@@ -1,19 +1,16 @@
 package model;
 // Generated 27/09/2015 11:19:22 by Hibernate Tools 4.3.1
 
-import dao.DAOConcurso;
 import dao.DAODocente;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -211,17 +208,18 @@ public class Docente implements java.io.Serializable {
     public void setPreferencias(Set preferencias) {
         this.preferencias = preferencias;
     }
+
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Métodos Equals e HashCode">
-    
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 31 * hash + this.id;
+        int hash = 7;
+        //hash = 17 * hash + this.id;
+        hash = 17 * hash + this.siape;
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -234,8 +232,13 @@ public class Docente implements java.io.Serializable {
         if (this.id != other.id) {
             return false;
         }
+        if (this.siape != other.siape) {
+            return false;
+        }
         return true;
     }
+    
+    
     
     @Override
     public String toString(){

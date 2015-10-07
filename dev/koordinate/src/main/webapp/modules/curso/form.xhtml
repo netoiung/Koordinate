@@ -45,7 +45,7 @@
                         <div class="col-sm-10">
                             <h:selectOneMenu value="#{cursoBean.curso.docente}" converter="docenteConverter">
                                 <f:selectItem itemValue="#{null}" itemLabel="Selecione o coordenador" />
-                                <f:selectItems value="#{docenteBean.docentes}" var="docente" itemLabel="#{docente.nome}" itemValue="#{docente.id}" />
+                                <f:selectItems value="#{docenteBean.docentes}" var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" />
                             </h:selectOneMenu>
                         </div>
                     </div>

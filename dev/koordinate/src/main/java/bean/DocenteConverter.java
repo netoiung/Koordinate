@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package bean;
 
 import dao.DAODocente;
@@ -28,23 +24,19 @@ public class DocenteConverter implements Converter {
             DAODocente dao = new DAODocente();
             int id = Integer.parseInt(value);
             Docente docente = dao.consultar(id);
-            System.out.println("AKIIIII");
-            System.out.println(docente.getNome());
             return docente;
         }
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null || value.equals("")) {
-            return "";
-        } else {
-            //DAODocente dao = new DAODocente();
-            //int id = (Integer)value;
-            //Docente docente = dao.consultar(id);
-            
-            //Docente docente = (Docente) value;
-            return String.valueOf(value);
+        String r = "";
+        if (value instanceof Docente) {
+            Docente d = (Docente) value;
+            r = String.valueOf(d.getId());
+        } else if(value instanceof String){
+            r = (String) value;
         }
+        return r;
     }
 }
