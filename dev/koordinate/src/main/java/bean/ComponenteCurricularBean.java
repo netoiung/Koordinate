@@ -20,7 +20,6 @@ public class ComponenteCurricularBean {
 
     private ComponenteCurricular componente;
     private List<ComponenteCurricular> componentes;
-    private int count;
 
     public ComponenteCurricular getComponente() {
         return componente;
@@ -38,20 +37,11 @@ public class ComponenteCurricularBean {
         this.componentes = componentes;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     /**
      * método construtor da classe ComponenteCurricularBean.
      */
     public ComponenteCurricularBean() {
         this.componente = new ComponenteCurricular();
-        countComponenteCurricular();
     }
 
     /**
@@ -112,11 +102,4 @@ public class ComponenteCurricularBean {
         return "/modules/componenteCurricular/lista";
     }
 
-    /**
-     * Método responsável por recuperar o número de registros salvos do banco
-     *
-     */
-    private void countComponenteCurricular() {
-        count = DAOComponenteCurricular.count();
-    }
 }

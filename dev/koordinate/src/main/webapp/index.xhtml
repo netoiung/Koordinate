@@ -6,7 +6,7 @@
 
     <body>
         <ui:composition template="/templates/Template.xhtml">
-            <ui:define name="titulo">
+            <ui:define name="title">
                 Koordinate - Início
             </ui:define>
             
@@ -35,7 +35,7 @@
 
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <p>Bem Vindo ao TLH, seu software para gestão de horários!<br/>
+                            <p>Bem Vindo ao Koordinate, seu software para gestão de horários!<br/>
                                 Abaixo, temos informações sobre quantos registros de cada tipo nosso sistema tem no momento. Para visualiza-los, clique sobre o mesmo (ou no menu lateral, na aba "Cadastros").
                             </p>
                         </div>
@@ -45,7 +45,7 @@
                                 <h:link outcome="#{componenteCurricularBean.listaComponentes()}">
                                     <div class="info-box blue-bg">
                                         <i class="fa fa-book"></i>
-                                        <div class="count"><h:outputText value="#{componenteCurricularBean.count}"/></div>
+                                        <div class="count"><h:outputText value="#{beanCount.countComp}"/></div>
                                         <div class="title">Componentes Curriculares</div>						
                                     </div><!--/.info-box-->	
                                 </h:link>
@@ -57,7 +57,7 @@
                                 <h:link outcome="#{docenteBean.listar()}" >
                                     <div class="info-box brown-bg">
                                         <i class="fa fa-user"></i>
-                                        <div class="count"><h:outputText value="#{docenteBean.count}"/></div>
+                                        <div class="count"><h:outputText value="#{beanCount.countDoc}"/></div>
                                         <div class="title">Docentes</div>						
                                     </div><!--/.info-box-->	
                                 </h:link>
@@ -69,7 +69,7 @@
 
                                     <div class="info-box dark-bg">
                                         <i class="fa fa-institution"></i>
-                                        <div class="count"><h:outputText value="#{cursoBean.count}"/></div>
+                                        <div class="count"><h:outputText value="#{beanCount.countCur}"/></div>
                                         <div class="title">Cursos </div>						
                                     </div><!--/.info-box-->	
                                 </h:link>
@@ -80,7 +80,7 @@
 
                                     <div class="info-box yellow-bg">
                                         <i class="fa fa-archive"></i>
-                                        <div class="count"><h:outputText value="#{concursoBean.count}"/></div>
+                                        <div class="count"><h:outputText value="#{beanCount.countConc}"/></div>
                                         <div class="title">Concursos</div>						
                                     </div><!--/.info-box-->	
                                 </h:link>

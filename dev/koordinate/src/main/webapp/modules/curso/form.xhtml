@@ -9,54 +9,99 @@
 
         <ui:composition template="/templates/Template.xhtml">
 
-            <ui:define name="titulo">
-                Form de Curso
+            <ui:define name="title">
+                Koordinate - Form de Curso
             </ui:define>
+
+            <ui:define name="menu">
+                <ui:include src="../../templates/menu.xhtml"/>
+            </ui:define>
+
+            <ui:define name="sidebar">
+                <ui:include src="../../templates/sidebar.xhtml"/>
+            </ui:define>  
 
             <ui:define name="conteudo">
 
-                <h:link styleClass="btn btn-primary" title="Voltar" outcome="lista">Voltar</h:link>
-                <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/>
-                <h1>Form de Curso</h1>
-                <h:form class="form-horizontal" role="form" prependId="false" >
-                    <h:inputHidden id="id" value="#{cursoBean.curso.id}"/>
-                    <div class="form-group">
-                        <label for="codigo" class="col-sm-2 control-label">Código</label>
-                        <div class="col-sm-10">
-                            <h:inputText id="cod" class="form-control" value="#{cursoBean.curso.cod}" required="true" requiredMessage="O campo código deve ser preenchido." >
-                                <f:validator validatorId="validacao.view.AlfaNumericoValidator" />
-                            </h:inputText>
-                            <h:message for="cod" style="color:red" />
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-book"></i> Cursos</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><a href="../../index.xhtml">Página Inicial</a></li>
+                                    <li><i class="fa fa-institution"></i><i><a href="lista.xhtml"> Cursos </a></i></li>
+                                    <li><i class="fa fa-plus"></i><i>Cadastrar</i></li>
+                                </ol>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="nome" class="col-sm-2 control-label">Nome</label>
-                        <div class="col-sm-10">
-                            <h:inputText class="form-control" value="#{cursoBean.curso.nome}" id="nome" required="true" requiredMessage="O campo nome deve ser preenchido." >
-                                <f:validator validatorId="validacao.view.StringValidator" />
-                            </h:inputText>
-                            <h:message for="nome" style="color:red" />
-                        </div>
-                    </div>
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>
+                                Para realizar o cadastro de um novo registro, preencha os campos abaixo!
 
-                    <div class="form-group">
-                        <label for="coodenador" class="col-sm-2 control-label">Coordenador</label>
-                        <div class="col-sm-10">
-                            <h:selectOneMenu value="#{cursoBean.curso.docente}" converter="docenteConverter">
-                                <f:selectItem itemValue="#{null}" itemLabel="Selecione o coordenador" />
-                                <f:selectItems value="#{docenteBean.docentes}" var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" />
-                            </h:selectOneMenu>
+                            </p>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <h:commandButton action="#{cursoBean.salvar()}" title="Salvar registro" class="btn btn-success" value="Salvar">
-                            </h:commandButton>
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        Formulário de Cadastro
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="form">
+                                            <h:form class="form-horizontal" role="form">
+
+                                                <div class="form-group ">
+                                                    <label for="codigo" class="control-label col-lg-2">Código<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{cursoBean.curso.cod}" id="codigo" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="codigo" style="color: red" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="nome" class="control-label col-lg-2"> Curso <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{cursoBean.curso.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="nome" style="color: red" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" >
+                                                    <label for="nome" class="control-label col-lg-2"> Coordenador <span class="required">*</span></label>
+                                                    <div style="margin-left: 210px;">
+                                                        <h:selectOneMenu value="#{cursoBean.curso.docente}" class="js-example-basic-single" style=" width:300px" required="true" converter="docenteConverter">
+                                                            <f:selectItem itemValue="-1" itemLabel="Selecione..." noSelectionOption="true"/>
+                                                            <f:selectItems value="#{docenteBean.docentes}" var="coordenador" itemValue="#{coordenador}" itemLabel="#{coordenador.nome}" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <h:commandButton action="#{cursoBean.salvar()}" class="btn btn-primary" value="Salvar">
+                                                        </h:commandButton>                                                            
+                                                        <h:link styleClass="btn btn-default" outcome="lista"> Cancelar</h:link>
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
-                    </div>
-                </h:form>
+
+                    </section>
+                </section>
+                <!--main content end-->
+                
             </ui:define>
 
         </ui:composition>

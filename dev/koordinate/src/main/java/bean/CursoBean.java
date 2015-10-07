@@ -19,12 +19,10 @@ public class CursoBean {
 
     private Curso curso;
     private List<Curso> cursos;
-    private int count;
     
     @PostConstruct 
     public void init(){ 
         this.curso = new Curso();
-        countCurso();
     }
 
     /**
@@ -91,9 +89,6 @@ public class CursoBean {
         return "/modules/curso/lista";
     }
     
-    private void countCurso(){
-        count = DAOCurso.count();
-    }
     
     public List<Curso> getCursos(){
         DAOCurso dao = new DAOCurso();
@@ -109,11 +104,4 @@ public class CursoBean {
         this.curso = curso;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }
