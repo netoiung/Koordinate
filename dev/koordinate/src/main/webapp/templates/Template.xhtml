@@ -29,8 +29,9 @@
 
     <h:body>
         <section id="container" class="">
-            <ui:insert name="menu">Aqui vai o menu.</ui:insert>  
-            <ui:insert name="sidebar">Aqui vai o menu lateral.</ui:insert>  
+            <!--Setamos fixamente o menu suprior e lateral -->
+            <ui:include src="/templates/menu.xhtml"/>
+            <ui:include src="/templates/sidebar.xhtml"/>
             <ui:insert name="conteudo">Conteudo da pagina.</ui:insert>
         </section>    
     </h:body>

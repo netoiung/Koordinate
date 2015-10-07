@@ -12,10 +12,10 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu">                
                 <li class="active">
-                    <a class="" href="index.xhtml">
+                    <h:link title="Página inicial" outcome="/index.xhtml">
                         <i class="icon_house_alt"></i>
                         <span>Página Inicial</span>
-                    </a>
+                    </h:link>
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
@@ -24,9 +24,9 @@
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
-                        <li><a style="font-size: 13px" href="componentesCurriculares.xhtml">Componente Curricular</a></li>                          
-                        <li><a class="" href="docentes.xhtml">Docente</a></li>
-                        <li><a class="" href="cursos.xhtml">Curso</a></li>
+                        <li><h:link value="Componente Curricular" outcome="#{componenteCurricularBean.listar()}"/></li>
+                        <li><h:link value="Docente" outcome="#{docenteBean.listar()}"/></li>
+                        <li><h:link value="Curso" outcome="#{cursoBean.listar()}"/></li>
                     </ul>
                 </li>       
             </ul>

@@ -10,14 +10,6 @@
                 Koordinate - Início
             </ui:define>
             
-           <ui:define name="menu">
-                <ui:include src="templates/menu.xhtml"/>
-            </ui:define>
-
-            <ui:define name="sidebar">
-                <ui:include src="templates/sidebar.xhtml"/>
-            </ui:define>  
-            
             <ui:define name="conteudo">
 
                 <!--main content start-->
@@ -42,7 +34,7 @@
 
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                <h:link outcome="#{componenteCurricularBean.listaComponentes()}">
+                                <h:link outcome="#{componenteCurricularBean.listar()}">
                                     <div class="info-box blue-bg">
                                         <i class="fa fa-book"></i>
                                         <div class="count"><h:outputText value="#{beanCount.countComp}"/></div>

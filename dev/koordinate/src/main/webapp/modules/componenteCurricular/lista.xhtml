@@ -13,14 +13,6 @@
                 Koordinate - Listagem de Componentes Curriculares
             </ui:define>
 
-            <ui:define name="menu">
-                <ui:include src="../../templates/menu.xhtml"/>
-            </ui:define>
-
-            <ui:define name="sidebar">
-                <ui:include src="../../templates/sidebar.xhtml"/>
-            </ui:define>  
-
             <ui:define name="conteudo">
 
                 <!--main content start-->
@@ -31,7 +23,7 @@
                             <div class="col-lg-12">
                                 <h3 class="page-header"><i class="fa fa-book"></i> Componentes Curriculares</h3>
                                 <ol class="breadcrumb">
-                                    <li><i class="fa fa-home"></i><a href="index.xhtml">Página Inicial</a></li>
+                                    <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
                                     <li><i class="fa fa-book"></i><i>Componentes Curriculares</i></li>
                                 </ol>
                             </div>
@@ -44,7 +36,7 @@
                             </p>
                         </div>
 
-                        <h:link styleClass="btn btn-primary btn-lg" outcome="#{componenteCurricularBean.cadastrarComponenteCurricular()}" style="float: right"><span class="fa fa-plus"></span> Cadastrar Novo</h:link>
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="#{componenteCurricularBean.cadastrar()}" style="float: right"><span class="fa fa-plus"></span> Cadastrar Novo</h:link>
                         <br/>
                         <br/>
                         <br/>
@@ -88,8 +80,8 @@
                                             <div class="btn-group">
                                                 <h:form>
                                                     <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{componenteCurricularBean.salvar()}"><span class="fa fa-search"></span></h:commandLink>
-                                                    <h:commandLink title="Editar" styleClass="btn btn-success" action="#{componenteCurricularBean.consultarComponenteCurricular(componente)}"><span class="fa fa-pencil"></span></h:commandLink>
-                                                    <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{componenteCurricularBean.excluirComponenteCurricular(componente)}" >   <span class="icon_close_alt2"></span></h:commandLink>
+                                                    <h:commandLink title="Editar" styleClass="btn btn-success" action="#{componenteCurricularBean.consultar(componente)}"><span class="fa fa-pencil"></span></h:commandLink>
+                                                    <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{componenteCurricularBean.excluir(componente)}" >   <span class="icon_close_alt2"></span></h:commandLink>
                                                 </h:form>
                                             </div>
                                         </h:column>

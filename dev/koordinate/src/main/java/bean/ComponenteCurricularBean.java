@@ -65,7 +65,7 @@ public class ComponenteCurricularBean {
      * @param reg
      * @return formComponenteCurricular
      */
-    public String consultarComponenteCurricular(ComponenteCurricular reg) {
+    public String consultar(ComponenteCurricular reg) {
         this.componente = reg;
         return "consultaComponenteCurricular";
     }
@@ -76,11 +76,11 @@ public class ComponenteCurricularBean {
      *
      * @param reg
      */
-    public void excluirComponenteCurricular(ComponenteCurricular reg) {
+    public void excluir(ComponenteCurricular reg) {
         this.componente = reg;
         DAOComponenteCurricular dao = new DAOComponenteCurricular();
         dao.excluir(this.componente);
-        this.listaComponentes();
+        this.listar();
     }
 
     /**
@@ -93,8 +93,8 @@ public class ComponenteCurricularBean {
         DAOComponenteCurricular.salvar(componente);
         return "/modules/componenteCurricular/lista";
     }
-
-//</editor-fold>
+    
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
     /**
      * alterarComponenteCurricular é o método responsável pela alteração de um
@@ -103,9 +103,9 @@ public class ComponenteCurricularBean {
      * @param reg
      * @return formComponenteCurricular
      */
-    public String alterarComponenteCurricular(ComponenteCurricular reg) {
+    public String alterar(ComponenteCurricular reg) {
         this.componente = reg;
-        return "formComponenteCurricular";
+        return "form";
     }
 
     /**
@@ -114,9 +114,9 @@ public class ComponenteCurricularBean {
      *
      * @return formComponenteCurricular
      */
-    public String cadastrarComponenteCurricular() {
+    public String cadastrar() {
         this.componente = new ComponenteCurricular();
-        return "formComponenteCurricular";
+        return "form";
     }
 
     /**
@@ -125,7 +125,7 @@ public class ComponenteCurricularBean {
      *
      * @return listaComponenteCurricular
      */
-    public String listaComponentes() {
+    public String listar() {
         return "/modules/componenteCurricular/lista";
     }
 //</editor-fold>
