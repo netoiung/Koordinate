@@ -10,7 +10,7 @@
         <ui:composition template="/templates/Template.xhtml">
 
             <ui:define name="title">
-                Koordinate - Consulta de Curso
+                Koordinate - Form de Curso
             </ui:define>
 
             <ui:define name="menu">
@@ -22,24 +22,27 @@
             </ui:define>  
 
             <ui:define name="conteudo">
+
                 <!--main content start-->
                 <section id="main-content">
                     <section class="wrapper">            
                         <!--overview start-->
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3 class="page-header"><i class="fa fa-institution"></i> Curso </h3>
+                                <h3 class="page-header"><i class="fa fa-book"></i> Cursos</h3>
                                 <ol class="breadcrumb">
                                     <li><i class="fa fa-home"></i><a href="../../index.xhtml">Página Inicial</a></li>
-                                    <li><i class="fa fa-institution"></i><i><a href="lista.xhtml"> Curso </a></i></li>
-                                    <li><i class="fa fa-search"></i><i>Visualizar</i></li>
+                                    <li><i class="fa fa-institution"></i><i><a href="lista.xhtml"> Cursos </a></i></li>
+                                    <li><i class="fa fa-plus"></i><i>Cadastrar</i></li>
                                 </ol>
                             </div>
                         </div>
 
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <p>Estes são os dados do registro escolhido!
+                            <p>
+                                Para realizar o cadastro de um novo registro, preencha os campos abaixo!
+
                             </p>
                         </div>
 
@@ -50,45 +53,57 @@
                             <div class="col-lg-12">
                                 <section class="panel">
                                     <header class="panel-heading">
-                                        Informações
+                                        Formulário de Cadastro
                                     </header>
                                     <div class="panel-body">
                                         <div class="form">
                                             <h:form class="form-horizontal" role="form">
 
                                                 <div class="form-group ">
-                                                    <label for="codigo" class="control-label col-lg-2">Código</label>
+                                                    <label for="codigo" class="control-label col-lg-2">Código<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:outputLabel  value="#{cursoBean.curso.cod}" id="codigo"/> 
+                                                        <h:inputText  class="form-control" value="#{cursoBean.curso.cod}" id="codigo" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="codigo" style="color: red" />
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group ">
-                                                    <label for="nome" class="control-label col-lg-2"> Curso </label>
+                                                    <label for="nome" class="control-label col-lg-2"> Curso <span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:outputLabel value="#{cursoBean.curso.nome}" id="nome"/> 
+                                                        <h:inputText  class="form-control" value="#{cursoBean.curso.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="nome" style="color: red" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" >
+                                                    <label for="nome" class="control-label col-lg-2"> Coordenador <span class="required">*</span></label>
+                                                    <div style="margin-left: 210px;">
+                                                        <h:selectOneMenu value="#{cursoBean.curso.docente}" class="js-example-basic-single" style=" width:300px" required="true" converter="docenteConverter">
+                                                            <f:selectItem itemValue="-1" itemLabel="Selecione..." noSelectionOption="true"/>
+                                                            <f:selectItems value="#{docenteBean.docentes}" var="coordenador" itemValue="#{coordenador}" itemLabel="#{coordenador.nome}" />
+                                                        </h:selectOneMenu>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group ">
-                                                    <label for="creditos" class="control-label col-lg-2"> Coordenador</label>
-                                                    <div class="col-lg-10">
-                                                        <h:outputLabel value="#{cursoBean.curso.docente.nome}" id="creditos"/> 
-
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <h:commandButton action="#{cursoBean.editar()}" class="btn btn-primary" value="Salvar">
+                                                        </h:commandButton>                                                            
+                                                        <h:link styleClass="btn btn-default" outcome="lista"> Cancelar</h:link>
                                                     </div>
                                                 </div>
-
-
                                             </h:form>
                                         </div>
                                     </div>
                                 </section>
                             </div>
                         </div>
+
                     </section>
                 </section>
                 <!--main content end-->
+                
             </ui:define>
+
         </ui:composition>
 
     </body>

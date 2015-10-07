@@ -26,7 +26,8 @@
 
                 <!--main content start-->
                 <section id="main-content">
-                    <section class="wrapper">            
+                    <section class="wrapper">   
+
                         <!--overview start-->
                         <div class="row">
                             <div class="col-lg-12">
@@ -79,7 +80,7 @@
                                                     <div class="btn-group">
                                                         <h:form>
                                                             <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{cursoBean.consultar(curso)}"><span class="fa fa-search"></span></h:commandLink>
-                                                            <h:commandLink title="Editar" styleClass="btn btn-success" action="#{cursoBean.consultar(curso)}"><span class="fa fa-pencil"></span></h:commandLink>
+                                                            <h:commandLink title="Editar" styleClass="btn btn-success" action="#{cursoBean.alterar(curso)}"><span class="fa fa-pencil"></span></h:commandLink>
                                                             <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{cursoBean.excluir(curso)}" ><span class="icon_close_alt2"></span></h:commandLink>                                                                 
                                                         </h:form>
                                                     </div>

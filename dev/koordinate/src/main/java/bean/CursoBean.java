@@ -44,7 +44,7 @@ public class CursoBean {
      */
     public String alterar(Curso reg) {
         this.curso = reg;
-        return "/modules/curso/form";
+        return "/modules/curso/formEditar";
     }
 
     /**
@@ -54,7 +54,7 @@ public class CursoBean {
      */
     public String cadastrar() {
         this.curso = new Curso();
-        return "/modules/curso/form";
+        return "/modules/curso/formCadastrar";
     }
     
     /**
@@ -67,6 +67,17 @@ public class CursoBean {
         dao.salvar(curso);
         return "/modules/curso/lista";
     }
+    
+    /**
+     * Método responsável por persistir um objeto Curso e encaminhar ao seu form.
+     *
+     * @return String
+     */
+    public String editar(){
+        System.out.println("????????????????????????????????????????"+curso.getDocente().getId()+"????????????????????w");
+        DAOCurso.alterar(curso);
+        return "/modules/curso/lista";
+    }
 
     /**
      * excluir é o método usado para excluir um curso.
@@ -75,8 +86,7 @@ public class CursoBean {
      */
     public void excluir(Curso reg) {
         this.curso = reg;
-        DAOCurso dao = new DAOCurso();
-        dao.excluir(this.curso);
+        DAOCurso.excluir(this.curso);
         this.listar();
     }
 
@@ -89,7 +99,7 @@ public class CursoBean {
         return "/modules/curso/lista";
     }
     
-    
+
     public List<Curso> getCursos(){
         DAOCurso dao = new DAOCurso();
         this.cursos = DAOCurso.consultar();
