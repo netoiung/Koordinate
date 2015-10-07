@@ -87,8 +87,7 @@ public class ConcursoBean {
      */
     public void excluirConcurso(Concurso reg) {
         this.concurso = reg;
-        DAOConcurso dao = new DAOConcurso();
-        dao.excluir(this.concurso);
+        DAOConcurso.excluir(this.concurso);
         this.listaConcursos();
     }
 

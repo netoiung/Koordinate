@@ -17,14 +17,35 @@ import model.Curso;
 @ManagedBean(name = "cursoBean")
 public class CursoBean {
 
+    //<editor-fold defaultstate="collapsed" desc="Variaveis">
     private Curso curso;
     private List<Curso> cursos;
-    
-    @PostConstruct 
-    public void init(){ 
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Init">
+    @PostConstruct
+    public void init() {
         this.curso = new Curso();
+        this.cursos = DAOCurso.consultar();
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getters e setters">
+    public List<Curso> getCursos() {
+        this.cursos = DAOCurso.consultar();
+        return this.cursos;
     }
 
+    public Curso getCurso() {
+        return this.curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultar é o método responsável pela consulta de um curso.
      *
@@ -35,18 +56,43 @@ public class CursoBean {
         this.curso = reg;
         return "/modules/curso/consulta";
     }
-
+    
     /**
-     * alterar é o método responsável pela alteração de um curso.
-     * 
-     * @param reg
+     * Método responsável por persistir um objeto Curso e encaminhar ao seu
+     * form.
+     *
      * @return String
      */
-    public String alterar(Curso reg) {
-        this.curso = reg;
-        return "/modules/curso/formEditar";
+    public String salvar() {
+        DAOCurso dao = new DAOCurso();
+        dao.salvar(curso);
+        return "/modules/curso/lista";
     }
+    
+    /**
+     * Método responsável por persistir um objeto Curso e encaminhar ao seu
+     * form.
+     *
+     * @return String
+     */
+    public String editar() {
+        DAOCurso.alterar(curso);
+        return "/modules/curso/lista";
+    }
+    
+    /**
+     * excluir é o método usado para excluir um curso.
+     *
+     * @param reg
+     */
+    public void excluir(Curso reg) {
+        this.curso = reg;
+        DAOCurso.excluir(this.curso);
+        this.listar();
+    }   
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Redirecionamentos de Paginas">
     /**
      * Método responsável por criar um objeto Curso e encaminhar ao seu form.
      *
@@ -58,38 +104,16 @@ public class CursoBean {
     }
     
     /**
-     * Método responsável por persistir um objeto Curso e encaminhar ao seu form.
-     *
-     * @return String
-     */
-    public String salvar(){
-        DAOCurso dao = new DAOCurso();
-        dao.salvar(curso);
-        return "/modules/curso/lista";
-    }
-    
-    /**
-     * Método responsável por persistir um objeto Curso e encaminhar ao seu form.
-     *
-     * @return String
-     */
-    public String editar(){
-        System.out.println("????????????????????????????????????????"+curso.getDocente().getId()+"????????????????????w");
-        DAOCurso.alterar(curso);
-        return "/modules/curso/lista";
-    }
-
-    /**
-     * excluir é o método usado para excluir um curso.
+     * alterar é o método responsável pela alteração de um curso.
      *
      * @param reg
+     * @return String
      */
-    public void excluir(Curso reg) {
+    public String alterar(Curso reg) {
         this.curso = reg;
-        DAOCurso.excluir(this.curso);
-        this.listar();
+        return "/modules/curso/formEditar";
     }
-
+    
     /**
      * Método responsável por listar todos os cursos existentes.
      *
@@ -98,20 +122,5 @@ public class CursoBean {
     public String listar() {
         return "/modules/curso/lista";
     }
-    
-
-    public List<Curso> getCursos(){
-        DAOCurso dao = new DAOCurso();
-        this.cursos = DAOCurso.consultar();
-        return this.cursos;
-    }
-    
-    public Curso getCurso(){
-        return this.curso;
-    }
-    
-    public void setCurso(Curso curso){
-        this.curso = curso;
-    }
-
+//</editor-fold>
 }
