@@ -139,25 +139,11 @@ public class DocenteTest {
         d.setSiape(5432);
 
         Docente.salvar(d);
-
-        Docente d2 = new Docente();
-        d2.setAreagraduacao("areaGraduação");
-        d2.setAtuaposgraduacao(true);
-        d2.setConcurso(concurso);
-        d2.setEmailinstitucional("1234@uni");
-        d2.setLinklattes("lattes");
-        d2.setLogin("login");
-        d2.setSenha("pass");
-        d2.setNome("??????");
-        d2.setSiape(5432);
-
-        Docente.salvar(d2);
-
         Collection<Docente> result = Docente.consultar("Eduardo Amaral999");
-
+        
         assertNotNull(result);
+        
         Docente.excluir(d);
-        Docente.excluir(d2);
         Concurso.excluir(concurso);
 
     }

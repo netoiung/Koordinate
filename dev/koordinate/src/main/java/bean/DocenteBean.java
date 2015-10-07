@@ -19,10 +19,12 @@ public class DocenteBean {
 
     private Docente docente;
     private List<Docente> docentes;
-    
-    @PostConstruct 
-    public void init(){ 
+    private int count;
+
+    @PostConstruct
+    public void init() {
         this.docente = new Docente();
+        countDocente();
     }
 
     /**
@@ -38,7 +40,7 @@ public class DocenteBean {
 
     /**
      * alterar é o método responsável pela alteração de um docente.
-     * 
+     *
      * @param reg Docente
      * @return String
      */
@@ -56,13 +58,14 @@ public class DocenteBean {
         this.docente = new Docente();
         return "/modules/docente/form";
     }
-    
+
     /**
-     * Método responsável por persistir um objeto Docente e encaminhar ao seu form.
+     * Método responsável por persistir um objeto Docente e encaminhar ao seu
+     * form.
      *
      * @return String
      */
-    public String salvar(){
+    public String salvar() {
         DAODocente dao = new DAODocente();
         dao.salvar(docente);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("docenteBean");
@@ -89,18 +92,34 @@ public class DocenteBean {
     public String listar() {
         return "/modules/docente/lista";
     }
-    
-    public List<Docente> getDocentes(){
+
+    /**
+     * Método responsável por recuperar o número de registros salvos do banco
+     *
+     */
+    private void countDocente() {
+        count = DAODocente.count();
+    }
+
+    public List<Docente> getDocentes() {
         DAODocente dao = new DAODocente();
         this.docentes = DAODocente.consultar();
         return this.docentes;
     }
-    
-    public Docente getDocente(){
+
+    public Docente getDocente() {
         return this.docente;
     }
-    
-    public void setDocente(Docente docente){
+
+    public void setDocente(Docente docente) {
         this.docente = docente;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
