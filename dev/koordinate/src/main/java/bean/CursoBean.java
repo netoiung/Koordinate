@@ -89,7 +89,7 @@ public class CursoBean {
         return "/modules/curso/lista";
     }
     
-    
+
     public List<Curso> getCursos(){
         DAOCurso dao = new DAOCurso();
         this.cursos = DAOCurso.consultar();
