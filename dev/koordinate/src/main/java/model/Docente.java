@@ -93,7 +93,7 @@ public class Docente implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "concurso_id", nullable = true)
     public Concurso getConcurso() {

@@ -116,6 +116,16 @@
                                                         </h:selectBooleanCheckbox>                                                      
                                                     </div>
                                                 </div>
+                                                
+                                                <div class="form-group" >
+                                                    <label for="concurso" class="control-label col-lg-2"> Concurso <span class="required">*</span></label>
+                                                    <div style="margin-left: 210px;">
+                                                        <h:selectOneMenu value="#{docenteBean.docente.concurso}" class="js-example-basic-single" style=" width:300px" required="true" converter="concursoConverter">
+                                                            <f:selectItem itemValue="-1" itemLabel="Selecione..." noSelectionOption="true"/>
+                                                            <f:selectItems value="#{concursoBean.concursos}" var="concurso" itemValue="#{concurso}" itemLabel="#{concurso.area}" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
 
 
                                                 <div class="form-group">
