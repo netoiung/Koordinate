@@ -31,7 +31,7 @@ public class DAOConcurso {
 
         try {
             tx = session.beginTransaction();
-            session.save(c);
+            session.saveOrUpdate(c);
             tx.commit();
             return true;
         } catch (Exception e) {

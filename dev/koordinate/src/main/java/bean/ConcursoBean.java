@@ -3,7 +3,7 @@ package bean;
 import dao.DAOConcurso;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import model.Concurso;
 
 /**
@@ -12,8 +12,7 @@ import model.Concurso;
  * @author Luiz Paulo Franz
  */
 //tem que aprender a lidar com esse scopo
-@ViewScoped
-//@SessionScoped
+@SessionScoped
 @ManagedBean(name = "concursoBean")
 public class ConcursoBean {
 
@@ -29,6 +28,7 @@ public class ConcursoBean {
     }
 
     public List<Concurso> getConcursos() {
+        this.concursos = DAOConcurso.consultar();
         return concursos;
     }
 
@@ -45,27 +45,15 @@ public class ConcursoBean {
     }
 
     /**
-     * consultarConcurso é o método responsável pela consulta de um
-     * concurso
-     *
-     * @param reg
-     * @return formConcurso
-     */
-    public String consultarConcurso(Concurso reg) {
-        this.concurso = reg;
-        return "consultaConcurso";
-    }
-
-    /**
      * alterarConcurso é o método responsável pela alteração de um
      * concurso
      *
      * @param reg
      * @return formConcurso
      */
-    public String alterarConcurso(Concurso reg) {
+    public String alterar(Concurso reg) {
         this.concurso = reg;
-        return "formConcurso";
+        return "/modules/concurso/form";
     }
 
     /**
@@ -74,21 +62,9 @@ public class ConcursoBean {
      *
      * @return formConcurso
      */
-    public String cadastrarConcurso() {
+    public String cadastrar() {
         this.concurso = new Concurso();
-        return "formConcurso";
-    }
-
-    /**
-     * excluirConcurso é o método usado para excluir um concurso
-     * 
-     *
-     * @param reg
-     */
-    public void excluirConcurso(Concurso reg) {
-        this.concurso = reg;
-        DAOConcurso.excluir(this.concurso);
-        this.listaConcursos();
+        return "/modules/concurso/form";
     }
 
     /**
@@ -97,9 +73,45 @@ public class ConcursoBean {
      *
      * @return listaConcurso
      */
-    public String listaConcursos() {
+    public String listar() {
         return "/modules/concurso/lista";
     }
+    
+        //<editor-fold defaultstate="collapsed" desc="CRUD">
+    /**
+     * consultar é o método responsável pela consulta de um curso.
+     *
+     * @param reg
+     * @return String
+     */
+    public String consultar(Concurso reg) {
+        this.concurso = reg;
+        return "/modules/concurso/consulta";
+    }
+    
+    /**
+     * Método responsável por persistir um objeto Concurso e encaminhar ao seu
+     * form.
+     *
+     * @return String
+     */
+    public String salvar() {
+        DAOConcurso dao = new DAOConcurso();
+        dao.salvar(concurso);
+        return "/modules/concurso/lista";
+    }
+    
+    /**
+     * excluir é o método usado para excluir um curso.
+     *
+     * @param reg
+     */
+    public void excluir(Concurso reg) {
+        this.concurso = reg;
+        DAOConcurso.excluir(this.concurso);
+        this.listar();
+    }   
+//</editor-fold>
 
 
 }

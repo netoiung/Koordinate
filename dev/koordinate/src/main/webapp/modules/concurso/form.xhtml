@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="title">
+                Koordinate - Form de Concurso
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-user"></i> Concursos</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
+                                    <li><i class="fa fa-user"></i><h:link outcome="lista.xhtml">Concursos</h:link></li>
+                                    <li><i class="fa fa-plus"></i><i>Cadastrar</i></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Para realizar o cadastro de um novo registro ou sua alteração, preencha os campos abaixo, lembrando que os campos marcados com "*" são campos obrigatórios.
+                            </p>
+                        </div>
+                        <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
+                       
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        Formulário de Cadastro
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="form">
+                                            <h:form class="form-horizontal" role="form">
+
+                                                <div class="form-group ">
+                                                    <label for="area" class="control-label col-lg-2">Área<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{concursoBean.concurso.area}" id="area" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="area" style="color: red" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="edital" class="control-label col-lg-2">Edital <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{concursoBean.concurso.edital}" id="edital" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="edital" style="color: red" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="programa" class="control-label col-lg-2">Programa<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{concursoBean.concurso.programa}" id="programa" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="programa" style="color: red" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <h:commandButton action="#{concursoBean.salvar()}" class="btn btn-primary" value="Salvar">
+                                                        </h:commandButton>                                                            
+                                                        <h:link styleClass="btn btn-default" outcome="lista" style="margin-left: 10px"> Cancelar</h:link>
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+                <!--main content end-->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
