@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="title">
+                Koordinate - Listagem de Componentes Curriculares
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-book"></i> Componentes Curriculares</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
+                                    <li><i class="fa fa-book"></i><h:link outcome="lista.xhtml">Componentes Curriculares</h:link></li>
+                                    <li><i class="fa fa-plus"></i><i>Cadastrar</i></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Para realizar o cadastro de um novo registro, preencha os campos abaixo, lembrando que os campos marcados com "*" são campos obrigatórios.
+                            </p>
+                        </div>
+
+                        <h:message id="mensagens" for="mensagens" class="close" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
+
+
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        Formulário de Cadastro
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="form" id="formComponente">
+                                            <h:form class="form-horizontal" role="form">
+
+                                                <div class="form-group ">
+                                                    <label for="codigo" class="control-label col-lg-2">Código<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{componenteCurricularBean.componente.cod}" id="codigo" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="codigo" style="color: red" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="nome" class="control-label col-lg-2">Nome <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{componenteCurricularBean.componente.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:message for="nome" style="color: red" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="creditos" class="control-label col-lg-2">Créditos<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText id="creditos" required="true" class="form-control" converterMessage="O campo deve ser preenchido somente com números." value="#{componenteCurricularBean.componente.creditos}" requiredMessage="O campo deve ser preenchido.">
+                                                            <f:validateLongRange minimum="1" maximum="70"/>  
+                                                        </h:inputText>
+                                                        <h:message for="creditos" style="color: red"/>                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="link" class="control-label col-lg-2">Link</label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control"  value="#{componenteCurricularBean.componente.link}" id="link" validatorMessage="Link inválido!"> 
+                                                        </h:inputText>
+                                                        <h:message for="link" style="color: red" />                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="ativo" class="control-label col-lg-2">Ativo?</label>
+                                                    <div class="col-lg-10">
+                                                        <h:selectBooleanCheckbox value="#{componenteCurricularBean.componente.isativo}" id="ativo" style="margin-top: 12px">
+                                                        </h:selectBooleanCheckbox>                                                      
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <h:commandButton action="#{beanComponenteCurricular1.salvar()}" class="btn btn-primary" value="Salvar">
+                                                        </h:commandButton>                                                            
+                                                        <h:link styleClass="btn btn-default" outcome="lista" style="margin-left: 10px"> Cancelar</h:link>
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        Adicionar relação com cursos
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="form">
+                                            <h:form id="tlh" class="form-horizontal" role="form">
+
+
+                                                <div class="form-group row">
+                                                    <label class="control-label col-lg-2" for="inputSuccess">Curso</label>
+                                                    <div class="col-lg-2">
+                                                        <h:selectOneMenu value="#{componenteCurricularBean.componenteCurso.curso}" class="js-example-basic-single" style=" width:200px; margin-top: 10px" converter="cursoConverter">
+                                                            <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
+                                                            <f:selectItems value="#{cursoBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nome}" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <label for="ativo" class="control-label col-lg-2">Obrigatório?</label>
+                                                    <div class="col-lg-2">
+                                                        <h:selectBooleanCheckbox value="#{componenteCurricularBean.componenteCurso.obrigatoria}" id="obrigatorio" style="margin-top: 12px">
+                                                            <f:ajax render="button" />
+                                                        </h:selectBooleanCheckbox>                                                      
+                                                    </div>
+
+                                                    <div class="col-lg-2">
+                                                        <h:commandButton action="#{beanCount.init()}" class="btn btn-primary" value="Adicionar">
+                                                        </h:commandButton>     
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <section class="panel">
+                                                                <h:dataTable id="prioridades" class="table table-striped table-advance table-hover" value="#{beanComponenteCurricular1.prioridades}" var="prioridade" >
+
+                                                                    <h:column >
+                                                                        <!-- column header -->
+                                                                        <f:facet name="header"><i class="fa fa-asterisk"></i> Curso</f:facet>
+                                                                        <!-- row record -->
+                                                                        <h:outputText value="#{prioridade.curso.nome}"/>
+                                                                    </h:column>
+
+                                                                    <h:column>
+                                                                        <!-- column header -->
+                                                                        <f:facet name="header"><i class="fa fa-book"></i> Obrigatório?</f:facet>
+                                                                        <!-- row record -->
+                                                                        <div class="col-lg-2">
+                                                                            <h:selectBooleanCheckbox value="#{prioridade.obrigatoria}" id="obrigatorio" disabled="true" style="margin-top: 12px">
+                                                                                <f:ajax render="button" />
+                                                                            </h:selectBooleanCheckbox>                                                      
+                                                                        </div>
+                                                                    </h:column>
+
+
+
+                                                                    <h:column>
+                                                                        <!-- column header -->
+                                                                        <f:facet name="header"><i class="fa fa-cogs"></i> Ações</f:facet>
+                                                                        <!-- row record -->
+                                                                        <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{beanComponenteCurricular1.excluirPrioridade(prioridade)}"><span class="icon_close_alt2"></span></h:commandLink>
+
+                                                                    </h:column>
+                                                                </h:dataTable>
+
+                                                                <h:commandButton action="#{beanComponenteCurricular1.dirCadastrar()}" class="btn btn-primary" value="Salvar">
+                                                                </h:commandButton> 
+                                                            </section>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+                <!--main content end-->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
