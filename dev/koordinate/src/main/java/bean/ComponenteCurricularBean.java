@@ -57,13 +57,12 @@ public class ComponenteCurricularBean {
     public void setComponenteCurso(ComponenteCurso componenteCurso) {
         this.componenteCurso = componenteCurso;
     }
-    
+
     public Set getComponenteCursos() {
         return componente.getComponenteCursos();
     }
-    
-//</editor-fold>
 
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultarComponenteCurricular é o método responsável pela consulta de um
@@ -100,18 +99,20 @@ public class ComponenteCurricularBean {
         DAOComponenteCurricular.salvar(componente);
         return "/modules/componenteCurricular/lista";
     }
-    
+
     /**
      * Adicionamos um curso para ofertar esse componente curricular.
      *
-     * @return String
      */
-    public String addCurso() {
+    public void addCurso() {
         componenteCurso.setComponenteCurricular(componente);
-        DAOComponenteCurso.alterar(componenteCurso);
-        return "/modules/componenteCurricular/form";
+        ComponenteCurso temp = DAOComponenteCurso.consultar(componenteCurso);
+        if (temp == null) {
+            DAOComponenteCurso.alterar(componenteCurso);
+        }
+        this.alterar(componente.getId());
     }
-    
+
     /**
      * Removemos o curso da oferta deste componente curricular.
      *
@@ -122,9 +123,9 @@ public class ComponenteCurricularBean {
         DAOComponenteCurso.excluir(reg);
         //recarregamos o objeto componente para sincronizar os relacionamentos
         componente = DAOComponenteCurricular.consultar(componente.getId());
-        return "formComponenteCurricular";
+        return "/modules/componenteCurricular/form";
     }
-    
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
     /**
@@ -132,11 +133,15 @@ public class ComponenteCurricularBean {
      * componente curricular
      *
      * @param reg
-     * @return formComponenteCurricular
+     * @return form
      */
     public String alterar(ComponenteCurricular reg) {
         this.componente = reg;
-        System.out.println("????????? "+reg.getCod()+" - "+reg.getNome());
+        return "form";
+    }
+
+    public String alterar(int id) {
+        this.componente = DAOComponenteCurricular.consultar(id);
         return "form";
     }
 

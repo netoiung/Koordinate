@@ -62,7 +62,7 @@ public class DAOComponenteCurso {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM Curso as c");
+            q = session.createQuery("FROM ComponenteCurso as c");
 
             c = (ArrayList<ComponenteCurso>) q.list();
 
@@ -120,12 +120,55 @@ public class DAOComponenteCurso {
     }
     
     /**
+     * Método que busca um Curso específico pelo seu id
+     *
+     * @param id - identificador do Curso
+     * @return - O Curso especificado
+     */
+    public static ComponenteCurso consultar(ComponenteCurso cc) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        ComponenteCurso c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+
+            q = session.createQuery("FROM ComponenteCurso as c where c.curso=:curso AND c.componenteCurricular=:comp");
+
+            q.setParameter("curso", cc.getCurso());
+            q.setParameter("comp", cc.getComponenteCurricular());
+
+            List resultados = q.list();
+
+            if (resultados.size() > 0) {
+                c = (ComponenteCurso) resultados.get(0);
+            }
+
+            return c;
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return c;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    /**
      * Método responsável por realizar a alteração de um objeto Curso
      *
      * @param c - Variável que contém o objeto modificado
      * @return - Uma variável boolean indicando se o salvamento foi bem sucedido
      */
     public static boolean alterar(ComponenteCurso c) {
+        
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
