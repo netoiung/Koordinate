@@ -9,33 +9,74 @@
 
         <ui:composition template="/templates/Template.xhtml">
 
-            <ui:define name="titulo">
-                Consulta de Curso
-            </ui:define>
+            <ui:define name="title">
+                Koordinate - Consulta de Curso
+            </ui:define> 
 
             <ui:define name="conteudo">
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-institution"></i> Curso </h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><a href="../../index.xhtml">Página Inicial</a></li>
+                                    <li><i class="fa fa-institution"></i><i><a href="lista.xhtml"> Curso </a></i></li>
+                                    <li><i class="fa fa-search"></i><i>Visualizar</i></li>
+                                </ol>
+                            </div>
+                        </div>
 
-                <h:link title="Voltar" outcome="lista"> Voltar</h:link>
-                <h1>Consulta de Curso</h1>
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Estes são os dados do registro escolhido!
+                            </p>
+                        </div>
 
-                <div class="box-content">
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        Informações
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="form">
+                                            <h:form class="form-horizontal" role="form">
 
-                    <table>
-                        <tr>
-                            <td>Cód:</td>
-                            <td><h:outputText value="#{cursoBean.curso.cod}"/></td>
-                        </tr>
-                        <tr>
-                            <td>Nome:</td>
-                            <td><h:outputText value="#{cursoBean.curso.nome}"/></td>
-                        </tr>
-                        <tr>
-                            <td>Coordenador:</td>
-                            <td><h:outputText value="#{cursoBean.curso.docente.nome}"/></td>
-                        </tr>
-                    </table>
-                </div> 
+                                                <div class="form-group ">
+                                                    <label for="codigo" class="control-label col-lg-2">Código</label>
+                                                    <div class="col-lg-10">
+                                                        <h:outputLabel  value="#{cursoBean.curso.cod}" id="codigo"/> 
+                                                    </div>
+                                                </div>
 
+                                                <div class="form-group ">
+                                                    <label for="nome" class="control-label col-lg-2"> Curso </label>
+                                                    <div class="col-lg-10">
+                                                        <h:outputLabel value="#{cursoBean.curso.nome}" id="nome"/> 
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for="creditos" class="control-label col-lg-2"> Coordenador</label>
+                                                    <div class="col-lg-10">
+                                                        <h:outputLabel value="#{cursoBean.curso.docente.nome}" id="creditos"/> 
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!--main content end-->
             </ui:define>
         </ui:composition>
 

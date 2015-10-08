@@ -71,7 +71,7 @@ public class Curso implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "coordenador_id", nullable = true)
     public Docente getDocente() {
         return this.docente;

@@ -1,10 +1,13 @@
 package bean;
 
 import dao.DAOComponenteCurricular;
+import dao.DAOCurso;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import model.ComponenteCurricular;
+import model.ComponenteCurso;
 
 /**
  * ComponenteCurrilarBean é a classe responsável pelo CRUD do Componente
@@ -13,15 +16,25 @@ import model.ComponenteCurricular;
  * @author Luiz Paulo Franz
  */
 //tem que aprender a lidar com esse scopo
-@ViewScoped
-//@SessionScoped
+@SessionScoped
 @ManagedBean(name = "componenteCurricularBean")
 public class ComponenteCurricularBean {
 
+    //<editor-fold defaultstate="collapsed" desc="Variaveis">
     private ComponenteCurricular componente;
     private List<ComponenteCurricular> componentes;
-    private int count;
+    private ComponenteCurso componenteCurso;
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Init">
+    @PostConstruct
+    public void init() {
+        this.componente = new ComponenteCurricular();
+        this.componenteCurso = new ComponenteCurso();
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
     public ComponenteCurricular getComponente() {
         return componente;
     }
@@ -31,29 +44,20 @@ public class ComponenteCurricularBean {
     }
 
     public List<ComponenteCurricular> getComponentes() {
+        this.componentes = DAOComponenteCurricular.consultar();
         return componentes;
     }
 
-    public void setComponentes(List<ComponenteCurricular> componentes) {
-        this.componentes = componentes;
+    public ComponenteCurso getComponenteCurso() {
+        return componenteCurso;
     }
 
-    public int getCount() {
-        return count;
+    public void setComponenteCurso(ComponenteCurso componenteCurso) {
+        this.componenteCurso = componenteCurso;
     }
+//</editor-fold>
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    /**
-     * método construtor da classe ComponenteCurricularBean.
-     */
-    public ComponenteCurricularBean() {
-        this.componente = new ComponenteCurricular();
-        countComponenteCurricular();
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultarComponenteCurricular é o método responsável pela consulta de um
      * componente curricular
@@ -61,32 +65,9 @@ public class ComponenteCurricularBean {
      * @param reg
      * @return formComponenteCurricular
      */
-    public String consultarComponenteCurricular(ComponenteCurricular reg) {
+    public String consultar(ComponenteCurricular reg) {
         this.componente = reg;
         return "consultaComponenteCurricular";
-    }
-
-    /**
-     * alterarComponenteCurricular é o método responsável pela alteração de um
-     * componente curricular
-     *
-     * @param reg
-     * @return formComponenteCurricular
-     */
-    public String alterarComponenteCurricular(ComponenteCurricular reg) {
-        this.componente = reg;
-        return "formComponenteCurricular";
-    }
-
-    /**
-     * Método responsável por criar um objeto ComponenteCurricular e encaminhar
-     * ao seu form.
-     *
-     * @return formComponenteCurricular
-     */
-    public String cadastrarComponenteCurricular() {
-        this.componente = new ComponenteCurricular();
-        return "formComponenteCurricular";
     }
 
     /**
@@ -95,11 +76,47 @@ public class ComponenteCurricularBean {
      *
      * @param reg
      */
-    public void excluirComponenteCurricular(ComponenteCurricular reg) {
+    public void excluir(ComponenteCurricular reg) {
         this.componente = reg;
         DAOComponenteCurricular dao = new DAOComponenteCurricular();
         dao.excluir(this.componente);
-        this.listaComponentes();
+        this.listar();
+    }
+
+    /**
+     * Método responsável por persistir um objeto Curso e encaminhar ao seu
+     * form.
+     *
+     * @return String
+     */
+    public String salvar() {
+        DAOComponenteCurricular.salvar(componente);
+        return "/modules/componenteCurricular/lista";
+    }
+    
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
+    /**
+     * alterarComponenteCurricular é o método responsável pela alteração de um
+     * componente curricular
+     *
+     * @param reg
+     * @return formComponenteCurricular
+     */
+    public String alterar(ComponenteCurricular reg) {
+        this.componente = reg;
+        return "form";
+    }
+
+    /**
+     * Método responsável por criar um objeto ComponenteCurricular e encaminhar
+     * ao seu form.
+     *
+     * @return formComponenteCurricular
+     */
+    public String cadastrar() {
+        this.componente = new ComponenteCurricular();
+        return "form";
     }
 
     /**
@@ -108,15 +125,9 @@ public class ComponenteCurricularBean {
      *
      * @return listaComponenteCurricular
      */
-    public String listaComponentes() {
+    public String listar() {
         return "/modules/componenteCurricular/lista";
     }
+//</editor-fold>
 
-    /**
-     * Método responsável por recuperar o número de registros salvos do banco
-     *
-     */
-    private void countComponenteCurricular() {
-        count = DAOComponenteCurricular.count();
-    }
 }

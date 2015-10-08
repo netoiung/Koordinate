@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -95,7 +96,7 @@ public class Concurso implements java.io.Serializable {
         this.programa = programa;
     }
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "concurso")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "concurso", cascade = CascadeType.REMOVE)
     public Set<Docente> getDocentes() {
         return this.docentes;
     }

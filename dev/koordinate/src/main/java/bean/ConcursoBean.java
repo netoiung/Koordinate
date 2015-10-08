@@ -19,7 +19,6 @@ public class ConcursoBean {
 
     private Concurso concurso;
     private List<Concurso> concursos;
-    private int count;
 
     public Concurso getConcurso() {
         return concurso;
@@ -37,20 +36,12 @@ public class ConcursoBean {
         this.concursos = concursos;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 
     /**
      * método construtor da classe ConcursoBean.
      */
     public ConcursoBean() {
         this.concurso = new Concurso();
-        countConcurso();
     }
 
     /**
@@ -96,8 +87,7 @@ public class ConcursoBean {
      */
     public void excluirConcurso(Concurso reg) {
         this.concurso = reg;
-        DAOConcurso dao = new DAOConcurso();
-        dao.excluir(this.concurso);
+        DAOConcurso.excluir(this.concurso);
         this.listaConcursos();
     }
 
@@ -111,12 +101,5 @@ public class ConcursoBean {
         return "/modules/concurso/lista";
     }
 
-    /**
-     * Método responsável por recuperar o número de registros salvos do banco
-     *
-     */
-    private void countConcurso() {
-        count = DAOConcurso.count();
-    }
 
 }

@@ -19,12 +19,10 @@ public class DocenteBean {
 
     private Docente docente;
     private List<Docente> docentes;
-    private int count;
 
     @PostConstruct
     public void init() {
         this.docente = new Docente();
-        countDocente();
     }
 
     /**
@@ -92,14 +90,6 @@ public class DocenteBean {
         return "/modules/docente/lista";
     }
 
-    /**
-     * Método responsável por recuperar o número de registros salvos do banco
-     *
-     */
-    private void countDocente() {
-        count = DAODocente.count();
-    }
-
     public List<Docente> getDocentes() {
         DAODocente dao = new DAODocente();
         this.docentes = DAODocente.consultar();
@@ -112,13 +102,5 @@ public class DocenteBean {
 
     public void setDocente(Docente docente) {
         this.docente = docente;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 }

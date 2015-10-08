@@ -5,6 +5,7 @@
  */
 package model;
 
+import dao.DAODocente;
 import java.util.ArrayList;
 import java.util.Set;
 import org.junit.After;
@@ -42,6 +43,7 @@ public class CursoTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
+        Docente.salvar(d);
 
         Curso c = new Curso();
         c.setCod("ALES");
@@ -78,6 +80,7 @@ public class CursoTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
+        Docente.salvar(d);
 
         Curso c = new Curso();
         c.setCod("ALES");
@@ -117,6 +120,7 @@ public class CursoTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
+        Docente.salvar(d);
 
         Curso c = new Curso();
         c.setCod("ALES");
@@ -156,6 +160,7 @@ public class CursoTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
+        Docente.salvar(d);
 
         Curso c = new Curso();
         c.setCod("ALES");
@@ -177,7 +182,7 @@ public class CursoTest {
 
         boolean test = Curso.alterar(c);
         assertTrue(test);
-        
+
         Curso.excluir(c);
         Docente.excluir(d);
         Concurso.excluir(concurso);
@@ -189,7 +194,7 @@ public class CursoTest {
     @Test
     public void testExcluir() {
         System.out.println("Testando método Excluir");
-        
+
         Concurso concurso = new Concurso();
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
@@ -205,6 +210,7 @@ public class CursoTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
+        Docente.salvar(d);
 
         Curso c = new Curso();
         c.setCod("ALES");
@@ -212,9 +218,10 @@ public class CursoTest {
         c.setDocente(d);
 
         Curso.salvar(c);
-        
+
         boolean result = Curso.excluir(c);
         assertTrue(result);
+        Docente.excluir(d);
     }
 
 }
