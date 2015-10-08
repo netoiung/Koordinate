@@ -1,1 +1,3 @@
 /dev/koordinate/src/main/resources/hibernate.cfg.xml
+#Ignorar arquivos gerados no linux com o gedit
+*~
