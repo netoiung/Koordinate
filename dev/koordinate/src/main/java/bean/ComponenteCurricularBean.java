@@ -1,8 +1,10 @@
 package bean;
 
 import dao.DAOComponenteCurricular;
+import dao.DAOComponenteCurso;
 import dao.DAOCurso;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -55,6 +57,11 @@ public class ComponenteCurricularBean {
     public void setComponenteCurso(ComponenteCurso componenteCurso) {
         this.componenteCurso = componenteCurso;
     }
+    
+    public Set getComponenteCursos() {
+        return componente.getComponenteCursos();
+    }
+    
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="CRUD">
@@ -94,6 +101,30 @@ public class ComponenteCurricularBean {
         return "/modules/componenteCurricular/lista";
     }
     
+    /**
+     * Adicionamos um curso para ofertar esse componente curricular.
+     *
+     * @return String
+     */
+    public String addCurso() {
+        componenteCurso.setComponenteCurricular(componente);
+        DAOComponenteCurso.alterar(componenteCurso);
+        return "/modules/componenteCurricular/form";
+    }
+    
+    /**
+     * Removemos o curso da oferta deste componente curricular.
+     *
+     * @param reg Curso
+     */
+    public String removerCurso(ComponenteCurso reg) {
+        //excluimos o registro
+        DAOComponenteCurso.excluir(reg);
+        //recarregamos o objeto componente para sincronizar os relacionamentos
+        componente = DAOComponenteCurricular.consultar(componente.getId());
+        return "formComponenteCurricular";
+    }
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
     /**
@@ -105,6 +136,7 @@ public class ComponenteCurricularBean {
      */
     public String alterar(ComponenteCurricular reg) {
         this.componente = reg;
+        System.out.println("????????? "+reg.getCod()+" - "+reg.getNome());
         return "form";
     }
 

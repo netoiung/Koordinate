@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -79,7 +78,7 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.id = id;
     }
     
-    @Column(name = "cod", length = 50)
+    @Column(name = "cod", length = 50, nullable = false)
     public String getCod() {
         return this.cod;
     }
@@ -106,7 +105,7 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.nome = nome;
     }
     
-    @Column(name = "link", nullable = false, length = 100)
+    @Column(name = "link", nullable = true, length = 100)
     public String getLink() {
         return this.link;
     }
@@ -160,7 +159,7 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
     }
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "componenteCurricular")
     public Set<ComponenteCurso> getComponenteCursos() {
         return this.componenteCursos;
     }

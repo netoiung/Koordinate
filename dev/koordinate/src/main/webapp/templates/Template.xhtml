@@ -23,6 +23,9 @@
         <!-- Select2 -->
         <link href="#{facesContext.externalContext.requestContextPath}/resources/dist/css/select2.min.css" rel="stylesheet" />
 
+        <!-- Custom -->    
+        <script src="#{facesContext.externalContext.requestContextPath}/resources/js/custom.js"></script>
+
         <title><ui:insert name="title">Koordinate</ui:insert></title>
 
     </h:head>
@@ -52,7 +55,7 @@
     <script src="#{facesContext.externalContext.requestContextPath}/resources/assets/DataTables-1.10.6/media/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <!-- Select2 -->    
     <script src="#{facesContext.externalContext.requestContextPath}/resources/dist/js/select2.min.js"></script>
-    
+
     <script>
         $(document).ready(function () {
             $('#curso').DataTable();

@@ -3,8 +3,9 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.ComponenteCurricular;
-import model.Concurso;
+import model.ComponenteCurso;
+import model.Curso;
+import model.Docente;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,18 +13,18 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 
 /**
- * Classe responsável pela Pesistência dos ojetos ComponenteCurricular
+ * Classe responsável pela persistência dos objetos Curso
  * @author Luiz Paulo Franz
  */
-public class DAOComponenteCurricular {
-
+public class DAOComponenteCurso {
+        
     /**
-     * Método que realiza a persistência de um objeto ComponenteCurricular
-     *
+     * Método que realiza a persistência de um objeto Curso
+     * 
      * @param c - Objeto a ser persistido
      * @return - um boolean indicando se o objeto foi salvo ou não
      */
-    public static boolean salvar(ComponenteCurricular c) {
+    public static boolean salvar(ComponenteCurso c) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -42,20 +43,18 @@ public class DAOComponenteCurricular {
         }
 
     }
-
+     
     /**
-     * Método que realiza a busca de todos os objetos do tipo
-     * ComponenteCurricular
+     * Método que realiza a busca de todos os objetos do tipo Curso
      *
-     * @return - Um ArrayList com todos os ComponenteCurriculares recuperados no
-     * banco
+     * @return - Um ArrayList com todos os Curso recuperados no banco
      */
-    public static ArrayList<ComponenteCurricular> consultar() {
+    public static ArrayList<ComponenteCurso> consultar() {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        ArrayList<ComponenteCurricular> c = null;
+        ArrayList<ComponenteCurso> c = null;
 
         try {
 
@@ -63,9 +62,9 @@ public class DAOComponenteCurricular {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM ComponenteCurricular as c");
+            q = session.createQuery("FROM Curso as c");
 
-            c = (ArrayList<ComponenteCurricular>) q.list();
+            c = (ArrayList<ComponenteCurso>) q.list();
 
         } catch (Exception e) {
             tx.rollback();
@@ -80,17 +79,17 @@ public class DAOComponenteCurricular {
     }
 
     /**
-     * Método que busca um ComponenteCurricular específico pelo seu id
+     * Método que busca um Curso específico pelo seu id
      *
-     * @param id - identificador do concurso
-     * @return - O ComponenteCurricular especificado
+     * @param id - identificador do Curso
+     * @return - O Curso especificado
      */
-    public static ComponenteCurricular consultar(int id) {
+    public static ComponenteCurso consultar(int id) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        ComponenteCurricular c = null;
+        ComponenteCurso c = null;
 
         try {
 
@@ -98,14 +97,14 @@ public class DAOComponenteCurricular {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM ComponenteCurricular as c where c.id=:id");
+            q = session.createQuery("FROM ComponenteCurso as c where c.id=:id");
 
             q.setParameter("id", id);
 
             List resultados = q.list();
 
             if (resultados.size() > 0) {
-                c = (ComponenteCurricular) resultados.get(0);
+                c = (ComponenteCurso) resultados.get(0);
             }
 
             return c;
@@ -119,15 +118,14 @@ public class DAOComponenteCurricular {
             session.close();
         }
     }
-
+    
     /**
-     * Método responsável por realizar a alteração de um objeto
-     * ComponenteCurricular
+     * Método responsável por realizar a alteração de um objeto Curso
      *
      * @param c - Variável que contém o objeto modificado
      * @return - Uma variável boolean indicando se o salvamento foi bem sucedido
      */
-    public static boolean alterar(ComponenteCurricular c) {
+    public static boolean alterar(ComponenteCurso c) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -147,13 +145,12 @@ public class DAOComponenteCurricular {
     }
 
     /**
-     * Método responsável por excluir um registro referente a um objeto
-     * ComponenteCurricular
+     * Método responsável por excluir um registro referente a um objeto Curso
      *
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
      */
-    public static boolean excluir(ComponenteCurricular d) {
+    public static boolean excluir(ComponenteCurso d) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -172,8 +169,9 @@ public class DAOComponenteCurricular {
         }
     }
     
-    /**
-     * Método responsável por mostrar a quantidade de registros na tabela de Componente Curricular
+       /**
+     * Método responsável por mostrar a quantidade de registros na tabela de
+     * Curso
      *
      * @return - O número de registros na tabela
      */
@@ -181,19 +179,19 @@ public class DAOComponenteCurricular {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
-        
-        try{
-        
-        Criteria crit = session.createCriteria(ComponenteCurricular.class);
-        crit.setProjection(Projections.rowCount());
-        Long l = (Long) crit.list().get(0);
-        
-        return Integer.valueOf(l.toString());
-        
-        }catch(Exception e){
+
+        try {
+
+            Criteria crit = session.createCriteria(ComponenteCurso.class);
+            crit.setProjection(Projections.rowCount());
+            Long l = (Long) crit.list().get(0);
+
+            return Integer.valueOf(l.toString());
+
+        } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
-        }finally{
+        } finally {
             session.close();
         }
         return 0;

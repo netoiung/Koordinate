@@ -97,7 +97,7 @@
 
                                                 <div class="form-group">
                                                     <div class="col-lg-offset-2 col-lg-10">
-                                                        <h:commandButton action="#{beanComponenteCurricular1.salvar()}" class="btn btn-primary" value="Salvar">
+                                                        <h:commandButton action="#{componenteCurricularBean.salvar()}" class="btn btn-primary" value="Salvar">
                                                         </h:commandButton>                                                            
                                                         <h:link styleClass="btn btn-default" outcome="lista" style="margin-left: 10px"> Cancelar</h:link>
                                                     </div>
@@ -119,74 +119,77 @@
                                     </header>
                                     <div class="panel-body">
                                         <div class="form">
+
                                             <h:form id="tlh" class="form-horizontal" role="form">
-
-
+                                                <h:inputHidden value="#{componenteCurricularBean.componente}" converter="componenteCurricularConverter" />
                                                 <div class="form-group row">
-                                                    <label class="control-label col-lg-2" for="inputSuccess">Curso</label>
-                                                    <div class="col-lg-2">
-                                                        <h:selectOneMenu value="#{componenteCurricularBean.componenteCurso.curso}" class="js-example-basic-single" style=" width:200px; margin-top: 10px" converter="cursoConverter">
+                                                    <div class="col-lg-4">
+                                                        <label for="inputSuccess">Curso:&nbsp;</label>
+                                                        <h:selectOneMenu value="#{componenteCurricularBean.componenteCurso.curso}" converter="cursoConverter" class="js-example-basic-single" style=" width:200px;">
                                                             <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
                                                             <f:selectItems value="#{cursoBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nome}" />
                                                         </h:selectOneMenu>
                                                     </div>
-                                                    <label for="ativo" class="control-label col-lg-2">Obrigatório?</label>
+
+                                                    <div class="col-lg-4">
+                                                        <label for="semestre">Semestre:&nbsp;</label>
+                                                        <h:inputText value="#{componenteCurricularBean.componenteCurso.semestre}" id="semestre" style="margin-top: 3px">
+                                                        </h:inputText>
+                                                    </div>
+
                                                     <div class="col-lg-2">
-                                                        <h:selectBooleanCheckbox value="#{componenteCurricularBean.componenteCurso.obrigatoria}" id="obrigatorio" style="margin-top: 12px">
-                                                            <f:ajax render="button" />
+                                                        <label for="obrigatoria" >Obrigatório?&nbsp;</label>
+                                                        <h:selectBooleanCheckbox value="#{componenteCurricularBean.componenteCurso.obrigatoria}" id="obrigatoria" style="margin-top: 12px">
                                                         </h:selectBooleanCheckbox>                                                      
                                                     </div>
 
                                                     <div class="col-lg-2">
-                                                        <h:commandButton action="#{beanCount.init()}" class="btn btn-primary" value="Adicionar">
+                                                        <h:commandButton action="#{componenteCurricularBean.addCurso()}" class="btn btn-primary" value="Adicionar">
                                                         </h:commandButton>     
 
                                                     </div>
                                                 </div>
+                                            </h:form>
+                                            <div class="form-group row">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <section class="panel">
+                                                            <h:dataTable value="#{componenteCurricularBean.componenteCursos}" var="o" id="prioridades" class="table table-striped table-advance table-hover" >
+                                                                <h:column>
+                                                                    <!-- column header -->
+                                                                    <f:facet name="header">Código</f:facet>
+                                                                    <!-- row record -->
+                                                                    <h:outputText value="#{o.curso.cod}"/>
+                                                                </h:column>
 
-                                                <div class="form-group row">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <section class="panel">
-                                                                <h:dataTable id="prioridades" class="table table-striped table-advance table-hover" value="#{beanComponenteCurricular1.prioridades}" var="prioridade" >
+                                                                <h:column>
+                                                                    <!-- column header -->
+                                                                    <f:facet name="header">Nome</f:facet>
+                                                                    <!-- row record -->
+                                                                    <h:outputText value="#{o.curso.nome}"/>
+                                                                </h:column>
 
-                                                                    <h:column >
-                                                                        <!-- column header -->
-                                                                        <f:facet name="header"><i class="fa fa-asterisk"></i> Curso</f:facet>
-                                                                        <!-- row record -->
-                                                                        <h:outputText value="#{prioridade.curso.nome}"/>
-                                                                    </h:column>
+                                                                <h:column>
+                                                                    <!-- column header -->
+                                                                    <f:facet name="header">Obrigatório?</f:facet>
+                                                                    <!-- row record -->
+                                                                    <h:graphicImage name="ok.png" rendered="#{!o.obrigatoria}"/>
+                                                                </h:column>
 
-                                                                    <h:column>
-                                                                        <!-- column header -->
-                                                                        <f:facet name="header"><i class="fa fa-book"></i> Obrigatório?</f:facet>
-                                                                        <!-- row record -->
-                                                                        <div class="col-lg-2">
-                                                                            <h:selectBooleanCheckbox value="#{prioridade.obrigatoria}" id="obrigatorio" disabled="true" style="margin-top: 12px">
-                                                                                <f:ajax render="button" />
-                                                                            </h:selectBooleanCheckbox>                                                      
-                                                                        </div>
-                                                                    </h:column>
+                                                                <h:column>
+                                                                    <f:facet name="header">Ações</f:facet>
+                                                                    <div class="btn-group">
+                                                                        <h:form>
+                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{componenteCurricularBean.removerCurso(o)}" onclick="return confirmaExclusao()"><span class="glyphicon glyphicon-remove"></span></h:commandLink>
+                                                                        </h:form>
+                                                                    </div>
+                                                                </h:column>
+                                                            </h:dataTable>
 
-
-
-                                                                    <h:column>
-                                                                        <!-- column header -->
-                                                                        <f:facet name="header"><i class="fa fa-cogs"></i> Ações</f:facet>
-                                                                        <!-- row record -->
-                                                                        <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{beanComponenteCurricular1.excluirPrioridade(prioridade)}"><span class="icon_close_alt2"></span></h:commandLink>
-
-                                                                    </h:column>
-                                                                </h:dataTable>
-
-                                                                <h:commandButton action="#{beanComponenteCurricular1.dirCadastrar()}" class="btn btn-primary" value="Salvar">
-                                                                </h:commandButton> 
-                                                            </section>
-                                                        </div>
+                                                        </section>
                                                     </div>
                                                 </div>
-
-                                            </h:form>
+                                            </div>
                                         </div>
                                     </div>
                                 </section>
