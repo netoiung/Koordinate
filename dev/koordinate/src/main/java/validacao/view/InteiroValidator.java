@@ -24,7 +24,7 @@ public class InteiroValidator implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         matcher = pattern.matcher(value.toString());
         if (!matcher.matches()) {
-            FacesMessage msg = new FacesMessage("Nome validation failed.", "Digite números inteiros.");
+            FacesMessage msg = new FacesMessage("Inteiro validation failed.", "Digite números inteiros.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
         }

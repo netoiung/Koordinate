@@ -53,7 +53,9 @@
                                                 <div class="form-group ">
                                                     <label for="area" class="control-label col-lg-2">Área<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{concursoBean.concurso.area}" id="area" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:inputText  class="form-control" value="#{concursoBean.concurso.area}" id="area" required="true" requiredMessage="O campo deve ser preenchido."> 
+                                                            <f:validator validatorId="validacao.view.StringValidator" />
+                                                        </h:inputText>
                                                         <h:message for="area" style="color: red" />
                                                     </div>
                                                 </div>

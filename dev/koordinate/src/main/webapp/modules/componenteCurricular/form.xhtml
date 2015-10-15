@@ -63,7 +63,9 @@
                                                 <div class="form-group ">
                                                     <label for="nome" class="control-label col-lg-2">Nome <span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{componenteCurricularBean.componente.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:inputText  class="form-control" value="#{componenteCurricularBean.componente.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."> 
+                                                            <f:validator validatorId="validacao.view.StringValidator" />
+                                                        </h:inputText>
                                                         <h:message for="nome" style="color: red" />
                                                     </div>
                                                 </div>
@@ -71,8 +73,8 @@
                                                 <div class="form-group ">
                                                     <label for="creditos" class="control-label col-lg-2">Créditos<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText id="creditos" required="true" class="form-control" converterMessage="O campo deve ser preenchido somente com números." value="#{componenteCurricularBean.componente.creditos}" requiredMessage="O campo deve ser preenchido.">
-                                                            <f:validateLongRange minimum="1" maximum="70"/>  
+                                                        <h:inputText id="creditos" required="true" class="form-control" value="#{componenteCurricularBean.componente.creditos}" requiredMessage="O campo deve ser preenchido." converterMessage="Digite somente números inteiros." validatorMessage="O número deve estar entre 0 e 10.">
+                                                            <f:validateLongRange minimum="1" maximum="10"/>  
                                                         </h:inputText>
                                                         <h:message for="creditos" style="color: red"/>                                                        
                                                     </div>
@@ -81,7 +83,8 @@
                                                 <div class="form-group ">
                                                     <label for="link" class="control-label col-lg-2">Link</label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control"  value="#{componenteCurricularBean.componente.link}" id="link" validatorMessage="Link inválido!"> 
+                                                        <h:inputText  class="form-control"  value="#{componenteCurricularBean.componente.link}" id="link"> 
+                                                            <f:validator validatorId="validacao.view.LinkValidator" />
                                                         </h:inputText>
                                                         <h:message for="link" style="color: red" />                                                        
                                                     </div>
@@ -133,8 +136,10 @@
 
                                                     <div class="col-lg-4">
                                                         <label for="semestre">Semestre:&nbsp;</label>
-                                                        <h:inputText value="#{componenteCurricularBean.componenteCurso.semestre}" id="semestre" style="margin-top: 3px">
+                                                        <h:inputText value="#{componenteCurricularBean.componenteCurso.semestre}" id="semestre" style="margin-top: 3px" converterMessage="Digite somente números inteiros." validatorMessage="O número deve estar entre 0 e 12.">
+                                                            <f:validateLongRange minimum="1" maximum="12"/>
                                                         </h:inputText>
+                                                        <h:message for="semestre" style="color: red;display: block;clear: both"/>   
                                                     </div>
 
                                                     <div class="col-lg-2">

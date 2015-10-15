@@ -36,7 +36,7 @@
                             </p>
                         </div>
                         <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
-                       
+
                         <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
                         <br/>
                         <br/>
@@ -48,29 +48,33 @@
                                     </header>
                                     <div class="panel-body">
                                         <div class="form">
-                                            <h:form class="form-horizontal" role="form">
+                                            <h:form class="form-horizontal" role="form" prependId="false">
 
                                                 <div class="form-group ">
                                                     <label for="nome" class="control-label col-lg-2">Nome<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."/> 
-                                                        <h:message for="nome" style="color: red" />
+                                                        <h:inputText class="form-control" value="#{docenteBean.docente.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido." >
+                                                            <f:validator validatorId="validacao.view.StringValidator" />
+                                                        </h:inputText>
+                                                        <h:message for="nome" style="color:red" />
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group ">
                                                     <label for="siape" class="control-label col-lg-2">Siape <span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.siape}" id="siape" required="true" requiredMessage="O campo deve ser preenchido."/> 
-                                                        <h:message for="siape" style="color: red" />
+                                                        <h:inputText class="form-control" id="siape" value="#{docenteBean.docente.siape}" required="true" requiredMessage="O campo deve ser preenchido." converterMessage="Digite somente números inteiros.">
+                                                            <f:validator validatorId="validacao.view.InteiroValidator" />
+                                                        </h:inputText>
+                                                        <h:message for="siape" style="color:red" />
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group ">
                                                     <label for="email" class="control-label col-lg-2">Email Institucional <span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.emailinstitucional}" id="email" required="true" validatorMessage="E-mail incorreto"> 
-                                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.emailinstitucional}" id="email" required="true" requiredMessage="O campo deve ser preenchido."> 
+                                                            <f:validator validatorId="validacao.view.EmailValidator" />
                                                         </h:inputText> 
                                                         <h:message for="email" style="color: red" />
                                                     </div>
@@ -79,7 +83,8 @@
                                                 <div class="form-group ">
                                                     <label for="linklattes" class="control-label col-lg-2"> Link do Curriculo Lattes</label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.linklattes}"  id="linklattes" validatorMessage="Link inválido"> 
+                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.linklattes}"  id="linklattes"> 
+                                                            <f:validator validatorId="validacao.view.LinkValidator" />
                                                         </h:inputText> 
                                                         <h:message for="linklattes" style="color: red" />                                                        
                                                     </div>
@@ -116,14 +121,15 @@
                                                         </h:selectBooleanCheckbox>                                                      
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="form-group" >
                                                     <label for="concurso" class="control-label col-lg-2"> Concurso <span class="required">*</span></label>
                                                     <div style="margin-left: 210px;">
-                                                        <h:selectOneMenu value="#{docenteBean.docente.concurso}" class="js-example-basic-single" style=" width:300px" required="true" converter="concursoConverter">
+                                                        <h:selectOneMenu value="#{docenteBean.docente.concurso}" class="js-example-basic-single" style=" width:300px" required="true" converter="concursoConverter" id="concurso" requiredMessage="O campo deve ser preenchido.">
                                                             <f:selectItem itemValue="-1" itemLabel="Selecione..." noSelectionOption="true"/>
                                                             <f:selectItems value="#{concursoBean.concursos}" var="concurso" itemValue="#{concurso}" itemLabel="#{concurso.area}" />
                                                         </h:selectOneMenu>
+                                                        <h:message for="concurso" style="color: red;clear: both;display: block" />
                                                     </div>
                                                 </div>
 

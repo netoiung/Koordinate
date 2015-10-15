@@ -73,7 +73,7 @@ public class ComponenteCurricularBean {
      */
     public String consultar(ComponenteCurricular reg) {
         this.componente = reg;
-        return "consultaComponenteCurricular";
+        return "/modules/componenteCurricular/consulta";
     }
 
     /**
