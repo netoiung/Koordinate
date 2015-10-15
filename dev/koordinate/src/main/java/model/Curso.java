@@ -1,18 +1,15 @@
 package model;
 // Generated 27/09/2015 11:19:22 by Hibernate Tools 4.3.1
 
-import dao.DAOConcurso;
 import dao.DAOCurso;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,7 +32,6 @@ public class Curso implements java.io.Serializable {
     private String cod;
     private String nome;
     private Set componenteCursos = new HashSet(0);
-    private Set cursoComponentes = new HashSet(0);
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Construtores">
@@ -49,13 +45,12 @@ public class Curso implements java.io.Serializable {
         this.nome = nome;
     }
 
-    public Curso(int id, Docente docente, String cod, String nome, Set componenteCursos, Set cursoComponentes) {
+    public Curso(int id, Docente docente, String cod, String nome, Set componenteCursos) {
         this.id = id;
         this.docente = docente;
         this.cod = cod;
         this.nome = nome;
         this.componenteCursos = componenteCursos;
-        this.cursoComponentes = cursoComponentes;
     }
 //</editor-fold>
 
@@ -108,14 +103,6 @@ public class Curso implements java.io.Serializable {
         this.componenteCursos = componenteCursos;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso")
-    public Set<CursoComponente> getCursoComponentes() {
-        return this.cursoComponentes;
-    }
-
-    public void setCursoComponentes(Set cursoComponentes) {
-        this.cursoComponentes = cursoComponentes;
-    }
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Métodos de Equals e HashCode">
@@ -127,8 +114,6 @@ public class Curso implements java.io.Serializable {
         hash = 53 * hash + Objects.hashCode(this.docente);
         hash = 53 * hash + Objects.hashCode(this.cod);
         hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.componenteCursos);
-        hash = 53 * hash + Objects.hashCode(this.cursoComponentes);
         return hash;
     }
     

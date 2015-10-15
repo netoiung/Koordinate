@@ -119,6 +119,52 @@ public class DAOCurso {
     }
     
     /**
+     * Método responsável por fazer a consulta com os Joins necessários, para 
+     * podermos usar o LAZY inicialization.
+     * 
+     * @param id int
+     * @return ComponenteCurricular
+     */
+    public Curso consultarWithJoin(int id) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        Curso c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+            //dois joins, de curso para componente_curso e depois para componente curricular
+            q = session.createQuery("FROM Curso as c LEFT JOIN fetch c.componenteCursos as componente LEFT JOIN fetch componente.componenteCurricular where c.id=:id");
+
+            q.setParameter("id", id);
+
+            List resultados = q.list();
+
+            if (resultados.size() > 0) {
+                c = (Curso) resultados.get(0);
+            }
+
+            return c;
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return c;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    public Curso consultarWithJoin(Curso c) {
+        return this.consultarWithJoin(c.getId());
+    }
+    
+    /**
      * Método responsável por realizar a alteração de um objeto Curso
      *
      * @param c - Variável que contém o objeto modificado

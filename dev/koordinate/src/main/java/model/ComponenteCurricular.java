@@ -33,7 +33,6 @@ public class ComponenteCurricular implements java.io.Serializable {
     private boolean isativo;
     private int creditos;
     private Set preferencias = new HashSet(0);
-    private Set cursoComponentes = new HashSet(0);
     private Set instrucaoComponenteCurriculars = new HashSet(0);
     private Set componenteCursos = new HashSet(0);
 //</editor-fold>
@@ -51,7 +50,7 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.creditos = creditos;
     }
     
-    public ComponenteCurricular(int id, String cod, int cargahoraria, String nome, String link, boolean isativo, int creditos, Set preferencias, Set cursoComponentes, Set instrucaoComponenteCurriculars, Set componenteCursos) {
+    public ComponenteCurricular(int id, String cod, int cargahoraria, String nome, String link, boolean isativo, int creditos, Set preferencias, Set instrucaoComponenteCurriculars, Set componenteCursos) {
         this.id = id;
         this.cod = cod;
         this.cargahoraria = cargahoraria;
@@ -60,7 +59,6 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.isativo = isativo;
         this.creditos = creditos;
         this.preferencias = preferencias;
-        this.cursoComponentes = cursoComponentes;
         this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
         this.componenteCursos = componenteCursos;
     }
@@ -142,15 +140,6 @@ public class ComponenteCurricular implements java.io.Serializable {
     }
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular")
-    public Set<CursoComponente> getCursoComponentes() {
-        return this.cursoComponentes;
-    }
-    
-    public void setCursoComponentes(Set cursoComponentes) {
-        this.cursoComponentes = cursoComponentes;
-    }
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular")
     public Set<InstrucaoComponenteCurricular> getInstrucaoComponenteCurriculars() {
         return this.instrucaoComponenteCurriculars;
     }
@@ -159,7 +148,7 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
     }
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "componenteCurricular")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular")
     public Set<ComponenteCurso> getComponenteCursos() {
         return this.componenteCursos;
     }
@@ -181,10 +170,6 @@ public class ComponenteCurricular implements java.io.Serializable {
         hash = 29 * hash + Objects.hashCode(this.link);
         hash = 29 * hash + (this.isativo ? 1 : 0);
         hash = 29 * hash + this.creditos;
-        hash = 29 * hash + Objects.hashCode(this.preferencias);
-        hash = 29 * hash + Objects.hashCode(this.cursoComponentes);
-        hash = 29 * hash + Objects.hashCode(this.instrucaoComponenteCurriculars);
-        hash = 29 * hash + Objects.hashCode(this.componenteCursos);
         return hash;
     }
     

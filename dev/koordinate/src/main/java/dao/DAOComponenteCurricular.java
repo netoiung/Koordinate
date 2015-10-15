@@ -4,6 +4,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 import model.ComponenteCurricular;
+import model.ComponenteCurso;
 import model.Concurso;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -118,6 +119,52 @@ public class DAOComponenteCurricular {
         } finally {
             session.close();
         }
+    }
+    
+    /**
+     * Método responsável por fazer a consulta com os Joins necessários, para 
+     * podermos usar o LAZY inicialization.
+     * 
+     * @param id int
+     * @return ComponenteCurricular
+     */
+    public ComponenteCurricular consultarWithJoin(int id) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        ComponenteCurricular c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+            //dois left JOINS, um para componente_curso outro para curso
+            q = session.createQuery("FROM ComponenteCurricular as c LEFT JOIN fetch c.componenteCursos as componente LEFT JOIN fetch componente.curso where c.id=:id");
+
+            q.setParameter("id", id);
+
+            List resultados = q.list();
+
+            if (resultados.size() > 0) {
+                c = (ComponenteCurricular) resultados.get(0);
+            }
+
+            return c;
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return c;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    public ComponenteCurricular consultarWithJoin(ComponenteCurricular c) {
+        return this.consultarWithJoin(c.getId());
     }
 
     /**

@@ -53,7 +53,9 @@ public class CursoBean {
      * @return String
      */
     public String consultar(Curso reg) {
-        this.curso = reg;
+        //O Join eh necessario para usar com o LAZY loading
+        DAOCurso dao = new DAOCurso();
+        this.curso = dao.consultarWithJoin(reg);
         return "/modules/curso/consulta";
     }
     

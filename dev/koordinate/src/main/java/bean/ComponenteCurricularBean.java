@@ -1,15 +1,11 @@
 package bean;
 
 import dao.DAOComponenteCurricular;
-import dao.DAOComponenteCurso;
-import dao.DAOCurso;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.ComponenteCurricular;
-import model.ComponenteCurso;
 
 /**
  * ComponenteCurrilarBean é a classe responsável pelo CRUD do Componente
@@ -17,7 +13,7 @@ import model.ComponenteCurso;
  *
  * @author Luiz Paulo Franz
  */
-//tem que aprender a lidar com esse scopo
+
 @SessionScoped
 @ManagedBean(name = "componenteCurricularBean")
 public class ComponenteCurricularBean {
@@ -25,14 +21,12 @@ public class ComponenteCurricularBean {
     //<editor-fold defaultstate="collapsed" desc="Variaveis">
     private ComponenteCurricular componente;
     private List<ComponenteCurricular> componentes;
-    private ComponenteCurso componenteCurso;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
     @PostConstruct
     public void init() {
         this.componente = new ComponenteCurricular();
-        this.componenteCurso = new ComponenteCurso();
     }
 //</editor-fold>
 
@@ -50,19 +44,8 @@ public class ComponenteCurricularBean {
         return componentes;
     }
 
-    public ComponenteCurso getComponenteCurso() {
-        return componenteCurso;
-    }
-
-    public void setComponenteCurso(ComponenteCurso componenteCurso) {
-        this.componenteCurso = componenteCurso;
-    }
-
-    public Set getComponenteCursos() {
-        return componente.getComponenteCursos();
-    }
-
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultarComponenteCurricular é o método responsável pela consulta de um
@@ -72,7 +55,8 @@ public class ComponenteCurricularBean {
      * @return formComponenteCurricular
      */
     public String consultar(ComponenteCurricular reg) {
-        this.componente = reg;
+        DAOComponenteCurricular dao = new DAOComponenteCurricular();
+        this.componente = dao.consultarWithJoin(reg);
         return "/modules/componenteCurricular/consulta";
     }
 
@@ -96,37 +80,14 @@ public class ComponenteCurricularBean {
      * @return String
      */
     public String salvar() {
+        //ajustamos a carga horaria
+        componente.setCargahoraria(componente.getCreditos() * 15);
         DAOComponenteCurricular.salvar(componente);
         return "/modules/componenteCurricular/lista";
     }
 
-    /**
-     * Adicionamos um curso para ofertar esse componente curricular.
-     *
-     */
-    public void addCurso() {
-        componenteCurso.setComponenteCurricular(componente);
-        ComponenteCurso temp = DAOComponenteCurso.consultar(componenteCurso);
-        if (temp == null) {
-            DAOComponenteCurso.alterar(componenteCurso);
-        }
-        this.alterar(componente.getId());
-    }
-
-    /**
-     * Removemos o curso da oferta deste componente curricular.
-     *
-     * @param reg Curso
-     */
-    public String removerCurso(ComponenteCurso reg) {
-        //excluimos o registro
-        DAOComponenteCurso.excluir(reg);
-        //recarregamos o objeto componente para sincronizar os relacionamentos
-        componente = DAOComponenteCurricular.consultar(componente.getId());
-        return "/modules/componenteCurricular/form";
-    }
-
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
     /**
      * alterarComponenteCurricular é o método responsável pela alteração de um
@@ -136,13 +97,15 @@ public class ComponenteCurricularBean {
      * @return form
      */
     public String alterar(ComponenteCurricular reg) {
-        this.componente = reg;
-        return "form";
+        DAOComponenteCurricular dao = new DAOComponenteCurricular();
+        this.componente = dao.consultarWithJoin(reg);
+        return "/modules/componenteCurricular/form";
     }
 
-    public String alterar(int id) {
-        this.componente = DAOComponenteCurricular.consultar(id);
-        return "form";
+    public String alterarById(int id) {
+        DAOComponenteCurricular dao = new DAOComponenteCurricular();
+        this.componente = dao.consultarWithJoin(id);
+        return "/modules/componenteCurricular/form";
     }
 
     /**
@@ -153,7 +116,7 @@ public class ComponenteCurricularBean {
      */
     public String cadastrar() {
         this.componente = new ComponenteCurricular();
-        return "form";
+        return "/modules/componenteCurricular/formCadastrar";
     }
 
     /**
