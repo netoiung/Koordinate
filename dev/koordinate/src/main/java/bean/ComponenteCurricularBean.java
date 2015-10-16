@@ -28,7 +28,7 @@ public class ComponenteCurricularBean {
     public void init() {
         this.componente = new ComponenteCurricular();
     }
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
     public ComponenteCurricular getComponente() {

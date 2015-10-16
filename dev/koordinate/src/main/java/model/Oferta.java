@@ -1,8 +1,12 @@
 package model;
 // Generated 27/09/2015 11:19:22 by Hibernate Tools 4.3.1
 
+import dao.DAOConcurso;
+import dao.DAOOferta;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,23 +29,26 @@ import javax.persistence.TemporalType;
 )
 public class Oferta implements java.io.Serializable {
 
+    //<editor-fold defaultstate="collapsed" desc="variaveis">
     private int id;
     private boolean ativo;
     private Date inicio;
     private Date termino;
     private Set instrucaos = new HashSet(0);
     private Set itemOfertas = new HashSet(0);
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="construtores">
     public Oferta() {
     }
-
+    
     public Oferta(int id, boolean ativo, Date inicio, Date termino) {
         this.id = id;
         this.ativo = ativo;
         this.inicio = inicio;
         this.termino = termino;
     }
-
+    
     public Oferta(int id, boolean ativo, Date inicio, Date termino, Set instrucaos, Set itemOfertas) {
         this.id = id;
         this.ativo = ativo;
@@ -50,63 +57,132 @@ public class Oferta implements java.io.Serializable {
         this.instrucaos = instrucaos;
         this.itemOfertas = itemOfertas;
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getters e setters">
     @Id
     @GeneratedValue(generator = "oferta_seq")
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
+    
     @Column(name = "ativo", nullable = false)
     public boolean isAtivo() {
         return this.ativo;
     }
-
+    
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "inicio", nullable = false, length = 13)
     public Date getInicio() {
         return this.inicio;
     }
-
+    
     public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
-
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "termino", nullable = false, length = 13)
     public Date getTermino() {
         return this.termino;
     }
-
+    
     public void setTermino(Date termino) {
         this.termino = termino;
     }
-
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "oferta")
     public Set<Instrucao> getInstrucaos() {
         return this.instrucaos;
     }
-
+    
     public void setInstrucaos(Set instrucaos) {
         this.instrucaos = instrucaos;
     }
-
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "oferta")
     public Set<ItemOferta> getItemOfertas() {
         return this.itemOfertas;
     }
-
+    
     public void setItemOfertas(Set itemOfertas) {
         this.itemOfertas = itemOfertas;
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Equals e HashCode">
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + this.id;
+        hash = 73 * hash + (this.ativo ? 1 : 0);
+        hash = 73 * hash + Objects.hashCode(this.inicio);
+        hash = 73 * hash + Objects.hashCode(this.termino);
+        hash = 73 * hash + Objects.hashCode(this.instrucaos);
+        hash = 73 * hash + Objects.hashCode(this.itemOfertas);
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Oferta other = (Oferta) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.ativo != other.ativo) {
+            return false;
+        }
+        if (!Objects.equals(this.inicio, other.inicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.termino, other.termino)) {
+            return false;
+        }
+        return true;
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Metodos de Persistencia">
+    static public boolean salvar(Oferta c) {
+        return DAOOferta.salvar(c);
+    }
+    
+    static public ArrayList<Oferta> consultar() {
+        return DAOOferta.consultar();
+    }
+    
+    static public Oferta consultar(int id) {
+        return DAOOferta.consultar(id);
+    }
+    
+    static public boolean alterar(Oferta d) {
+        return DAOOferta.alterar(d);
+    }
+    
+    static public boolean excluir(Oferta d) {
+        return DAOOferta.excluir(d);
+    }
+    
+    static public int count() {
+        return DAOOferta.count();
+    }
+    
+    
+//</editor-fold>
+    
 }
