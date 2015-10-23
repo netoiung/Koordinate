@@ -2,6 +2,7 @@ package bean;
 
 import dao.DAOComponenteCurso;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -12,7 +13,7 @@ import model.Curso;
 /**
  * Essa bean eh uma bean auxiliar da componenteCurricularBean, sendo responsável
  * unicamente por adicionar e remover cursos de uma oferta.
- * 
+ *
  * ESSA BEAN É DEPENDENTE DA BEAN DE COMPONENTE CURRICULAR!
  *
  * @author Luiz Paulo Franz
@@ -26,13 +27,12 @@ public class ComponenteCursoBean {
     private Curso curso;
     private boolean obrigatoria;
     private short semestre;
-    
-    
+
     @PostConstruct
     public void init() {
         this.componenteCurso = new ComponenteCurso();
     }
-    
+
     /**
      * Adicionamos um curso para ofertar esse componente curricular.
      *
@@ -49,11 +49,16 @@ public class ComponenteCursoBean {
         //nao inserimos novamento um mesmo componente curso
         if (temp == null) {
             DAOComponenteCurso.salvar(componenteCurso);
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Componente adicionado a oferta do curso com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Esse componente já é ofertado no curso escolhido, por favor, escolha outro curso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         }
         //direcionamos devolta para a outra bean, devolta para a edicao do componente
         beanComponenteCurricular.alterarById(componenteCurricular.getId());
     }
-    
+
     /**
      * Removemos o curso da oferta deste componente curricular.
      *
@@ -76,7 +81,7 @@ public class ComponenteCursoBean {
     public void setComponenteCurricular(ComponenteCurricular componenteCurricular) {
         this.componenteCurricular = componenteCurricular;
     }
-    
+
     public void setarComponenteCurricular(ComponenteCurricular componenteCurricular) {
         this.componenteCurricular = componenteCurricular;
     }

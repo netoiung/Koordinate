@@ -1,8 +1,12 @@
 package bean;
 
 import dao.DAODocente;
+import excecoes.IntegridadeReferencialException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -65,7 +69,13 @@ public class DocenteBean {
      */
     public String salvar() {
         DAODocente dao = new DAODocente();
-        dao.salvar(docente);
+        if (dao.salvar(docente)) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro salvo com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível salvar, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         return "/modules/docente/lista";
     }
 
@@ -76,8 +86,18 @@ public class DocenteBean {
      */
     public void excluir(Docente reg) {
         this.docente = reg;
-        DAODocente dao = new DAODocente();
-        dao.excluir(this.docente);
+        try {
+            if (DAODocente.excluir(this.docente)) {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Excluído com sucesso.");
+                FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+            } else {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+                FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+            }
+        } catch (IntegridadeReferencialException ex) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         this.listar();
     }
 

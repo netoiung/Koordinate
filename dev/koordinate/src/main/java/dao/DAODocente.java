@@ -1,19 +1,20 @@
-
 package dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import model.Concurso;
 import model.Docente;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import excecoes.IntegridadeReferencialException;
+import java.util.Set;
+import model.Curso;
 
 /**
  * Classe responsável pela persistência dos objetos Docente
+ *
  * @author Luiz Paulo Franz
  */
 public class DAODocente {
@@ -124,6 +125,47 @@ public class DAODocente {
     }
 
     /**
+     * Método utilizado para evitar o Lazy Inicialization Exception.
+     *
+     * @param id
+     * @return Docente
+     */
+    public static Docente consultarWithJoin(int id) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        Docente d = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+
+            q = session.createQuery("FROM Docente as d LEFT JOIN fetch d.cursos as c LEFT JOIN fetch d.concurso where d.id=:id");
+
+            q.setParameter("id", id);
+
+            List resultados = q.list();
+
+            if (resultados.size() > 0) {
+                d = (Docente) resultados.get(0);
+            }
+
+            return d;
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return d;
+
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
      * Método responsável por realizar uma busca por docentes com nome
      * especifico
      *
@@ -192,11 +234,24 @@ public class DAODocente {
      *
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
+     * @throws excecoes.IntegridadeReferencialException
      */
-    public static boolean excluir(Docente d) {
+    public static boolean excluir(Docente d) throws IntegridadeReferencialException {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
+        //verificar se o docente eh coordenador de algum curso
+        Docente temp = consultarWithJoin(d.getId());
+        Set<Curso> cursos;
+        cursos = temp.getCursos();
+        if (cursos != null) {
+            if (!cursos.isEmpty()) {
+                throw new IntegridadeReferencialException("Impossível excluir esse docente, ele é coordenador de cursos.");
+            }
+        }
+
+        cursos = null;
+        temp = null;
 
         try {
             tx = session.beginTransaction();

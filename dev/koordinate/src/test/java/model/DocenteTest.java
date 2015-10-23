@@ -5,13 +5,9 @@
  */
 package model;
 
+import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,7 +21,7 @@ public class DocenteTest {
      * Teste do método Salvar da classe Docente.
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws IntegridadeReferencialException {
         System.out.println("Testando método Salvar");
 
         Concurso concurso = new Concurso();
@@ -43,7 +39,7 @@ public class DocenteTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
-
+        
         boolean expResult = true;
         boolean result = Docente.salvar(d);
         assertEquals(expResult, result);
@@ -55,7 +51,7 @@ public class DocenteTest {
      * Teste do método Consultar da classe Docente.
      */
     @Test
-    public void testConsultarTodos() {
+    public void testConsultarTodos() throws IntegridadeReferencialException {
         System.out.println("Testando método Consultar");
 
         Concurso concurso = new Concurso();
@@ -87,7 +83,7 @@ public class DocenteTest {
      * Teste do método Consultar da classe Docente.
      */
     @Test
-    public void testConsultarId() {
+    public void testConsultarId() throws IntegridadeReferencialException {
         System.out.println("Testando método Consultar");
 
         Concurso concurso = new Concurso();
@@ -119,7 +115,7 @@ public class DocenteTest {
      * Teste do método Consultar da classe Docente.
      */
     @Test
-    public void testConsultarPorNome() {
+    public void testConsultarPorNome() throws IntegridadeReferencialException {
         System.out.println("Testando método Consultar");
 
         Concurso concurso = new Concurso();
@@ -152,7 +148,7 @@ public class DocenteTest {
      * Teste do método Alterar da classe Docente.
      */
     @Test
-    public void testAlterar() {
+    public void testAlterar() throws IntegridadeReferencialException {
         System.out.println("alterar");
 
         Concurso concurso = new Concurso();
@@ -188,7 +184,7 @@ public class DocenteTest {
      * Test of excluir method, of class Docente.
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws IntegridadeReferencialException {
         System.out.println("excluir");
         Concurso concurso = new Concurso();
         concurso.setArea("Suceeeesso2");

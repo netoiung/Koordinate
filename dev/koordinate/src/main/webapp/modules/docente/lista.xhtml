@@ -37,6 +37,7 @@
 
                             </p>
                         </div>
+                        <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
 
                         <h:link styleClass="btn btn-primary btn-lg" outcome="#{docenteBean.cadastrar()}" style="float: right"><span class="fa fa-plus"></span> Cadastrar Novo</h:link>
                         <br/>
@@ -95,7 +96,7 @@
                                             <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-at"></i> Atua Pós-graduação</f:facet>
                                             <!-- row record -->
-                                            <h:outputText value="#{docente.atuaposgraduacao}"></h:outputText>
+                                            <h:graphicImage name="ok.png" rendered="#{docente.atuaposgraduacao}"/>
                                         </h:column>
 
 
@@ -107,7 +108,7 @@
                                                 <h:form>
                                                     <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{docenteBean.consultar(docente)}"><span class="fa fa-search"></span></h:commandLink>
                                                     <h:commandLink title="Editar" styleClass="btn btn-success" action="#{docenteBean.alterar(docente)}"><span class="fa fa-pencil"></span></h:commandLink>
-                                                    <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{docenteBean.excluir(docente)}"><span class="icon_close_alt2"></span></h:commandLink>          
+                                                    <h:commandLink title="Excluir" styleClass="btn btn-danger" onclick="return confirmaExclusao()" action="#{docenteBean.excluir(docente)}"><span class="icon_close_alt2"></span></h:commandLink>          
                                                 </h:form>
                                             </div>
                                         </h:column>

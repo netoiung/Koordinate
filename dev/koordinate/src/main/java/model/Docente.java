@@ -2,6 +2,7 @@ package model;
 // Generated 27/09/2015 11:19:22 by Hibernate Tools 4.3.1
 
 import dao.DAODocente;
+import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -94,7 +95,6 @@ public class Docente implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "concurso_id", nullable = true)
     public Concurso getConcurso() {
         return this.concurso;
@@ -272,7 +272,7 @@ public class Docente implements java.io.Serializable {
         return DAODocente.alterar(d);
     }
 
-    static public boolean excluir(Docente d) {
+    static public boolean excluir(Docente d) throws IntegridadeReferencialException {
         return DAODocente.excluir(d);
     }
 

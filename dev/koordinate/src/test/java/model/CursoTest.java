@@ -5,13 +5,8 @@
  */
 package model;
 
-import dao.DAODocente;
+import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
-import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,7 +20,7 @@ public class CursoTest {
      * Teste do método salvar da classe Curso.
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws IntegridadeReferencialException {
         System.out.println("Testando método Salvar");
 
         Concurso concurso = new Concurso();
@@ -62,7 +57,7 @@ public class CursoTest {
      * Teste do método Consultar da classe Curso.
      */
     @Test
-    public void testConsultarTodos() {
+    public void testConsultarTodos() throws IntegridadeReferencialException {
         System.out.println("Testanto método Consultar");
 
         Concurso concurso = new Concurso();
@@ -102,7 +97,7 @@ public class CursoTest {
      * Teste do método Consultar da classe Curso.
      */
     @Test
-    public void testConsultarId() {
+    public void testConsultarId() throws IntegridadeReferencialException {
         System.out.println("Testando método Consultar");
 
         Concurso concurso = new Concurso();
@@ -142,7 +137,7 @@ public class CursoTest {
      * Teste do método Alterar da classe Curso.
      */
     @Test
-    public void testAlterar() {
+    public void testAlterar() throws IntegridadeReferencialException {
         System.out.println("Testando método Alterar");
 
         Concurso concurso = new Concurso();
@@ -192,7 +187,7 @@ public class CursoTest {
      * Teste do método Excluir da classe Curso.
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws IntegridadeReferencialException {
         System.out.println("Testando método Excluir");
 
         Concurso concurso = new Concurso();

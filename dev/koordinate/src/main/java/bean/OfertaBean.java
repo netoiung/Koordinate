@@ -20,7 +20,7 @@ import model.Oferta;
  * @author Eduardo Amaral
  */
 @SessionScoped
-@ManagedBean(name = "concursoBean")
+@ManagedBean(name = "ofertaBean")
 public class OfertaBean {
 
     //<editor-fold defaultstate="collapsed" desc="variaveis">

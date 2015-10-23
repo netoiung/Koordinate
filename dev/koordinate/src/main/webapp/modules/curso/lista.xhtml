@@ -33,6 +33,7 @@
 
                                     </p>
                                 </div>
+                                <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
 
                                 <h:link styleClass="btn btn-primary btn-lg" outcome="#{cursoBean.cadastrar()}" style="float: right"><span class="fa fa-plus"></span> Cadastrar Novo</h:link>
                                 <br/>
@@ -72,7 +73,7 @@
                                                         <h:form>
                                                             <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{cursoBean.consultar(curso)}"><span class="fa fa-search"></span></h:commandLink>
                                                             <h:commandLink title="Editar" styleClass="btn btn-success" action="#{cursoBean.alterar(curso)}"><span class="fa fa-pencil"></span></h:commandLink>
-                                                            <h:commandLink title="Excluir" styleClass="btn btn-danger" action="#{cursoBean.excluir(curso)}" ><span class="icon_close_alt2"></span></h:commandLink>                                                                 
+                                                            <h:commandLink title="Excluir" styleClass="btn btn-danger" onclick="return confirmaExclusao()" action="#{cursoBean.excluir(curso)}" ><span class="icon_close_alt2"></span></h:commandLink>
                                                         </h:form>
                                                     </div>
                                                 </h:column>

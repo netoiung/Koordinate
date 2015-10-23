@@ -2,12 +2,15 @@ package bean;
 
 import dao.DAOConcurso;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.Concurso;
 
 /**
- * ConcursoBean é a classe responsável pelo CRUD do concurso do sistema de gestão de oferta e horário.
+ * ConcursoBean é a classe responsável pelo CRUD do concurso do sistema de
+ * gestão de oferta e horário.
  *
  * @author Luiz Paulo Franz
  */
@@ -36,7 +39,6 @@ public class ConcursoBean {
         this.concursos = concursos;
     }
 
-
     /**
      * método construtor da classe ConcursoBean.
      */
@@ -45,8 +47,7 @@ public class ConcursoBean {
     }
 
     /**
-     * alterarConcurso é o método responsável pela alteração de um
-     * concurso
+     * alterarConcurso é o método responsável pela alteração de um concurso
      *
      * @param reg
      * @return formConcurso
@@ -57,8 +58,7 @@ public class ConcursoBean {
     }
 
     /**
-     * Método responsável por criar um objeto Concurso e encaminhar
-     * ao seu form.
+     * Método responsável por criar um objeto Concurso e encaminhar ao seu form.
      *
      * @return formConcurso
      */
@@ -68,16 +68,15 @@ public class ConcursoBean {
     }
 
     /**
-     * Método responsável por listar todos os concursos 
-     * existentes.
+     * Método responsável por listar todos os concursos existentes.
      *
      * @return listaConcurso
      */
     public String listar() {
         return "/modules/concurso/lista";
     }
-    
-        //<editor-fold defaultstate="collapsed" desc="CRUD">
+
+    //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultar é o método responsável pela consulta de um curso.
      *
@@ -88,7 +87,7 @@ public class ConcursoBean {
         this.concurso = reg;
         return "/modules/concurso/consulta";
     }
-    
+
     /**
      * Método responsável por persistir um objeto Concurso e encaminhar ao seu
      * form.
@@ -96,11 +95,16 @@ public class ConcursoBean {
      * @return String
      */
     public String salvar() {
-        DAOConcurso dao = new DAOConcurso();
-        dao.salvar(concurso);
+        if (DAOConcurso.salvar(concurso)) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro salvo com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível salvar, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         return "/modules/concurso/lista";
     }
-    
+
     /**
      * excluir é o método usado para excluir um curso.
      *
@@ -108,10 +112,15 @@ public class ConcursoBean {
      */
     public void excluir(Concurso reg) {
         this.concurso = reg;
-        DAOConcurso.excluir(this.concurso);
+        if(DAOConcurso.excluir(this.concurso)){
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro excluido com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }else{
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         this.listar();
-    }   
+    }
 //</editor-fold>
-
 
 }

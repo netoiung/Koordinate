@@ -64,7 +64,6 @@
                                                     <label for="nome" class="control-label col-lg-2">Nome <span class="required">*</span></label>
                                                     <div class="col-lg-10">
                                                         <h:inputText  class="form-control" value="#{componenteCurricularBean.componente.nome}" id="nome" required="true" requiredMessage="O campo deve ser preenchido."> 
-                                                            <f:validator validatorId="validacao.view.StringValidator" />
                                                         </h:inputText>
                                                         <h:message for="nome" style="color: red" />
                                                     </div>
@@ -73,7 +72,7 @@
                                                 <div class="form-group ">
                                                     <label for="creditos" class="control-label col-lg-2">Créditos<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText id="creditos" required="true" class="form-control" value="#{componenteCurricularBean.componente.creditos}" requiredMessage="O campo deve ser preenchido." converterMessage="Digite somente números inteiros." validatorMessage="O número deve estar entre 0 e 10.">
+                                                        <h:inputText id="creditos" required="true" class="form-control" value="#{componenteCurricularBean.componente.creditos}" requiredMessage="O campo deve ser preenchido." converterMessage="Digite somente números inteiros." validatorMessage="O número deve estar entre 1 e 10.">
                                                             <f:validateLongRange minimum="1" maximum="10"/>  
                                                         </h:inputText>
                                                         <h:message for="creditos" style="color: red"/>                                                        

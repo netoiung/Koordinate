@@ -91,7 +91,7 @@
                                                 </div>
 
                                                 <div class="form-group ">
-                                                    <label for="areagraduacao" class="control-label col-lg-2">Area de Concurso</label>
+                                                    <label for="areagraduacao" class="control-label col-lg-2">Area de Graduação</label>
                                                     <div class="col-lg-10">
                                                         <h:inputText  class="form-control" value="#{docenteBean.docente.areagraduacao}"  id="areagraduacao"/> 
                                                         <h:message for="areagraduacao" style="color: red" />                                                        
@@ -109,7 +109,7 @@
                                                 <div class="form-group ">
                                                     <label for="Senha" class="control-label col-lg-2">Senha <span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <h:inputText  class="form-control" value="#{docenteBean.docente.senha}" id="senha" required="true" requiredMessage="O campo deve ser preenchido."/> 
+                                                        <h:inputSecret  class="form-control" value="#{docenteBean.docente.senha}" id="senha" required="true" requiredMessage="O campo deve ser preenchido."/> 
                                                         <h:message for="senha" style="color: red" />
                                                     </div>
                                                 </div>

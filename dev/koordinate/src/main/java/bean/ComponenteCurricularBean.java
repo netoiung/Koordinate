@@ -3,8 +3,10 @@ package bean;
 import dao.DAOComponenteCurricular;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.ComponenteCurricular;
 
 /**
@@ -13,7 +15,6 @@ import model.ComponenteCurricular;
  *
  * @author Luiz Paulo Franz
  */
-
 @SessionScoped
 @ManagedBean(name = "componenteCurricularBean")
 public class ComponenteCurricularBean {
@@ -45,7 +46,6 @@ public class ComponenteCurricularBean {
     }
 
 //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultarComponenteCurricular é o método responsável pela consulta de um
@@ -68,8 +68,15 @@ public class ComponenteCurricularBean {
      */
     public void excluir(ComponenteCurricular reg) {
         this.componente = reg;
-        DAOComponenteCurricular dao = new DAOComponenteCurricular();
-        dao.excluir(this.componente);
+        if (DAOComponenteCurricular.excluir(this.componente)) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Excluído com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
+        //DAOComponenteCurricular dao = new DAOComponenteCurricular();
+        //dao.excluir(this.componente);
         this.listar();
     }
 
@@ -82,12 +89,17 @@ public class ComponenteCurricularBean {
     public String salvar() {
         //ajustamos a carga horaria
         componente.setCargahoraria(componente.getCreditos() * 15);
-        DAOComponenteCurricular.salvar(componente);
-        return "/modules/componenteCurricular/lista";
+        if (DAOComponenteCurricular.salvar(componente)) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro salvo com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível salvar, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
+        return "/modules/componenteCurricular/form";
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
     /**
      * alterarComponenteCurricular é o método responsável pela alteração de um
