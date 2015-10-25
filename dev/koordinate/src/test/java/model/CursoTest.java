@@ -27,6 +27,7 @@ public class CursoTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -64,6 +65,7 @@ public class CursoTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -104,6 +106,7 @@ public class CursoTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -144,6 +147,7 @@ public class CursoTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -194,6 +198,7 @@ public class CursoTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");

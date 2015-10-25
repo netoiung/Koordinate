@@ -28,6 +28,7 @@ public class DocenteTest {
         concurso.setArea("Suceeeesso244");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -39,7 +40,7 @@ public class DocenteTest {
         d.setSenha("pass");
         d.setNome("Nero");
         d.setSiape(5432);
-        
+
         boolean expResult = true;
         boolean result = Docente.salvar(d);
         assertEquals(expResult, result);
@@ -58,6 +59,7 @@ public class DocenteTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -90,6 +92,7 @@ public class DocenteTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -122,6 +125,7 @@ public class DocenteTest {
         concurso.setArea("Suceeeesso211");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -136,9 +140,9 @@ public class DocenteTest {
 
         Docente.salvar(d);
         Collection<Docente> result = Docente.consultar("Eduardo Amaral999");
-        
+
         assertNotNull(result);
-        
+
         Docente.excluir(d);
         Concurso.excluir(concurso);
 
@@ -155,6 +159,7 @@ public class DocenteTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -190,6 +195,7 @@ public class DocenteTest {
         concurso.setArea("Suceeeesso2");
         concurso.setEdital("2105");
         concurso.setPrograma("adas");
+        Concurso.salvar(concurso);
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
