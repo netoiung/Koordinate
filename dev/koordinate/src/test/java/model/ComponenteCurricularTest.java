@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -11,7 +6,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author eduar
+ * @author eduardo, netoiung
  */
 public class ComponenteCurricularTest {
 
@@ -19,7 +14,7 @@ public class ComponenteCurricularTest {
      * Teste do método salvar da classe ComponenteCurricular.
      */
     @Test
-    public void testSalvar() {
+    public void testSalvarPositivo() {
         System.out.println("Testando método Salvar");
         ComponenteCurricular c = new ComponenteCurricular();
         c.setCargahoraria(100);
@@ -32,6 +27,25 @@ public class ComponenteCurricularTest {
         boolean expResult = true;
         boolean result = ComponenteCurricular.salvar(c);
         ComponenteCurricular.excluir(c);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Teste negativo do método Salvar
+     */
+    @Test
+    public void testSalvarNegativo() {
+        System.out.println("Testando método Salvar Negativo");
+        ComponenteCurricular c = new ComponenteCurricular();
+        c.setCargahoraria(100);
+        c.setCod("RPVI");
+        c.setCreditos(4);
+        c.setIsativo(true);
+        c.setLink("www.rpvi.com.br");
+        c.setNome(null);//nome nulo
+
+        boolean expResult = false;//falso porque não deve salvar se o nome estiver nulo.
+        boolean result = ComponenteCurricular.salvar(c);
         assertEquals(expResult, result);
     }
 
@@ -85,6 +99,29 @@ public class ComponenteCurricularTest {
     }
 
     /**
+     * Teste Negativo do método consultar_int
+     */
+    @Test
+    public void testConsultar_intNegativo() {
+        System.out.println("Testando método Consultar Negativo");
+
+        ComponenteCurricular c = new ComponenteCurricular();
+        c.setCargahoraria(100);
+        c.setCod("RPVI");
+        c.setCreditos(4);
+        c.setIsativo(true);
+        c.setLink("www.rpvi.com.br");
+        c.setNome("Resolução de Problemas VI");
+        // ComponenteCurricular.salvar(c);//não salva.
+
+        ComponenteCurricular expResult = c;
+        ComponenteCurricular result = ComponenteCurricular.consultar(c.getId());//procura objeto que não salvou
+
+        assertFalse(expResult == result);//compara o objeto criado com o que retorna do BD
+
+    }
+
+    /**
      * Teste Alterar da classe ComponenteCurricular
      */
     @Test
@@ -120,6 +157,32 @@ public class ComponenteCurricularTest {
     }
 
     /**
+     * Teste negativo do método alterar
+     */
+//    @Test
+//    public void testAlterarNegativo() {
+//        System.out.println("Testando método Alterar Negativo");
+//
+//        ComponenteCurricular c = new ComponenteCurricular();
+//        c.setCargahoraria(100);
+//        c.setCod("RPVI2132131223");
+//        c.setCreditos(4);
+//        c.setIsativo(true);
+//        c.setLink("www.rpvi.com.br");
+//        c.setNome("Resolução de Problemas VI");
+//        ComponenteCurricular.salvar(c);
+//
+//        c.setNome(null);//editamos o nome para um valor nulo.
+//
+//        boolean test = ComponenteCurricular.alterar(c);//salvamos a alteração.
+//
+//        ComponenteCurricular.excluir(c);
+//
+//        assertFalse(test);//precisa ser falso porque não deve aceitar editar e mudar o campo nome para nulo
+//       
+//    }
+
+    /**
      * Teste do método Excluir da classe ComponenteCurricular
      */
     @Test
@@ -138,5 +201,25 @@ public class ComponenteCurricularTest {
         boolean result = ComponenteCurricular.excluir(c);
         assertTrue(result);
     }
+//    
+//    /**
+//     * Teste negativo do método excluir
+//     */
+//     @Test
+//    public void testExcluirNegativo() {
+//        System.out.println("Testando método Excluir negativo");
+//
+//        ComponenteCurricular c = new ComponenteCurricular();
+//        c.setCargahoraria(100);
+//        c.setCod("RPVI");
+//        c.setCreditos(4);
+//        c.setIsativo(true);
+//        c.setLink("www.rpvi.com.br");
+//        c.setNome("Resolução de Problemas VI");
+//      //  ComponenteCurricular.salvar(c);
+//
+//        boolean result = ComponenteCurricular.excluir(c);
+//        assertTrue(result);
+//    }
 
 }
