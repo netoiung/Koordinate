@@ -3,6 +3,7 @@ package model;
 
 import dao.DAOConcurso;
 import dao.DAODocente;
+import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -96,7 +97,7 @@ public class Concurso implements java.io.Serializable {
         this.programa = programa;
     }
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "concurso", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "concurso")
     public Set<Docente> getDocentes() {
         return this.docentes;
     }
@@ -156,7 +157,7 @@ public class Concurso implements java.io.Serializable {
         return DAOConcurso.alterar(d);
     }
     
-    static public boolean excluir(Concurso d) {
+    static public boolean excluir(Concurso d) throws IntegridadeReferencialException {
         return DAOConcurso.excluir(d);
     }
     

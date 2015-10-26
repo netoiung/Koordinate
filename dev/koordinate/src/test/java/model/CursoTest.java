@@ -222,6 +222,7 @@ public class CursoTest {
         boolean result = Curso.excluir(c);
         assertTrue(result);
         Docente.excluir(d);
+        Concurso.excluir(concurso);
     }
 
 }

@@ -1,6 +1,7 @@
 
 package dao;
 
+import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
 import java.util.List;
 import model.ComponenteCurricular;
@@ -118,6 +119,52 @@ public class DAOConcurso {
             session.close();
         }
     }
+    
+    /**
+     * Método que busca um concurso específico pelo seu id, trazendo também os 
+     * Docentes deste concurso.
+     *
+     * @param id - identificador do concurso
+     * @return - O concurso especificado
+     */
+    public static Concurso consultarWithJoin(int id) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        Concurso c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+
+            q = session.createQuery("FROM Concurso as c LEFT JOIN fetch c.docentes where c.id=:id");
+
+            q.setParameter("id", id);
+
+            List resultados = q.list();
+
+            if (resultados.size() > 0) {
+                c = (Concurso) resultados.get(0);
+            }
+
+            return c;
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return c;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    public static Concurso consultarWithJoin(Concurso c) {
+        return consultarWithJoin(c.getId());
+    }
 
     /**
      * Método responsável por realizar a alteração de um objeto Concurso
@@ -150,10 +197,14 @@ public class DAOConcurso {
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
      */
-    public static boolean excluir(Concurso d) {
+    public static boolean excluir(Concurso d) throws IntegridadeReferencialException {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
+        d = consultarWithJoin(d);
+        if(!d.getDocentes().isEmpty()){
+            throw new IntegridadeReferencialException("Impossível excluir esse concurso, há docentes associados a ele.");
+        }
 
         try {
             tx = session.beginTransaction();

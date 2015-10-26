@@ -1,7 +1,10 @@
 package bean;
 
 import dao.DAOConcurso;
+import excecoes.IntegridadeReferencialException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -84,7 +87,7 @@ public class ConcursoBean {
      * @return String
      */
     public String consultar(Concurso reg) {
-        this.concurso = reg;
+        this.concurso = DAOConcurso.consultarWithJoin(reg);
         return "/modules/concurso/consulta";
     }
 
@@ -112,11 +115,16 @@ public class ConcursoBean {
      */
     public void excluir(Concurso reg) {
         this.concurso = reg;
-        if(DAOConcurso.excluir(this.concurso)){
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro excluido com sucesso.");
-            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
-        }else{
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+        try {
+            if (DAOConcurso.excluir(this.concurso)) {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro excluido com sucesso.");
+                FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+            } else {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+                FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+            }
+        } catch (IntegridadeReferencialException ex) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage());
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         }
         this.listar();

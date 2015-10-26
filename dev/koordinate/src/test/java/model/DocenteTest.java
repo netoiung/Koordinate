@@ -77,8 +77,8 @@ public class DocenteTest {
         int expResult = Docente.count();
         ArrayList<Docente> result = Docente.consultar();
         assertEquals(expResult, result.size());
-        Concurso.excluir(concurso);
         Docente.excluir(d);
+        Concurso.excluir(concurso);
     }
 
     /**
@@ -183,6 +183,7 @@ public class DocenteTest {
         boolean test = Docente.alterar(d);
         assertTrue(test);
         Docente.excluir(d);
+        Concurso.excluir(concurso);
     }
 
     /**
@@ -212,6 +213,7 @@ public class DocenteTest {
 
         boolean result = Docente.excluir(d);
         assertTrue(result);
+        Concurso.excluir(concurso);
     }
 
 }

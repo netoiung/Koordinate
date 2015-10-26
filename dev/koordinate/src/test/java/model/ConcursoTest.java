@@ -5,6 +5,7 @@
  */
 package model;
 
+import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class ConcursoTest {
      * Teste do método Salvar da classe Concurso
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws IntegridadeReferencialException {
         System.out.println("Testanto método Salvar");
 
         Concurso c = new Concurso();
@@ -36,7 +37,7 @@ public class ConcursoTest {
      * Teste do método Consultar da classe Concurso.
      */
     @Test
-    public void testConsultarTodos() {
+    public void testConsultarTodos() throws IntegridadeReferencialException {
         System.out.println("Testando método Consultar");
 
         Concurso c = new Concurso();
@@ -56,7 +57,7 @@ public class ConcursoTest {
      * Teste do método Consultar da classe Concurso
      */
     @Test
-    public void testConsultarId() {
+    public void testConsultarId() throws IntegridadeReferencialException {
         System.out.println("Testando método ConsultarId");
 
         Concurso c = new Concurso();
@@ -75,7 +76,7 @@ public class ConcursoTest {
      * Teste do método Alterar da classe Concurso
      */
     @Test
-    public void testAlterar() {
+    public void testAlterar() throws IntegridadeReferencialException {
         System.out.println("Testando o método Alterar");
 
         Concurso c = new Concurso();
@@ -103,7 +104,7 @@ public class ConcursoTest {
      * Teste do método excluir da classe Concurso.
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws IntegridadeReferencialException {
         System.out.println("Testando método Excluir");
 
         Concurso c = new Concurso();
@@ -113,7 +114,7 @@ public class ConcursoTest {
         Concurso.salvar(c);
 
         boolean result = Concurso.excluir(c);
-        Concurso.excluir(c);
+        //Concurso.excluir(c);
         assertTrue(result);
     }
 
