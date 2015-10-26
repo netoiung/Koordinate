@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="title">
+                Koordinate - Form de Oferta
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-user"></i> Ofertas</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
+                                    <li><i class="fa fa-user"></i><h:link outcome="lista.xhtml">Ofertas</h:link></li>
+                                    <li><i class="fa fa-plus"></i><i>Cadastrar</i></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Para realizar o cadastro de um novo registro ou sua alteração, preencha os campos abaixo, lembrando que os campos marcados com "*" são campos obrigatórios.
+                            </p>
+                        </div>
+                        <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
+
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <header class="panel-heading">
+                                        Formulário de Cadastro
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="form">
+                                            <h:form class="form-horizontal" role="form" prependId="false">
+
+                                                <div class="form-group ">
+                                                    <label for="inicial" class="control-label col-lg-2">Data Inicial<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <p:calendar value="#{ofertaBean.oferta.inicio}" pattern="dd/MM/yyyy" id="inicial" locale="pt"/>
+                                                        <h:message for="inicial" style="color:red" />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-group ">
+                                                    <label for="termino" class="control-label col-lg-2">Data de Término<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <p:calendar value="#{ofertaBean.oferta.termino}" pattern="dd/MM/yyyy" locale="pt" id="termino"/>
+                                                        <h:message for="termino" style="color:red" />
+                                                    </div>
+                                                </div>                                                
+
+                                                <div class="form-group ">
+                                                    <label for="ativo" class="control-label col-lg-2">Ativo?</label>
+                                                    <div class="col-lg-10">
+                                                        <h:selectBooleanCheckbox value="#{ofertaBean.oferta.ativo}" id="ativo" style="margin-top: 12px">
+                                                        </h:selectBooleanCheckbox>                                                      
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <h:commandButton action="#{ofertaBean.salvar()}" class="btn btn-primary" value="Salvar">
+                                                        </h:commandButton>                                                            
+                                                        <h:link styleClass="btn btn-default" outcome="lista" style="margin-left: 10px"> Cancelar</h:link>
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+                <!--main content end-->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
