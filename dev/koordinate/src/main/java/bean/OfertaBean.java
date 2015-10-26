@@ -38,6 +38,7 @@ public class OfertaBean {
     }
 
     public ArrayList<Oferta> getOfertas() {
+        this.ofertas = DAOOferta.consultar();
         return ofertas;
     }
 
@@ -83,7 +84,7 @@ public class OfertaBean {
      * @return String
      */
     public String salvar() {
-        //ajustamos a carga horaria
+        System.out.println("aaaa"+oferta.getInicio());
         Oferta.salvar(this.oferta);
         return "/modules/oferta/lista";
     }

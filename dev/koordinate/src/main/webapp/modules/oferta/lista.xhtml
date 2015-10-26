@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+
+            <ui:define name="title">
+                Koordinate - Listagem de Ofertas
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-user"></i>Ofertas</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
+                                    <li><i class="fa fa-user"></i><i>Ofertas</i></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Abaixo temos uma tabela com todos os registros de ofertas já cadastrados. Nesta tela é possível realizar novos cadastros, assim como monitorar, editar e excluir registros já salvos!
+
+                            </p>
+                        </div>
+                        <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
+
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="#{ofertaBean.cadastrar()}" style="float: right"><span class="fa fa-plus"></span> Cadastrar Novo</h:link>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <h:dataTable id="docente" class="table table-striped table-advance table-hover" value="#{ofertaBean.ofertas}" var="oferta" >
+
+                                        <h:column  >
+                                            <!-- column header -->
+                                            <f:facet name="header"><i class="fa fa-asterisk"></i> Inicio</f:facet>
+                                            <!-- row record -->
+                                            <h:outputText value="#{oferta.inicio}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <!-- column header -->
+                                            <f:facet name="header"><i class="fa fa-at"></i> Término</f:facet>
+                                            <!-- row record -->
+                                            <h:outputText value="#{oferta.termino}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <!-- column header -->
+                                            <f:facet name="header"><i class="fa fa-at"></i> Ativo</f:facet>
+                                            <!-- row record -->
+                                            <h:graphicImage name="ok.png" rendered="#{oferta.ativo}"/>
+                                        </h:column>
+
+
+                                        <h:column>
+                                            <!-- column header -->
+                                            <f:facet name="header"><i class="fa fa-cogs"></i> Ações</f:facet>
+                                            <!-- row record -->
+                                            <div class="btn-group">
+                                                <h:form>
+                                                    <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{ofertaBean.consultar(oferta)}"><span class="fa fa-search"></span></h:commandLink>
+                                                    <h:commandLink title="Editar" styleClass="btn btn-success" action="#{ofertaBean.alterar(oferta)}"><span class="fa fa-pencil"></span></h:commandLink>
+                                                    <h:commandLink title="Excluir" styleClass="btn btn-danger" onclick="return confirmaExclusao()" action="#{ofertaBean.excluir(oferta)}"><span class="icon_close_alt2"></span></h:commandLink>
+                                                </h:form>
+                                            </div>
+                                        </h:column>
+                                    </h:dataTable>
+                                </section>
+                            </div>
+                        </div>
+
+
+
+                    </section>
+                </section>
+                <!--main content end-->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
