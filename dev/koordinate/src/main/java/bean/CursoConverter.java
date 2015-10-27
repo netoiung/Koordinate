@@ -1,4 +1,3 @@
-
 package bean;
 
 import dao.DAOCurso;
@@ -9,12 +8,20 @@ import javax.faces.convert.FacesConverter;
 import model.Curso;
 
 /**
+ * lasse responsável por converter um Curso de um select para um objeto
  *
  * @author Luiz Paulo Franz
  */
 @FacesConverter(forClass = Curso.class, value = "cursoConverter")
 public class CursoConverter implements Converter {
 
+    /**
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
@@ -27,13 +34,20 @@ public class CursoConverter implements Converter {
         }
     }
 
+    /**
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         String r = "";
         if (value instanceof Curso) {
             Curso c = (Curso) value;
             r = String.valueOf(c.getId());
-        } else if(value instanceof String){
+        } else if (value instanceof String) {
             r = (String) value;
         }
         return r;

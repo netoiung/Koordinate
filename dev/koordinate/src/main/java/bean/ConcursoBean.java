@@ -3,8 +3,6 @@ package bean;
 import dao.DAOConcurso;
 import excecoes.IntegridadeReferencialException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,33 +20,60 @@ import model.Concurso;
 @ManagedBean(name = "concursoBean")
 public class ConcursoBean {
 
+    //<editor-fold defaultstate="collapsed" desc="variaveis">
     private Concurso concurso;
     private List<Concurso> concursos;
+//</editor-fold>
 
-    public Concurso getConcurso() {
-        return concurso;
-    }
-
-    public void setConcurso(Concurso concurso) {
-        this.concurso = concurso;
-    }
-
-    public List<Concurso> getConcursos() {
-        this.concursos = DAOConcurso.consultar();
-        return concursos;
-    }
-
-    public void setConcursos(List<Concurso> concursos) {
-        this.concursos = concursos;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="construtor">
     /**
      * método construtor da classe ConcursoBean.
      */
     public ConcursoBean() {
         this.concurso = new Concurso();
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getters e setters">
+    /**
+     * Método responsável por recuperar o valor de concurso
+     *
+     * @return O objeto concurso setado atualmente
+     */
+    public Concurso getConcurso() {
+        return concurso;
+    }
+
+    /**
+     * Método responsável por atualizar o valor de concurso
+     *
+     * @param concurso - Novo valor de concurso
+     */
+    public void setConcurso(Concurso concurso) {
+        this.concurso = concurso;
+    }
+
+    /**
+     * Método responsável por recuperar o valor de concursos
+     *
+     * @return Uma lista dos concursos cadastrados
+     */
+    public List<Concurso> getConcursos() {
+        this.concursos = DAOConcurso.consultar();
+        return concursos;
+    }
+
+    /**
+     * Método responsável por atualizar o valor de concursos
+     *
+     * @param concursos - Novo lista de concursos
+     */
+    public void setConcursos(List<Concurso> concursos) {
+        this.concursos = concursos;
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="direcionamento de paginas">
     /**
      * alterarConcurso é o método responsável pela alteração de um concurso
      *
@@ -78,6 +103,7 @@ public class ConcursoBean {
     public String listar() {
         return "/modules/concurso/lista";
     }
+//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
