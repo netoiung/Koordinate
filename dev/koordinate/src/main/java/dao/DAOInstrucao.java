@@ -5,9 +5,11 @@
  */
 package dao;
 
-import excecoes.PeriodoLetivoException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Instrucao;
+import model.InstrucaoComponenteCurricular;
+import model.InstrucaoDocente;
 import model.Oferta;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -16,27 +18,22 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 
 /**
- * Classe responsável pela persistência dos objetos Oferta
+ * Classe responsável pela persistência dos objetos Instrucao
  * @author Eduardo Amaral
  */
-public class DAOOferta {
+public class DAOInstrucao {
 
     /**
-     * Método que realiza a persistência de um objeto Oferta
+     * Método que realiza a persistência de um objeto Instrucao
      *
      * @param c - Objeto a ser persistido
      * @return - um boolean indicando se o objeto foi salvo ou não
      */
-    public static boolean salvar(Oferta c) throws PeriodoLetivoException {
+    public static boolean salvar(Instrucao c) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        Oferta temp = consultar(c.getPeriodoLetivo());
-        if(temp != null){
-            throw new PeriodoLetivoException();
-        }
-        
         try {
             tx = session.beginTransaction();
             session.saveOrUpdate(c);
@@ -53,16 +50,16 @@ public class DAOOferta {
     }
 
     /**
-     * Método que realiza a busca de todos os objetos do tipo Oferta
+     * Método que realiza a busca de todos os objetos do tipo Instrucao
      *
      * @return - Um ArrayList com todos os Concursos recuperados no banco
      */
-    public static ArrayList<Oferta> consultar() {
+    public static ArrayList<Instrucao> consultarGeral() {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        ArrayList<Oferta> c = null;
+        ArrayList<Instrucao> c = null;
 
         try {
 
@@ -70,9 +67,9 @@ public class DAOOferta {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM Oferta as c");
+            q = session.createQuery("FROM Instrucao as c");
 
-            c = (ArrayList<Oferta>) q.list();
+            c = (ArrayList<Instrucao>) q.list();
 
         } catch (Exception e) {
             tx.rollback();
@@ -87,17 +84,16 @@ public class DAOOferta {
     }
 
     /**
-     * Método que busca um concurso específico pelo seu id
+     * Método que realiza a busca de todos os objetos do tipo InstrucaoComponenteCurricular
      *
-     * @param id - identificador do concurso
-     * @return - O concurso especificado
+     * @return - Um ArrayList com todos os Concursos recuperados no banco
      */
-    public static Oferta consultar(int id) {
+    public static ArrayList<InstrucaoComponenteCurricular> consultarComp() {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        Oferta c = null;
+        ArrayList<InstrucaoComponenteCurricular> c = null;
 
         try {
 
@@ -105,55 +101,83 @@ public class DAOOferta {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM Oferta as c where c.id=:id");
+            q = session.createQuery("FROM InstrucaoComponenteCurricular as c");
+
+            c = (ArrayList<InstrucaoComponenteCurricular>) q.list();
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+
+        } finally {
+            session.close();
+        }
+
+        return c;
+
+    }
+
+    /**
+     * Método que realiza a busca de todos os objetos do tipo InstrucaoDocente
+     *
+     * @return - Um ArrayList com todos os Concursos recuperados no banco
+     */
+    public static ArrayList<InstrucaoDocente> consultarDoc() {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        ArrayList<InstrucaoDocente> c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+
+            q = session.createQuery("FROM InstrucaoDocente as c");
+
+            c = (ArrayList<InstrucaoDocente>) q.list();
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+
+        } finally {
+            session.close();
+        }
+
+        return c;
+
+    }
+
+    /**
+     * Método que busca uma instrucao específica pelo seu id
+     *
+     * @param id - identificador do concurso
+     * @return - O concurso especificado
+     */
+    public static Instrucao consultar(int id) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        Instrucao c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+
+            q = session.createQuery("FROM Instrucao as c where c.id=:id");
 
             q.setParameter("id", id);
 
             List resultados = q.list();
 
             if (resultados.size() > 0) {
-                c = (Oferta) resultados.get(0);
-            }
-
-            return c;
-
-        } catch (Exception e) {
-            tx.rollback();
-            e.printStackTrace();
-            return c;
-
-        } finally {
-            session.close();
-        }
-    }
-    
-    /**
-     * Método que busca um concurso específico pelo seu periodo.
-     *
-     * @param periodo - periodo letivo
-     * @return - O concurso especificado
-     */
-    public static Oferta consultar(String periodo) {
-        Session session;
-        session = ConexaoHibernate.getInstance();
-        Transaction tx = null;
-
-        Oferta c = null;
-
-        try {
-
-            Query q;
-
-            tx = session.beginTransaction();
-
-            q = session.createQuery("FROM Oferta as o where o.periodoLetivo=:periodo");
-
-            q.setParameter("periodo", periodo);
-
-            List resultados = q.list();
-
-            if (resultados.size() > 0) {
-                c = (Oferta) resultados.get(0);
+                c = (Instrucao) resultados.get(0);
             }
 
             return c;
@@ -169,12 +193,12 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por realizar a alteração de um objeto Oferta
+     * Método responsável por realizar a alteração de um objeto Instrucao
      *
      * @param c - Variável que contém o objeto modificado
      * @return - Uma variável boolean indicando se o salvamento foi bem sucedido
      */
-    public static boolean alterar(Oferta c) {
+    public static boolean alterar(Instrucao c) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -194,12 +218,12 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por excluir um registro referente a um objeto Oferta
+     * Método responsável por excluir um registro referente a um objeto Instrucao
      *
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
      */
-    public static boolean excluir(Oferta d) {
+    public static boolean excluir(Instrucao d) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -231,7 +255,7 @@ public class DAOOferta {
 
         try {
 
-            Criteria crit = session.createCriteria(Oferta.class);
+            Criteria crit = session.createCriteria(Instrucao.class);
             crit.setProjection(Projections.rowCount());
             Long l = (Long) crit.list().get(0);
 

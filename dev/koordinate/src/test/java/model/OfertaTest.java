@@ -6,6 +6,7 @@
 package model;
 
 import dao.DAOOferta;
+import excecoes.PeriodoLetivoException;
 import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class OfertaTest {
      * Test of salvar method, of class Oferta.
      */
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws PeriodoLetivoException {
         System.out.println("Testanto método Salvar");
 
         Oferta oferta = new Oferta();
@@ -42,7 +43,7 @@ public class OfertaTest {
      * Test of consultar method, of class Oferta.
      */
     @Test
-    public void testConsultarTodos() {
+    public void testConsultarTodos() throws PeriodoLetivoException {
         System.out.println("Testando método Consultar que retorna todos os registros");
 
         //<editor-fold defaultstate="collapsed" desc="criar obj oferta">
@@ -67,7 +68,7 @@ public class OfertaTest {
      * Test of consultar method, of class Oferta.
      */
     @Test
-    public void testConsultar() {
+    public void testConsultar() throws PeriodoLetivoException {
         System.out.println("Testando método Consultar que retorna um registro");
 
         //<editor-fold defaultstate="collapsed" desc="criar obj oferta">
@@ -92,7 +93,7 @@ public class OfertaTest {
      * Test of alterar method, of class Oferta.
      */
     @Test
-    public void testAlterar() {
+    public void testAlterar() throws PeriodoLetivoException {
         System.out.println("Testando o método Alterar");
 
         //<editor-fold defaultstate="collapsed" desc="criar obj oferta">
@@ -122,7 +123,7 @@ public class OfertaTest {
      * Test of excluir method, of class Oferta.
      */
     @Test
-    public void testExcluir() {
+    public void testExcluir() throws PeriodoLetivoException {
         System.out.println("Testando método Excluir");
 
         //<editor-fold defaultstate="collapsed" desc="criar obj oferta">

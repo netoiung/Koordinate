@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import excecoes.IntegridadeReferencialException;
@@ -12,7 +7,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author eduar
+ * @author eduardo, netoiung
  */
 public class CursoTest {
 
@@ -52,6 +47,22 @@ public class CursoTest {
         Curso.excluir(c);
         Docente.excluir(d);
         Concurso.excluir(concurso);
+    }
+
+    /**
+     * Teste negativo do método salvar
+     */
+    @Test
+    public void testSalvarNegativo() throws IntegridadeReferencialException {
+        System.out.println("Testando método Salvar Negativo");
+
+        Curso c = new Curso();
+        c.setCod("ALES");
+        c.setNome(null);
+
+        boolean result = Curso.salvar(c);//nao deve salvar, pois o nome está setado como nulo.
+        assertFalse(result);//deve ser falso.
+
     }
 
     /**
@@ -137,6 +148,24 @@ public class CursoTest {
     }
 
     /**
+     * Teste do método consultarid negativo
+     */
+    @Test
+    public void testConsultarIdNegativo() throws IntegridadeReferencialException {
+        System.out.println("Testando método Consultar Negativo");
+
+        Curso c = new Curso();
+        c.setCod("ALES");
+        c.setNome("Engenharia de Software");
+
+       // Curso.salvar(c);//não salvamos nada.
+        Curso expResult = c;
+        Curso result = Curso.consultar(c.getId());//não deve encontrar o objeto.
+        assertNotSame(expResult, result);
+
+    }
+
+    /**
      * Teste do método Alterar da classe Curso.
      */
     @Test
@@ -185,6 +214,27 @@ public class CursoTest {
         Curso.excluir(c);
         Docente.excluir(d);
         Concurso.excluir(concurso);
+    }
+
+    /**
+     * Teste do método alterar negativo
+     */
+    @Test
+    public void testAlterarNegativo() throws IntegridadeReferencialException {
+        System.out.println("Testando método Alterar Negativo");
+
+        Curso c = new Curso();
+        c.setCod("ALES");
+        c.setNome("Engenharia de Software");
+
+        Curso.salvar(c);
+
+        c.setNome(null);//setamos o campo nome como nulo.
+
+        boolean test = Curso.alterar(c);
+        assertFalse(test);//precisa ser falso, pois não deve alterar um registro com o nome setado em nulo.
+
+        Curso.excluir(c);
     }
 
     /**

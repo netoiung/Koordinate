@@ -136,6 +136,15 @@ public class OfertaBean {
     public String listar() {
         return "/modules/oferta/lista";
     }
+    
+    /**
+     * Método responsável por direcionar para a tela de acrescentar instrucoes
+     *
+     * @return addInstrucoes
+     */
+    public String addInstrucao() {
+        return "/modules/oferta/addInstrucoes";
+    }
 //</editor-fold>
 
 }

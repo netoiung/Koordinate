@@ -80,6 +80,8 @@
                                                 <h:form>
                                                     <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{ofertaBean.consultar(oferta)}"><span class="fa fa-search"></span></h:commandLink>
                                                     <h:commandLink title="Editar" styleClass="btn btn-success" action="#{ofertaBean.alterar(oferta)}"><span class="fa fa-pencil"></span></h:commandLink>
+                                                    <h:commandLink title="Instruções" styleClass="btn btn-success" action="#{ofertaBean.addInstrucao()}"><span class="fa fa-automobile"></span>
+                                                        <f:setPropertyActionListener target="#{instrucoesBean.oferta}" value="#{oferta}" /></h:commandLink>
                                                     <h:commandLink title="Excluir" styleClass="btn btn-danger" onclick="return confirmaExclusao()" action="#{ofertaBean.excluir(oferta)}"><span class="icon_close_alt2"></span></h:commandLink>
                                                 </h:form>
                                             </div>

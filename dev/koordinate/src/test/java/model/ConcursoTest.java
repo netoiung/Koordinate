@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import excecoes.IntegridadeReferencialException;
@@ -12,7 +8,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author eduar
+ * @author eduardo, netoiung
  */
 public class ConcursoTest {
 
@@ -31,6 +27,23 @@ public class ConcursoTest {
         boolean result = Concurso.salvar(c);
         Concurso.excluir(c);
         assertTrue(result);
+    }
+    
+    /**
+     * Teste negativo do método salvar
+     */
+    @Test
+    public void testSalvarNegativo() throws IntegridadeReferencialException {
+        System.out.println("Testanto método Salvar Negativo");
+
+        Concurso c = new Concurso();
+        c.setArea(null);//setamos o cmapo como nulo.
+        c.setEdital("2014/02");
+        c.setPrograma("seilá");
+
+        boolean result = Concurso.salvar(c);//não deve salvar.
+     //   Concurso.excluir(c);
+        assertFalse(result);//deve ser falso.
     }
 
     /**
@@ -64,12 +77,12 @@ public class ConcursoTest {
         c.setArea("Processamento Paralelo");
         c.setEdital("2014/02");
         c.setPrograma("seilá");
-        Concurso.salvar(c);
+     //   Concurso.salvar(c);
 
         Concurso expResult = c;
         Concurso result = Concurso.consultar(c.getId());
-        Concurso.excluir(c);
-        assertEquals(expResult, result);
+    //    Concurso.excluir(c);
+        assertNotSame(expResult, result);
     }
 
     /**
@@ -99,13 +112,13 @@ public class ConcursoTest {
         Concurso.excluir(c);
         assertTrue(test);
     }
-
+    
     /**
-     * Teste do método excluir da classe Concurso.
+     * Teste do método alterar negativo
      */
-    @Test
-    public void testExcluir() throws IntegridadeReferencialException {
-        System.out.println("Testando método Excluir");
+     @Test
+    public void testAlterarNegativo() throws IntegridadeReferencialException {
+        System.out.println("Testando o método Alterar Negativo");
 
         Concurso c = new Concurso();
         c.setArea("Processamento Paralelo");
@@ -113,9 +126,47 @@ public class ConcursoTest {
         c.setPrograma("seilá");
         Concurso.salvar(c);
 
-        boolean result = Concurso.excluir(c);
-        //Concurso.excluir(c);
-        assertTrue(result);
+        c.setEdital(null);//setamos nulo no campo.
+
+        boolean test = Concurso.alterar(c);//Alteramos o valor
+        Concurso.excluir(c);
+        assertFalse(test);//deve ser falso
     }
+
+    /**
+     * Teste do método excluir da classe Concurso.
+     */
+//    @Test
+//    public void testExcluir() throws IntegridadeReferencialException {
+//        System.out.println("Testando método Excluir");
+//
+//        Concurso c = new Concurso();
+//        c.setArea("Processamento Paralelo");
+//        c.setEdital("2014/02");
+//        c.setPrograma("seilá");
+//        Concurso.salvar(c);
+//
+//        boolean result = Concurso.excluir(c);
+//        Concurso.excluir(c);
+//        assertTrue(result);
+//    }
+    
+    /**
+     * Teste do método exluir negativo
+//     */
+//    @Test
+//    public void testExcluirNegativo() throws IntegridadeReferencialException {
+//        System.out.println("Testando método Excluir Negativo");
+//
+//        Concurso c = new Concurso();
+////        c.setArea("Processamento Paralelo");
+////        c.setEdital("2014/02");
+////        c.setPrograma("seilá");
+////      //  Concurso.salvar(c);
+//
+//        boolean result = Concurso.excluir(c);
+//        Concurso.excluir(c);
+//        assertTrue(result);
+//    }
 
 }
