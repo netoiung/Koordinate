@@ -3,8 +3,6 @@ package bean;
 import dao.DAODocente;
 import excecoes.IntegridadeReferencialException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,14 +19,56 @@ import model.Docente;
 @ManagedBean(name = "docenteBean")
 public class DocenteBean {
 
+    //<editor-fold defaultstate="collapsed" desc="variaveis">
     private Docente docente;
     private List<Docente> docentes;
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="init">
+    /**
+     * Método inicialisador das variáveis
+     *
+     */
     @PostConstruct
     public void init() {
         this.docente = new Docente();
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getters e setters">
+    /**
+     * Método responsável por recuperar os docentes do banco e seta-los em
+     * docentes
+     *
+     * @return Uma lista com os docentes cadastrados no banco
+     */
+    public List<Docente> getDocentes() {
+        DAODocente dao = new DAODocente();
+        this.docentes = DAODocente.consultar();
+        return this.docentes;
+    }
+
+    /**
+     * Método responsável por recuperar o valor da variavel docente
+     *
+     * @return O docente setado atualmente
+     */
+    public Docente getDocente() {
+        return this.docente;
+    }
+
+    /**
+     * Método responsável por atualizar o valor da variavel docente com um novo
+     * docente
+     *
+     * @param docente - Novo docente a ser setado
+     */
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="direcionamento de páginas">
     /**
      * consultar é o método responsável pela consulta de um docente.
      *
@@ -61,6 +101,17 @@ public class DocenteBean {
         return "/modules/docente/form";
     }
 
+    /**
+     * Método responsável por listar todos os docentes existentes.
+     *
+     * @return String
+     */
+    public String listar() {
+        return "/modules/docente/lista";
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * Método responsável por persistir um objeto Docente e encaminhar ao seu
      * form.
@@ -100,27 +151,5 @@ public class DocenteBean {
         }
         this.listar();
     }
-
-    /**
-     * Método responsável por listar todos os docentes existentes.
-     *
-     * @return String
-     */
-    public String listar() {
-        return "/modules/docente/lista";
-    }
-
-    public List<Docente> getDocentes() {
-        DAODocente dao = new DAODocente();
-        this.docentes = DAODocente.consultar();
-        return this.docentes;
-    }
-
-    public Docente getDocente() {
-        return this.docente;
-    }
-
-    public void setDocente(Docente docente) {
-        this.docente = docente;
-    }
+//</editor-fold>
 }
