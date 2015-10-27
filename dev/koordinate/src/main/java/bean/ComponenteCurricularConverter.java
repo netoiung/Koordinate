@@ -9,13 +9,20 @@ import javax.faces.convert.FacesConverter;
 import model.ComponenteCurricular;
 import model.Docente;
 
-/**
+/** Classe responsável por converter um Componente Curricular de um select para um objeto
  *
  * @author Luiz Paulo Franz
  */
 @FacesConverter(forClass = Docente.class, value = "componenteCurricularConverter")
 public class ComponenteCurricularConverter implements Converter {
 
+    /**
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
@@ -29,6 +36,13 @@ public class ComponenteCurricularConverter implements Converter {
         }
     }
 
+    /**
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         String r = "";
