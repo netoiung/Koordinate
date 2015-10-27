@@ -58,39 +58,13 @@ public class DAOConcursoTest {
      */
     @Test
     public void testConsultar_int() {
-        System.out.println("consultar");
-        int id = 0;
-        Concurso expResult = null;
-        Concurso result = DAOConcurso.consultar(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of consultarWithJoin method, of class DAOConcurso.
-     */
-    @Test
-    public void testConsultarWithJoin_int() {
-        System.out.println("consultarWithJoin");
-        int id = 0;
-        Concurso expResult = null;
-        Concurso result = DAOConcurso.consultarWithJoin(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fazer//
     }
 
     
     @Test
     public void testAlterar() {
-        System.out.println("alterar");
-        Concurso c = null;
-        boolean expResult = false;
-        boolean result = DAOConcurso.alterar(c);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      //fazer//
     }
 
     /**
@@ -98,26 +72,8 @@ public class DAOConcursoTest {
      */
     @Test
     public void testExcluir() throws Exception {
-        System.out.println("excluir");
-        Concurso d = null;
-        boolean expResult = false;
-        boolean result = DAOConcurso.excluir(d);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       //fazer//
     }
 
-    /**
-     * Test of count method, of class DAOConcurso.
-     */
-    @Test
-    public void testCount() {
-        System.out.println("count");
-        int expResult = 0;
-        int result = DAOConcurso.count();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }
