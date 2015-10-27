@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Curso;
+import model.Docente;
 
 /**
  * CursoBean é a classe responsável pelo CRUD do Cursos.
@@ -69,6 +70,9 @@ public class CursoBean {
     public String salvar() {
 
         if (DAOCurso.salvar(curso)) {
+            Docente docente = curso.getDocente();
+            docente.setNivel(1);
+            Docente.alterar(docente);
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro salvo com sucesso.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         } else {
