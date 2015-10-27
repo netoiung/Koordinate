@@ -33,7 +33,7 @@ public class DAOOferta {
         Transaction tx = null;
 
         Oferta temp = consultar(c.getPeriodoLetivo());
-        if(temp == null){
+        if(temp != null){
             throw new PeriodoLetivoException();
         }
         
@@ -146,7 +146,7 @@ public class DAOOferta {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM Oferta as c where c.periodo_letivo=:periodo");
+            q = session.createQuery("FROM Oferta as o where o.periodoLetivo=:periodo");
 
             q.setParameter("periodo", periodo);
 
