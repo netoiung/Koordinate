@@ -1,8 +1,12 @@
 package model;
 // Generated 27/09/2015 11:19:22 by Hibernate Tools 4.3.1
 
+import dao.DAOInstrucao;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,21 +27,24 @@ import javax.persistence.Table;
 )
 public class Instrucao implements java.io.Serializable {
 
+    //<editor-fold defaultstate="collapsed" desc="variaveis">
     private int id;
     private Oferta oferta;
     private String descricao;
     private Set instrucaoDocentes = new HashSet(0);
     private Set instrucaoComponenteCurriculars = new HashSet(0);
-
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="construtores">
     public Instrucao() {
     }
-
+    
     public Instrucao(int id, Oferta oferta, String descricao) {
         this.id = id;
         this.oferta = oferta;
         this.descricao = descricao;
     }
-
+    
     public Instrucao(int id, Oferta oferta, String descricao, Set instrucaoDocentes, Set instrucaoComponenteCurriculars) {
         this.id = id;
         this.oferta = oferta;
@@ -45,53 +52,132 @@ public class Instrucao implements java.io.Serializable {
         this.instrucaoDocentes = instrucaoDocentes;
         this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getters e setters">
     @Id
     @GeneratedValue(generator = "instrucao_seq")
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "oferta_id", nullable = false)
     public Oferta getOferta() {
         return this.oferta;
     }
-
+    
     public void setOferta(Oferta oferta) {
         this.oferta = oferta;
     }
-
+    
     @Column(name = "descricao", nullable = false)
     public String getDescricao() {
         return this.descricao;
     }
-
+    
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instrucao")
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instrucao", cascade = CascadeType.ALL)
     public Set<InstrucaoDocente> getInstrucaoDocentes() {
         return this.instrucaoDocentes;
     }
-
+    
     public void setInstrucaoDocentes(Set instrucaoDocentes) {
         this.instrucaoDocentes = instrucaoDocentes;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instrucao")
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instrucao", cascade = CascadeType.ALL)
     public Set<InstrucaoComponenteCurricular> getInstrucaoComponenteCurriculars() {
         return this.instrucaoComponenteCurriculars;
     }
-
+    
     public void setInstrucaoComponenteCurriculars(Set instrucaoComponenteCurriculars) {
         this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
     }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="equals e hashcode">
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + Objects.hashCode(this.oferta);
+        hash = 89 * hash + Objects.hashCode(this.descricao);
+        hash = 89 * hash + Objects.hashCode(this.instrucaoDocentes);
+        hash = 89 * hash + Objects.hashCode(this.instrucaoComponenteCurriculars);
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Instrucao other = (Instrucao) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.oferta, other.oferta)) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        if (!Objects.equals(this.instrucaoDocentes, other.instrucaoDocentes)) {
+            return false;
+        }
+        if (!Objects.equals(this.instrucaoComponenteCurriculars, other.instrucaoComponenteCurriculars)) {
+            return false;
+        }
+        return true;
+    }
+    
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos de Persistencia">
+    static public boolean salvar(Instrucao c) {
+        return DAOInstrucao.salvar(c);
+    }
+    
+    static public ArrayList<Instrucao> consultarGeral() {
+        return DAOInstrucao.consultarGeral();
+    }
+    
+    static public ArrayList<InstrucaoComponenteCurricular> consultarComp() {
+        return DAOInstrucao.consultarComp();
+    }
+    
+    static public ArrayList<InstrucaoDocente> consultarDoc() {
+        return DAOInstrucao.consultarDoc();
+    }
+    
+    static public Instrucao consultar(int id) {
+        return DAOInstrucao.consultar(id);
+    }
+    
+    static public boolean alterar(Instrucao d) {
+        return DAOInstrucao.alterar(d);
+    }
+    
+    static public boolean excluir(Instrucao d) {
+        return DAOInstrucao.excluir(d);
+    }
+    
+    static public int count() {
+        return DAOInstrucao.count();
+    }
+    //</editor-fold>
+    
 
 }
