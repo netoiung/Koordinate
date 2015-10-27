@@ -5,6 +5,7 @@
  */
 package bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,8 +17,8 @@ import model.InstrucaoDocente;
 import model.Oferta;
 
 /**
- * InstrucoesBean é a classe responsável pelas instrucoes das ofertas do sistema
- * de gestão de oferta e horário.
+ * InstrucoesBean Ã© a classe responsÃ¡vel pelas instrucoes das ofertas do
+ * sistema de gestÃ£o de oferta e horÃ¡rio.
  *
  * @author Eduardo Amaral
  */
@@ -88,9 +89,10 @@ public class InstrucoesBean {
     }
 
     public List<Instrucao> getInstrucoes() {
+        instrucoes = new ArrayList<>();
         List<Instrucao> instrucoesDB = Instrucao.consultarGeral();
         for (Instrucao instrucoesDB1 : instrucoesDB) {
-            if (instrucoesDB1.getInstrucaoDocentes() == null && instrucoesDB1.getInstrucaoComponenteCurriculars() == null) {
+            if (instrucoesDB1.getInstrucaoDocentes().isEmpty() && instrucoesDB1.getInstrucaoComponenteCurriculars().isEmpty()) {
                 instrucoes.add(instrucoesDB1);
             }
         }
@@ -124,32 +126,55 @@ public class InstrucoesBean {
         getInstrucoes();
         getInstrucoesComp();
         getInstrucoesDoc();
+        limparDescricoes();
+
     }
 
     public void salvarComp() {
         this.instrucao = new Instrucao();
         this.instrucao.setDescricao(descricaoComponente);
         this.instrucao.setOferta(oferta);
+        Instrucao.salvar(instrucao);
         InstrucaoComponenteCurricular inst = new InstrucaoComponenteCurricular();
         inst.setComponenteCurricular(componente);
+        inst.setInstrucao(instrucao);
         this.instrucao.getInstrucaoComponenteCurriculars().add(inst);
         Instrucao.salvar(instrucao);
         getInstrucoes();
         getInstrucoesComp();
         getInstrucoesDoc();
+        limparDescricoes();
+
     }
 
     public void salvarDoc() {
         this.instrucao = new Instrucao();
-        this.instrucao.setDescricao(descricaoComponente);
+        this.instrucao.setDescricao(descricaoDocente);
         this.instrucao.setOferta(oferta);
+        Instrucao.salvar(instrucao);
         InstrucaoDocente inst = new InstrucaoDocente();
         inst.setDocente(docente);
+        inst.setInstrucao(instrucao);
         this.instrucao.getInstrucaoDocentes().add(inst);
-        Instrucao.salvar(instrucao);
+        Instrucao.alterar(instrucao);
         getInstrucoes();
         getInstrucoesComp();
         getInstrucoesDoc();
+        limparDescricoes();
+    }
+
+    public void excluir(int id) {
+        Instrucao.excluirId(id);
+        getInstrucoes();
+        getInstrucoesComp();
+        getInstrucoesDoc();
+        limparDescricoes();
+    }
+
+    public void limparDescricoes() {
+        this.descricaoComponente = "";
+        this.descricaoDocente = "";
+        this.descricaoGeral = "";
     }
 
 }

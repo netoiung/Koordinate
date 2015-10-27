@@ -105,7 +105,7 @@
                                                                     <f:facet name="header">Ações</f:facet>
                                                                     <div class="btn-group">
                                                                         <h:form>
-                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{componenteCursoBean.removerCurso(o)}" onclick="return confirmaExclusao()"><i class="icon_close_alt2"></i></h:commandLink>
+                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{instrucoesBean.excluir(o.id)}" onclick="return confirmaExclusao()"><i class="icon_close_alt2"></i></h:commandLink>
                                                                         </h:form>
                                                                     </div>
                                                                 </h:column>
@@ -184,7 +184,7 @@
                                                                     <f:facet name="header">Ações</f:facet>
                                                                     <div class="btn-group">
                                                                         <h:form>
-                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{componenteCursoBean.removerCurso(o)}" onclick="return confirmaExclusao()"><i class="icon_close_alt2"></i></h:commandLink>
+                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{instrucoesBean.excluir(o.instrucao.id)}" onclick="return confirmaExclusao()"><i class="icon_close_alt2"></i></h:commandLink>
                                                                         </h:form>
                                                                     </div>
                                                                 </h:column>
@@ -261,7 +261,7 @@
                                                                     <f:facet name="header">Ações</f:facet>
                                                                     <div class="btn-group">
                                                                         <h:form>
-                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{componenteCursoBean.removerCurso(o)}" onclick="return confirmaExclusao()"><i class="icon_close_alt2"></i></h:commandLink>
+                                                                            <h:commandLink title="Remover da oferta" styleClass="btn btn-danger" action="#{instrucoesBean.excluir(o.instrucao.id)}" onclick="return confirmaExclusao()"><i class="icon_close_alt2"></i></h:commandLink>
                                                                         </h:form>
                                                                     </div>
                                                                 </h:column>

@@ -44,7 +44,7 @@ public class InstrucaoComponenteCurricular implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "componente_curricular_id", nullable = false)
     public ComponenteCurricular getComponenteCurricular() {
         return this.componenteCurricular;
@@ -54,7 +54,7 @@ public class InstrucaoComponenteCurricular implements java.io.Serializable {
         this.componenteCurricular = componenteCurricular;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "instrucao_id", nullable = false)
     public Instrucao getInstrucao() {
         return this.instrucao;
