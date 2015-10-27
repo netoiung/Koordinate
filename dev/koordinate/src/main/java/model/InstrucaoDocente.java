@@ -45,7 +45,7 @@ public class InstrucaoDocente implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "docente_id", nullable = false)
     public Docente getDocente() {
         return this.docente;
@@ -55,7 +55,7 @@ public class InstrucaoDocente implements java.io.Serializable {
         this.docente = docente;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "instrucao_id", nullable = false)
     public Instrucao getInstrucao() {
         return this.instrucao;
