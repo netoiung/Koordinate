@@ -48,32 +48,34 @@
                                 <section class="panel">
                                     <h:dataTable id="docente" class="table table-striped table-advance table-hover" value="#{ofertaBean.ofertas}" var="oferta" >
 
-                                        <h:column  >
+                                        <h:column>
                                             <!-- column header -->
-                                            <f:facet name="header"><i class="fa fa-asterisk"></i> Inicio</f:facet>
+                                            <f:facet name="header"><i class="fa fa-at"></i> Período Letivo</f:facet>
                                             <!-- row record -->
-                                            <h:outputText value="#{oferta.inicio}"/>
+                                            <h:outputText value="#{oferta.periodoLetivo}"/>
                                         </h:column>
 
                                         <h:column>
-                                            <!-- column header -->
+                                            <f:facet name="header"><i class="fa fa-at"></i> Inicio</f:facet>
+                                            <h:outputText value="#{oferta.inicio}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </h:column>
+
+                                        <h:column>
                                             <f:facet name="header"><i class="fa fa-at"></i> Término</f:facet>
-                                            <!-- row record -->
-                                            <h:outputText value="#{oferta.termino}"/>
+                                            <h:outputText value="#{oferta.termino}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
                                         </h:column>
 
                                         <h:column>
-                                            <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-at"></i> Ativo</f:facet>
-                                            <!-- row record -->
                                             <h:graphicImage name="ok.png" rendered="#{oferta.ativo}"/>
                                         </h:column>
 
-
                                         <h:column>
-                                            <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-cogs"></i> Ações</f:facet>
-                                            <!-- row record -->
                                             <div class="btn-group">
                                                 <h:form>
                                                     <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{ofertaBean.consultar(oferta)}"><span class="fa fa-search"></span></h:commandLink>
@@ -88,14 +90,9 @@
                                 </section>
                             </div>
                         </div>
-
-
-
                     </section>
                 </section>
-                <!--main content end-->
             </ui:define>
-
         </ui:composition>
 
     </body>

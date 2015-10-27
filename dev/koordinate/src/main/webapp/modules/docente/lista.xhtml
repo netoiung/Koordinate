@@ -48,62 +48,40 @@
                                 <section class="panel">
                                     <h:dataTable id="docente" class="table table-striped table-advance table-hover" value="#{docenteBean.docentes}" var="docente" >
 
-                                        <h:column  >
-                                            <!-- column header -->
-                                            <f:facet name="header"><i class="fa fa-asterisk"></i> Nome</f:facet>
-                                            <!-- row record -->
-                                            <h:outputText value="#{docente.nome}"/>
-                                        </h:column>
-
                                         <h:column>
                                             <!-- column header -->
-                                            <f:facet name="header"><i class="fa fa-at"></i> Siape</f:facet>
+                                            <f:facet name="header"><i class="fa fa-asterisk"></i> Siape</f:facet>
                                             <!-- row record -->
                                             <h:outputText value="#{docente.siape}"/>
                                         </h:column>
+                                        
+                                        <h:column  >
+                                            <f:facet name="header"><i class="fa fa-at"></i> Nome</f:facet>
+                                            <h:outputText value="#{docente.nome}"/>
+                                        </h:column>                                        
 
                                         <h:column>
-                                            <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-at"></i>Email Institucional</f:facet>
-                                            <!-- row record -->
                                             <h:outputText value="#{docente.emailinstitucional}"/>
                                         </h:column>
 
                                         <h:column>
-                                            <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-at"></i> Currículo Lattes</f:facet>
-                                            <!-- row record -->
                                             <h:outputText value="#{docente.linklattes}"/>
                                         </h:column>
 
                                         <h:column>
-                                            <!-- column header -->
-                                            <f:facet name="header"><i class="fa fa-at"></i> Área de Concurso</f:facet>
-                                            <!-- row record -->
+                                            <f:facet name="header"><i class="fa fa-at"></i> Área de Graduação</f:facet>
                                             <h:outputText value="#{docente.areagraduacao}"></h:outputText>
                                         </h:column>
 
                                         <h:column>
-                                            <!-- column header -->
-                                            <f:facet name="header"><i class="fa fa-at"></i> Login</f:facet>
-                                            <!-- row record -->
-                                            <h:outputText value="#{docente.login}"></h:outputText>
-                                        </h:column>
-
-
-
-                                        <h:column>
-                                            <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-at"></i> Atua Pós-graduação</f:facet>
-                                            <!-- row record -->
                                             <h:graphicImage name="ok.png" rendered="#{docente.atuaposgraduacao}"/>
                                         </h:column>
 
-
                                         <h:column>
-                                            <!-- column header -->
                                             <f:facet name="header"><i class="fa fa-cogs"></i> Ações</f:facet>
-                                            <!-- row record -->
                                             <div class="btn-group">
                                                 <h:form>
                                                     <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{docenteBean.consultar(docente)}"><span class="fa fa-search"></span></h:commandLink>
@@ -116,8 +94,6 @@
                                 </section>
                             </div>
                         </div>
-
-
 
                     </section>
                 </section>

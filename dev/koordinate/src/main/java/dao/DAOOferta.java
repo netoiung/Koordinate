@@ -5,6 +5,7 @@
  */
 package dao;
 
+import excecoes.PeriodoLetivoException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Oferta;
@@ -26,11 +27,16 @@ public class DAOOferta {
      * @param c - Objeto a ser persistido
      * @return - um boolean indicando se o objeto foi salvo ou não
      */
-    public static boolean salvar(Oferta c) {
+    public static boolean salvar(Oferta c) throws PeriodoLetivoException {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
+        Oferta temp = consultar(c.getPeriodoLetivo());
+        if(temp == null){
+            throw new PeriodoLetivoException();
+        }
+        
         try {
             tx = session.beginTransaction();
             session.saveOrUpdate(c);
@@ -102,6 +108,47 @@ public class DAOOferta {
             q = session.createQuery("FROM Oferta as c where c.id=:id");
 
             q.setParameter("id", id);
+
+            List resultados = q.list();
+
+            if (resultados.size() > 0) {
+                c = (Oferta) resultados.get(0);
+            }
+
+            return c;
+
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return c;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    /**
+     * Método que busca um concurso específico pelo seu periodo.
+     *
+     * @param periodo - periodo letivo
+     * @return - O concurso especificado
+     */
+    public static Oferta consultar(String periodo) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+
+        Oferta c = null;
+
+        try {
+
+            Query q;
+
+            tx = session.beginTransaction();
+
+            q = session.createQuery("FROM Oferta as c where c.periodo_letivo=:periodo");
+
+            q.setParameter("periodo", periodo);
 
             List resultados = q.list();
 

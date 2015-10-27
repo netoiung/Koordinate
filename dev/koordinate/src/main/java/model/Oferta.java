@@ -1,8 +1,8 @@
 package model;
 // Generated 27/09/2015 11:19:22 by Hibernate Tools 4.3.1
 
-import dao.DAOConcurso;
 import dao.DAOOferta;
+import excecoes.PeriodoLetivoException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -31,6 +30,7 @@ public class Oferta implements java.io.Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="variaveis">
     private int id;
+    private String periodoLetivo;
     private boolean ativo;
     private Date inicio;
     private Date termino;
@@ -69,6 +69,15 @@ public class Oferta implements java.io.Serializable {
     
     public void setId(int id) {
         this.id = id;
+    }
+    
+    @Column(name = "periodo_letivo", unique = true, nullable = false, length = 7)
+    public String getPeriodoLetivo() {
+        return this.periodoLetivo;
+    }
+
+    public void setPeriodoLetivo(String periodo) {
+        this.periodoLetivo = periodo;
     }
     
     @Column(name = "ativo", nullable = false)
@@ -127,8 +136,6 @@ public class Oferta implements java.io.Serializable {
         hash = 73 * hash + (this.ativo ? 1 : 0);
         hash = 73 * hash + Objects.hashCode(this.inicio);
         hash = 73 * hash + Objects.hashCode(this.termino);
-        hash = 73 * hash + Objects.hashCode(this.instrucaos);
-        hash = 73 * hash + Objects.hashCode(this.itemOfertas);
         return hash;
     }
     
@@ -158,7 +165,7 @@ public class Oferta implements java.io.Serializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Metodos de Persistencia">
-    static public boolean salvar(Oferta c) {
+    static public boolean salvar(Oferta c) throws PeriodoLetivoException {
         return DAOOferta.salvar(c);
     }
     
@@ -184,5 +191,5 @@ public class Oferta implements java.io.Serializable {
     
     
 //</editor-fold>
-    
+        
 }
