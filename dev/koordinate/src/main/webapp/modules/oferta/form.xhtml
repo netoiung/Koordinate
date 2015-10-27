@@ -50,20 +50,30 @@
                                     <div class="panel-body">
                                         <div class="form">
                                             <h:form class="form-horizontal" role="form" prependId="false">
+                                                
+                                                <div class="form-group ">
+                                                    <label for="periodo" class="control-label col-lg-2">Período Letivo<span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{ofertaBean.oferta.periodoLetivo}" id="periodo" required="true" requiredMessage="O campo deve ser preenchido." >
+                                                            <f:validator validatorId="validacao.view.PeriodoLetivoValidator" />
+                                                        </h:inputText>
+                                                        <h:message for="periodo" style="color:red" />
+                                                    </div>
+                                                </div>
 
                                                 <div class="form-group ">
                                                     <label for="inicial" class="control-label col-lg-2">Data Inicial<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <p:calendar value="#{ofertaBean.oferta.inicio}" pattern="dd/MM/yyyy" id="inicial" locale="pt"/>
-                                                        <h:message for="inicial" style="color:red" />
+                                                        <p:calendar value="#{ofertaBean.oferta.inicio}" pattern="dd/MM/yyyy" id="inicial" locale="pt" required="true" requiredMessage="O campo deve ser preenchido." />
+                                                        &nbsp;<h:message for="inicial" style="color:red" />
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="form-group ">
                                                     <label for="termino" class="control-label col-lg-2">Data de Término<span class="required">*</span></label>
                                                     <div class="col-lg-10">
-                                                        <p:calendar value="#{ofertaBean.oferta.termino}" pattern="dd/MM/yyyy" locale="pt" id="termino"/>
-                                                        <h:message for="termino" style="color:red" />
+                                                        <p:calendar value="#{ofertaBean.oferta.termino}" pattern="dd/MM/yyyy" locale="pt" id="termino" required="true" requiredMessage="O campo deve ser preenchido." />
+                                                        &nbsp;<h:message for="termino" style="color:red" />
                                                     </div>
                                                 </div>                                                
 

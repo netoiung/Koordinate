@@ -6,10 +6,16 @@
 package bean;
 
 import dao.DAOOferta;
+import excecoes.PeriodoLetivoException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import model.ComponenteCurricular;
 import model.Oferta;
 
@@ -84,8 +90,18 @@ public class OfertaBean {
      * @return String
      */
     public String salvar() {
-        System.out.println("aaaa"+oferta.getInicio());
-        Oferta.salvar(this.oferta);
+        try {
+            if (Oferta.salvar(this.oferta)) {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Registro salvo com sucesso.");
+                FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+            } else {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível salvar, por favor tente novamente.");
+                FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+            }
+        } catch (PeriodoLetivoException ex) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage());
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         return "/modules/oferta/lista";
     }
 //</editor-fold>
@@ -102,21 +118,18 @@ public class OfertaBean {
         return "/modules/oferta/form";
     }
 
-
     /**
-     * Método responsável por criar um objeto Oferta e encaminhar
-     * ao seu form.
+     * Método responsável por criar um objeto Oferta e encaminhar ao seu form.
      *
      * @return formOferta
      */
     public String cadastrar() {
         this.oferta = new Oferta();
-        return "/modules/oferta/formCadastrar";
+        return "/modules/oferta/form";
     }
 
     /**
-     * Método responsável por listar todas as ofertas
-     * existentes.
+     * Método responsável por listar todas as ofertas existentes.
      *
      * @return listaComponenteCurricular
      */
