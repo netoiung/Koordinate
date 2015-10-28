@@ -19,6 +19,11 @@ import model.Curso;
  */
 public class DAODocente {
 
+    /**
+     *
+     * @param siape
+     * @return
+     */
     public static boolean existe(int siape) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
