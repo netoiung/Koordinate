@@ -1,5 +1,6 @@
 package bean;
 
+//<editor-fold defaultstate="collapsed" desc="importacoes">
 import dao.DAOComponenteCurricular;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -8,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.ComponenteCurricular;
+//</editor-fold>
 
 /**
  * ComponenteCurrilarBean é a classe responsável pelo CRUD do Componente
@@ -22,30 +24,48 @@ public class ComponenteCurricularBean {
     //<editor-fold defaultstate="collapsed" desc="Variaveis">
     private ComponenteCurricular componente;
     private List<ComponenteCurricular> componentes;
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
-    @PostConstruct
+
+    /** Método responsável por iniciar as variáveis
+     *
+     */
+        @PostConstruct
     public void init() {
         this.componente = new ComponenteCurricular();
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
-    public ComponenteCurricular getComponente() {
+
+    /** Método responsável por retornar o valor de componente
+     *
+     * @return Objeto ComponenteCurricular setado
+     */
+        public ComponenteCurricular getComponente() {
         return componente;
     }
 
+    /** Método responsável por atualizar o objeto componente
+     *
+     * @param componente - o novo objeto a ser setado
+     */
     public void setComponente(ComponenteCurricular componente) {
         this.componente = componente;
     }
 
+    /** Método responsável por retornar o valor de componentes
+     *
+     * @return Uma lista de objetos ComponenteCurricular
+     */
     public List<ComponenteCurricular> getComponentes() {
         this.componentes = DAOComponenteCurricular.consultar();
         return componentes;
     }
 
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
      * consultarComponenteCurricular é o método responsável pela consulta de um
@@ -100,6 +120,7 @@ public class ComponenteCurricularBean {
     }
 
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Redirecionamento de Paginas">
     /**
      * alterarComponenteCurricular é o método responsável pela alteração de um
@@ -114,7 +135,12 @@ public class ComponenteCurricularBean {
         return "/modules/componenteCurricular/form";
     }
 
-    public String alterarById(int id) {
+    /** Método responsável por consultar um componente curricular através do seu id
+     *
+     * @param id - identificador do objeto a ser consultado
+     * @return A página a ser carregada
+     */
+    public String consultarById(int id) {
         DAOComponenteCurricular dao = new DAOComponenteCurricular();
         this.componente = dao.consultarWithJoin(id);
         return "/modules/componenteCurricular/form";

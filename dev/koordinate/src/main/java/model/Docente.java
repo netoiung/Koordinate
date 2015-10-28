@@ -41,6 +41,7 @@ public class Docente implements java.io.Serializable {
     private String areagraduacao;
     private String login;
     private String senha;
+    private int nivel = 0;
     private Set<DocenteItemOferta> docenteItemOfertas = new HashSet(0);
     private Set<InstrucaoDocente> instrucaoDocentes = new HashSet(0);
     private Set<Curso> cursos = new HashSet(0);
@@ -212,8 +213,16 @@ public class Docente implements java.io.Serializable {
         this.preferencias = preferencias;
     }
 
+    @Column(name = "nivel", nullable = false, columnDefinition = "int default 0")
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
 //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Métodos Equals e HashCode">
     @Override
     public int hashCode() {
@@ -259,7 +268,7 @@ public class Docente implements java.io.Serializable {
     static public ArrayList<Docente> consultar() {
         return DAODocente.consultar();
     }
-
+    
     static public Docente consultar(int id) {
         return DAODocente.consultar(id);
     }
@@ -280,5 +289,17 @@ public class Docente implements java.io.Serializable {
         return DAODocente.count();
     }
 //</editor-fold>
+    
+    public ArrayList<Docente> buscarCoordenadores(){
+        ArrayList<Docente> docentes = DAODocente.consultar();
+        ArrayList<Docente> coordenadores = new ArrayList<>();
+        
+        for (Docente docente : docentes) {
+            if(docente.getNivel() != 0){
+                coordenadores.add(docente);
+            }
+        }
+        return coordenadores;
+    }
 
 }

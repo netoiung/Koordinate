@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Curso;
+import model.Docente;
 
 /**
  * CursoBean é a classe responsável pelo CRUD do Cursos.
@@ -21,30 +22,50 @@ public class CursoBean {
     //<editor-fold defaultstate="collapsed" desc="Variaveis">
     private Curso curso;
     private List<Curso> cursos;
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
+    /**
+     * Método iniciador das variáveis
+     *
+     */
     @PostConstruct
     public void init() {
         this.curso = new Curso();
         this.cursos = DAOCurso.consultar();
     }
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e setters">
+    /**
+     * Método responsável por buscar uma lista de cursos registrados no banco,
+     * atribui-la a cursos e recuperar o valor de cursos
+     *
+     * @return Uma lista com os cursos registrados no banco
+     */
     public List<Curso> getCursos() {
         this.cursos = DAOCurso.consultar();
         return this.cursos;
     }
 
+    /**
+     * Método responsável por recuperar o valor do objeto curso
+     *
+     * @return O curso setado atualmente
+     */
     public Curso getCurso() {
         return this.curso;
     }
 
+    /**
+     * Método responsável por atualizar o valor do objeto curso
+     *
+     * @param curso - O novo curso a ser setado
+     */
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="CRUD">
     /**
@@ -69,6 +90,9 @@ public class CursoBean {
     public String salvar() {
 
         if (DAOCurso.salvar(curso)) {
+            Docente docente = curso.getDocente();
+            docente.setNivel(1);
+            Docente.alterar(docente);
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro salvo com sucesso.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         } else {
