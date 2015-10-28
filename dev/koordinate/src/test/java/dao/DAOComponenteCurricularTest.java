@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.util.ArrayList;
@@ -15,22 +14,22 @@ import static org.junit.Assert.*;
  * @author Netoiung
  */
 public class DAOComponenteCurricularTest {
-    
+
     public DAOComponenteCurricularTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -51,6 +50,7 @@ public class DAOComponenteCurricularTest {
         assertTrue(resultado);
         DAOComponenteCurricular.excluir(c);
     }
+
     /**
      * Teste negativo do método salvar
      */
@@ -65,23 +65,53 @@ public class DAOComponenteCurricularTest {
         c.setNome(null);//setamos null no nome.
         Boolean resultado = DAOComponenteCurricular.salvar(c);//tento salvar
         assertFalse(resultado);//não deve salvar
-        
+
     }
 
     /**
      * Test of consultar method, of class DAOComponenteCurricular.
      */
-//    @Test
-//    public void testConsultar_int() {
-//        System.out.println("consultar");
-//        int id = 0;
-//        ComponenteCurricular expResult = null;
-//        ComponenteCurricular result = DAOComponenteCurricular.consultar(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-    
+    @Test
+    public void testConsultar_int() {
+        ComponenteCurricular c = new ComponenteCurricular();
+        c.setCargahoraria(100);
+        c.setCod("RPVI");
+        c.setCreditos(4);
+        c.setIsativo(true);
+        c.setLink("www.rpvi.com.br");
+        c.setNome("Resolução de Problemas VI");
+        DAOComponenteCurricular.salvar(c);
+
+        ComponenteCurricular expResult = c;
+        ComponenteCurricular result = DAOComponenteCurricular.consultar(c.getId());
+
+        DAOComponenteCurricular.excluir(c);
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Teste negativo do método consultar_int
+     */
+    @Test
+    public void testConsultar_intNegativo() {
+        ComponenteCurricular c = new ComponenteCurricular();
+        c.setCargahoraria(100);
+        c.setCod("RPVI");
+        c.setCreditos(4);
+        c.setIsativo(true);
+        c.setLink("www.rpvi.com.br");
+        c.setNome("Resolução de Problemas VI");
+        DAOComponenteCurricular.salvar(c);
+
+        ComponenteCurricular expResult = c;
+        ComponenteCurricular result = DAOComponenteCurricular.consultar(c.getId());
+
+        DAOComponenteCurricular.excluir(c);
+
+        assertNotSame(expResult, result);
+    }
+
     /**
      * Teste do método alterar
      */
@@ -96,42 +126,17 @@ public class DAOComponenteCurricularTest {
         c.setNome("Resolução de Problemas VI");
         c.setNome("Nome Normal");
         DAOComponenteCurricular.salvar(c);
-        
+
         assertEquals(c, ComponenteCurricular.consultar(c.getId()));
-        
+
         c.setNome("NOVO NOME");
-        
+
         boolean resultado = DAOComponenteCurricular.alterar(c);//salvamos a alteração.
         assertTrue(resultado);
-        
+
         DAOComponenteCurricular.excluir(c);
 
     }
-    
-    /**
-     * Teste negativo do método alterar
-     */
-//      @Test
-//    public void testAlterarNegativo() {
-//        ComponenteCurricular c = new ComponenteCurricular();
-//        c.setCargahoraria(100);
-//        c.setCod("RPVI");
-//        c.setCreditos(4);
-//        c.setIsativo(true);
-//        c.setLink("www.rpvi.com.br");
-//        c.setNome("Resolução de Problemas VI");
-//        c.setNome("ERRO");
-//        DAOComponenteCurricular.salvar(c);
-//        
-//        assertEquals(c, ComponenteCurricular.consultar(c.getId()));
-//        
-//        c.setNome(null);//tentamos alterar para um valor nulo.
-//        DAOComponenteCurricular.excluir(c);
-//        boolean resultado = DAOComponenteCurricular.alterar(c);//tentamos salvar a alteração.
-//        assertFalse(resultado);//não deve salvar.
-//        
-//    }
-    
 
     /**
      * Teste do método excluir.
@@ -149,9 +154,7 @@ public class DAOComponenteCurricularTest {
         DAOComponenteCurricular.salvar(c);
         boolean resultado = DAOComponenteCurricular.excluir(c);
         assertTrue(resultado);
-        
+
     }
-    
- 
-    
+
 }

@@ -50,6 +50,19 @@ public class DAOConcursoTest {
         DAOConcurso.excluir(c);
         assertTrue(result);
     }
+    /**
+     * Teste negativo do método salvar
+     */
+     @Test
+    public void testSalvarNegativo() throws IntegridadeReferencialException {
+        Concurso c = new Concurso();
+        c.setArea("Processamento Paralelo");
+        c.setEdital("2014/02");
+        c.setPrograma(null);//setamos o nome como nulo.
+
+        boolean result = DAOConcurso.salvar(c);
+        assertFalse(result);
+    }
 
    
 
@@ -57,14 +70,44 @@ public class DAOConcursoTest {
      * Test of consultar method, of class DAOConcurso.
      */
     @Test
-    public void testConsultar_int() {
-        //fazer//
+    public void testConsultar_int() throws IntegridadeReferencialException {
+        
+        Concurso c = new Concurso();
+        c.setArea("Processamento Paralelo");
+        c.setEdital("2014/02");
+        c.setPrograma("seilá");
+        DAOConcurso.salvar(c);
+
+        Concurso expResult = c;
+        Concurso result = DAOConcurso.consultar(c.getId());
+        DAOConcurso.excluir(c);
+        assertEquals(expResult, result);
     }
 
-    
+    /**
+     * Teste do método alterar
+     */
     @Test
-    public void testAlterar() {
-      //fazer//
+    public void testAlterar() throws IntegridadeReferencialException {
+        Concurso c = new Concurso();
+        c.setArea("Processamento Paralelo");
+        c.setEdital("2014/02");
+        c.setPrograma("seilá");
+        DAOConcurso.salvar(c);
+
+        Concurso expResult = c;
+        Concurso result = DAOConcurso.consultar(c.getId());
+        assertEquals(expResult, result);
+
+        c.setEdital("EDITADOOO");
+
+        expResult = c;
+        result = DAOConcurso.consultar(c.getId());
+        assertNotSame(expResult, result);
+
+        boolean test = DAOConcurso.alterar(c);
+        DAOConcurso.excluir(c);
+        assertTrue(test);
     }
 
     /**
@@ -72,7 +115,14 @@ public class DAOConcursoTest {
      */
     @Test
     public void testExcluir() throws Exception {
-       //fazer//
+        Concurso c = new Concurso();
+        c.setArea("Processamento Paralelo");
+        c.setEdital("2014/02");
+        c.setPrograma("seilá");
+        DAOConcurso.salvar(c);
+
+        boolean result = DAOConcurso.excluir(c);
+        assertTrue(result);
     }
 
     
