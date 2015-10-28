@@ -163,6 +163,11 @@ public class DAOComponenteCurricular {
         }
     }
     
+    /** Método responsável por realizar a consulta de um componente curricular
+     *
+     * @param c
+     * @return
+     */
     public ComponenteCurricular consultarWithJoin(ComponenteCurricular c) {
         return this.consultarWithJoin(c.getId());
     }

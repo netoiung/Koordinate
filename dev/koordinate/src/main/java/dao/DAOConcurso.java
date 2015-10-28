@@ -1,4 +1,3 @@
-
 package dao;
 
 import excecoes.IntegridadeReferencialException;
@@ -15,6 +14,7 @@ import org.hibernate.criterion.Projections;
 
 /**
  * Classe responsável pela persistência dos bjetos Concurso
+ *
  * @author Luiz Paulo Franz
  */
 public class DAOConcurso {
@@ -119,9 +119,9 @@ public class DAOConcurso {
             session.close();
         }
     }
-    
+
     /**
-     * Método que busca um concurso específico pelo seu id, trazendo também os 
+     * Método que busca um concurso específico pelo seu id, trazendo também os
      * Docentes deste concurso.
      *
      * @param id - identificador do concurso
@@ -161,7 +161,12 @@ public class DAOConcurso {
             session.close();
         }
     }
-    
+
+    /**
+     *
+     * @param c
+     * @return
+     */
     public static Concurso consultarWithJoin(Concurso c) {
         return consultarWithJoin(c.getId());
     }
@@ -196,13 +201,14 @@ public class DAOConcurso {
      *
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
+     * @throws excecoes.IntegridadeReferencialException
      */
     public static boolean excluir(Concurso d) throws IntegridadeReferencialException {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
         d = consultarWithJoin(d);
-        if(!d.getDocentes().isEmpty()){
+        if (!d.getDocentes().isEmpty()) {
             throw new IntegridadeReferencialException("Impossível excluir esse concurso, há docentes associados a ele.");
         }
 

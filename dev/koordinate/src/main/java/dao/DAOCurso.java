@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.util.ArrayList;
@@ -13,13 +12,14 @@ import org.hibernate.criterion.Projections;
 
 /**
  * Classe responsável pela persistência dos objetos Curso
+ *
  * @author Luiz Paulo Franz
  */
 public class DAOCurso {
-        
+
     /**
      * Método que realiza a persistência de um objeto Curso
-     * 
+     *
      * @param c - Objeto a ser persistido
      * @return - um boolean indicando se o objeto foi salvo ou não
      */
@@ -42,7 +42,7 @@ public class DAOCurso {
         }
 
     }
-     
+
     /**
      * Método que realiza a busca de todos os objetos do tipo Curso
      *
@@ -117,11 +117,11 @@ public class DAOCurso {
             session.close();
         }
     }
-    
+
     /**
-     * Método responsável por fazer a consulta com os Joins necessários, para 
+     * Método responsável por fazer a consulta com os Joins necessários, para
      * podermos usar o LAZY inicialization.
-     * 
+     *
      * @param id int
      * @return ComponenteCurricular
      */
@@ -159,11 +159,16 @@ public class DAOCurso {
             session.close();
         }
     }
-    
+
+    /**
+     *
+     * @param c
+     * @return
+     */
     public Curso consultarWithJoin(Curso c) {
         return this.consultarWithJoin(c.getId());
     }
-    
+
     /**
      * Método responsável por realizar a alteração de um objeto Curso
      *
@@ -213,8 +218,8 @@ public class DAOCurso {
             session.close();
         }
     }
-    
-       /**
+
+    /**
      * Método responsável por mostrar a quantidade de registros na tabela de
      * Curso
      *
