@@ -1,4 +1,3 @@
-
 package model;
 
 import excecoes.IntegridadeReferencialException;
@@ -14,7 +13,7 @@ import static org.junit.Assert.*;
 public class DocenteTest {
 
     /**
-     * Teste do método Salvar da classe Docente.
+     * Teste do método Salvar
      */
     @Test
     public void testSalvar() throws IntegridadeReferencialException {
@@ -45,13 +44,11 @@ public class DocenteTest {
     }
 
     /**
-     * Teste do método salvar negativo
+     * Teste negativo do método Salvar
      */
     @Test
     public void testSalvarNegativo() throws IntegridadeReferencialException {
         System.out.println("Testando método Salvar Negativo");
-
-      
 
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -68,8 +65,9 @@ public class DocenteTest {
         assertEquals(expResult, result);
         ;
     }
+
     /**
-     * Teste do método Consultar da classe Docente.
+     * Teste do método ConsultarTodos.
      */
     @Test
     public void testConsultarTodos() throws IntegridadeReferencialException {
@@ -102,7 +100,7 @@ public class DocenteTest {
     }
 
     /**
-     * Teste do método Consultar da classe Docente.
+     * Teste do método ConsultarID.
      */
     @Test
     public void testConsultarId() throws IntegridadeReferencialException {
@@ -133,10 +131,11 @@ public class DocenteTest {
         Docente.excluir(d);
         Concurso.excluir(concurso);
     }
+
     /**
-     * Teste do método consultarid negativo
+     * Teste negativo do método consultarID
      */
-     @Test
+    @Test
     public void testConsultarIdNegativo() throws IntegridadeReferencialException {
         System.out.println("Testando método Consultar Negativo");
 
@@ -162,8 +161,9 @@ public class DocenteTest {
         assertNotSame(expResult, result);//não deve ser o mesmo porque nenhum oobjeto foi salvo.
         Concurso.excluir(concurso);
     }
+
     /**
-     * Teste do método Consultar da classe Docente.
+     * Teste do método Consultar.
      */
     @Test
     public void testConsultarPorNome() throws IntegridadeReferencialException {
@@ -197,7 +197,7 @@ public class DocenteTest {
     }
 
     /**
-     * Teste do método Alterar da classe Docente.
+     * Teste do método Alterar.
      */
     @Test
     public void testAlterar() throws IntegridadeReferencialException {
@@ -233,42 +233,9 @@ public class DocenteTest {
         Docente.excluir(d);
         Concurso.excluir(concurso);
     }
+
     /**
-     * Teste negativo do método alterar
-     */
-    @Test
-    public void testAlterarNegativo() throws IntegridadeReferencialException {
-        System.out.println("Teste negativo do método alterar");
-
-        Concurso concurso = new Concurso();
-        concurso.setArea("Suceeeesso2");
-        concurso.setEdital("2105");
-        concurso.setPrograma("adas");
-        Concurso.salvar(concurso);
-
-        Docente d = new Docente();
-        d.setAreagraduacao("areaGraduação");
-        d.setAtuaposgraduacao(true);
-        d.setConcurso(concurso);
-        d.setEmailinstitucional("1234@uni");
-        d.setLinklattes("lattes");
-        d.setLogin("login");
-        d.setSenha("pass");
-        d.setNome("Eduardo Amaral999");
-        d.setSiape(5432);
-
-        Docente.salvar(d);
-
-        d.setNome(null);//tento alterar para um valor nulo.
-
-        boolean test = Docente.alterar(d);//tento salvar a alteração.
-        assertFalse(test);//Deve ser falso porque nao deve salvar a alteração para um nome nulo.
-        Docente.excluir(d);
-        //Concurso.excluir(concurso);
-    }
-    
-    /**
-     * Test of excluir method, of class Docente.
+     * Teste do método Excluir
      */
     @Test
     public void testExcluir() throws IntegridadeReferencialException {

@@ -1,8 +1,8 @@
-
 package dao;
 
 import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
+import java.util.Collection;
 import model.Concurso;
 import model.Docente;
 import org.junit.After;
@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author Netoiung
  */
 public class DAODocenteTest {
-    
+
     public DAODocenteTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -42,7 +42,7 @@ public class DAODocenteTest {
      */
     @Test
     public void testExiste() {
-      //fazer//
+        //fazer//
     }
 
     /**
@@ -65,10 +65,11 @@ public class DAODocenteTest {
         assertEquals(expResult, result);
         DAODocente.excluir(d);
     }
+
     /**
      * Teste negativo do método salvar
      */
-     @Test
+    @Test
     public void testSalvarNegativo() throws IntegridadeReferencialException {
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
@@ -82,27 +83,73 @@ public class DAODocenteTest {
 
         boolean result = DAODocente.salvar(d);//tentamos salvar
         assertFalse(result);//deve ser falso.
-        
+
     }
-    
-    
 
     /**
      * Test of consultar method, of class DAODocente.
      */
     @Test
-    public void testConsultar_int() {
-       //fazer//
+    public void testConsultar_int() throws IntegridadeReferencialException {
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Nero");
+        d.setSiape(5432);
+
+        DAODocente.salvar(d);
+
+        Docente expResult = d;
+        Docente result = DAODocente.consultar(d.getId());
+        assertEquals(expResult, result);
+        DAODocente.excluir(d);
     }
 
-   
+    /**
+     * Teste negativo do método consultar_int
+     */
+    @Test
+    public void testConsultar_intNegativo() throws IntegridadeReferencialException {
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Nero");
+        d.setSiape(5432);
+        //não salvamos nada.
+        Docente expResult = d;
+        Docente result = DAODocente.consultar(d.getId());
+        assertNotSame(expResult, result);
+    }
 
     /**
      * Test of consultar method, of class DAODocente.
      */
     @Test
-    public void testConsultar_String() {
-        //fazer//
+    public void testConsultar_String() throws IntegridadeReferencialException {
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("???????");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+        Collection<Docente> result = Docente.consultar("Eduardo Amaral999");
+
+        assertNotNull(result);
+
+        DAODocente.excluir(d);
     }
 
     /**
@@ -132,41 +179,15 @@ public class DAODocenteTest {
         assertTrue(test);
         DAODocente.excluir(d);
     }
-    /**
-     * Teste negativo do método alterar
-     */
-    @Test
-    public void testAlterarNegativo() throws IntegridadeReferencialException {
-        //REFAZER//
-//        Docente d = new Docente();
-//        d.setAreagraduacao("areaGraduação");
-//        d.setAtuaposgraduacao(true);
-//        d.setEmailinstitucional("1234@uni");
-//        d.setLinklattes("lattes");
-//        d.setLogin("login");
-//        d.setSenha("pass");
-//        d.setNome("Neto");
-//        d.setSiape(5432);
-//
-//        DAODocente.salvar(d);
-//
-//        Docente expResult = d;
-//        Docente result = DAODocente.consultar(d.getId());
-//        assertEquals(expResult, result);
-//
-//        d.setNome(null);//setamos null no nome.
-//
-//        boolean test = DAODocente.alterar(d);//tentamos alterar.
-//        assertFalse(test);//não deve alterar
-//        DAODocente.excluir(d);
-    }
+
+   
 
     /**
      * Test of excluir method, of class DAODocente.
      */
     @Test
     public void testExcluir() throws Exception {
-        
+
         Docente d = new Docente();
         d.setAreagraduacao("areaGraduação");
         d.setAtuaposgraduacao(true);
@@ -183,5 +204,4 @@ public class DAODocenteTest {
         assertTrue(result);
     }
 
-    
 }
