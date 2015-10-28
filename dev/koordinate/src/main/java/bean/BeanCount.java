@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
+    //<editor-fold defaultstate="collapsed" desc="importacoes">
 import dao.DAOComponenteCurricular;
 import dao.DAOConcurso;
 import dao.DAOCurso;
@@ -12,9 +8,10 @@ import dao.DAODocente;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+//</editor-fold>
 
 /**
+ * Classe responsável por gerenciar os contadores do menu principal
  *
  * @author Eduardo Amaral
  */
@@ -22,14 +19,24 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "beanCount")
 public class BeanCount {
 
+    //<editor-fold defaultstate="collapsed" desc="variaveis">
     private int countComp;
     private int countDoc;
     private int countCur;
     private int countConc;
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="construct e init">
+    /** Método Construtor
+     *
+     */
     public BeanCount() {
     }
-
+    
+    /**
+     * Método init responsável por iniciar as variáveis da classe
+     *
+     */
     @PostConstruct
     public void init() {
         this.countComp = DAOComponenteCurricular.count();
@@ -37,36 +44,39 @@ public class BeanCount {
         this.countCur = DAOCurso.count();
         this.countConc = DAOConcurso.count();
     }
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getters e setters">
+    /** Método responsável por recuperar o valor de countCur
+     *
+     * @return A quantidade de registros do tipo Curso
+     */
     public int getCountCur() {
         return countCur;
     }
-
-    public void setCountCur(int countCur) {
-        this.countCur = countCur;
-    }
-
+    
+    /** Método responsável por por recuperar o valor de countComp
+     *
+     * @return A quantidade de registros de Componentes Curriculares
+     */
     public int getCountComp() {
         return countComp;
     }
-
-    public void setCountComp(int countComp) {
-        this.countComp = countComp;
-    }
-
+    
+    /** Método responsável por recuperar o valor de countDoc
+     *
+     * @return A quantidade de registros do tipo Docente
+     */
     public int getCountDoc() {
         return countDoc;
     }
-
-    public void setCountDoc(int countDoc) {
-        this.countDoc = countDoc;
-    }
-
+    
+    /** Método responsável por recuperar o valor de countConc
+     *
+     * @return A quantidade de registros do tipo Concurso
+     */
     public int getCountConc() {
         return countConc;
     }
-
-    public void setCountConc(int countConc) {
-        this.countConc = countConc;
-    }
+//</editor-fold>
 }
