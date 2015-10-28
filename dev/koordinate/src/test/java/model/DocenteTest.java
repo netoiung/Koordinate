@@ -66,7 +66,6 @@ public class DocenteTest {
         boolean expResult = false;//porque nao deve salvar com nome nulo.
         boolean result = Docente.salvar(d);//tento salvar com o nome nulo.
         assertEquals(expResult, result);
-        ;
     }
     /**
      * Teste do método Consultar da classe Docente.

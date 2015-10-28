@@ -7,16 +7,12 @@ package bean;
 
 import dao.DAOOferta;
 import excecoes.PeriodoLetivoException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import model.ComponenteCurricular;
 import model.Oferta;
 
 /**
@@ -79,7 +75,13 @@ public class OfertaBean {
      */
     public void excluir(Oferta reg) {
         this.oferta = reg;
-        Oferta.excluir(this.oferta);
+        if (Oferta.excluir(this.oferta)) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Registro excluído com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir o registro, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         this.listar();
     }
 
@@ -113,8 +115,8 @@ public class OfertaBean {
      * @param reg
      * @return formulario de edição de oferta
      */
-    public String alterar(ComponenteCurricular reg) {
-        this.oferta = Oferta.consultar(reg.getId());
+    public String alterar(Oferta reg) {
+        this.oferta = reg;
         return "/modules/oferta/form";
     }
 
@@ -136,7 +138,7 @@ public class OfertaBean {
     public String listar() {
         return "/modules/oferta/lista";
     }
-    
+
     /**
      * Método responsável por direcionar para a tela de acrescentar instrucoes
      *

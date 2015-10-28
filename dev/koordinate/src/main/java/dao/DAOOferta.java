@@ -32,8 +32,8 @@ public class DAOOferta {
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        Oferta temp = consultar(c.getPeriodoLetivo());
-        if(temp != null){
+        DAOOferta dao = new DAOOferta();
+        if(!dao.isPeriodoLetivoFree(c.getId(), c.getPeriodoLetivo())){
             throw new PeriodoLetivoException();
         }
         
@@ -133,12 +133,11 @@ public class DAOOferta {
      * @param periodo - periodo letivo
      * @return - O concurso especificado
      */
-    public static Oferta consultar(String periodo) {
+    public boolean isPeriodoLetivoFree(int id, String periodo) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
 
-        Oferta c = null;
 
         try {
 
@@ -146,22 +145,23 @@ public class DAOOferta {
 
             tx = session.beginTransaction();
 
-            q = session.createQuery("FROM Oferta as o where o.periodoLetivo=:periodo");
+            q = session.createQuery("FROM Oferta as o where o.periodoLetivo=:periodo AND o.id!=:id");
 
             q.setParameter("periodo", periodo);
+            q.setParameter("id", id);
 
             List resultados = q.list();
 
             if (resultados.size() > 0) {
-                c = (Oferta) resultados.get(0);
+                return false;
             }
 
-            return c;
+            return true;
 
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
-            return c;
+            return false;
 
         } finally {
             session.close();
