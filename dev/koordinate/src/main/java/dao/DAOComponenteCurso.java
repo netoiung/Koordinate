@@ -122,7 +122,7 @@ public class DAOComponenteCurso {
     /**
      * Método que busca um Curso específico pelo seu id
      *
-     * @param id - identificador do Curso
+     * @param cc
      * @return - O Curso especificado
      */
     public static ComponenteCurso consultar(ComponenteCurso cc) {

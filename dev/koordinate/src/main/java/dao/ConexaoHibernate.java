@@ -27,6 +27,10 @@ public class ConexaoHibernate {
 
     }
     
+    /** Método que abre uma sessão e a recupera
+     *
+     * @return Uma seesão recém criada
+     */
     public static Session getInstance(){
         Session session = (Session) threaLocal.get();
         session = sessionFactory.openSession();
