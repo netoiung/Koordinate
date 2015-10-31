@@ -31,26 +31,47 @@ public class OfertaBean {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
-    public Oferta getOferta() {
+
+    /**
+     *
+     * @return
+     */
+        public Oferta getOferta() {
         return oferta;
     }
 
+    /**
+     *
+     * @param oferta
+     */
     public void setOferta(Oferta oferta) {
         this.oferta = oferta;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Oferta> getOfertas() {
         this.ofertas = DAOOferta.consultar();
         return ofertas;
     }
 
+    /**
+     *
+     * @param ofertas
+     */
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
-    @PostConstruct
+
+    /** Método inicializador de variaveis
+     *
+     */
+        @PostConstruct
     public void init() {
         this.oferta = new Oferta();
     }

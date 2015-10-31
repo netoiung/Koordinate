@@ -157,32 +157,6 @@ public class ComponenteCurricularTest {
     }
 
     /**
-     * Teste negativo do método alterar
-     */
-//    @Test
-//    public void testAlterarNegativo() {
-//        System.out.println("Testando método Alterar Negativo");
-//
-//        ComponenteCurricular c = new ComponenteCurricular();
-//        c.setCargahoraria(100);
-//        c.setCod("RPVI2132131223");
-//        c.setCreditos(4);
-//        c.setIsativo(true);
-//        c.setLink("www.rpvi.com.br");
-//        c.setNome("Resolução de Problemas VI");
-//        ComponenteCurricular.salvar(c);
-//
-//        c.setNome(null);//editamos o nome para um valor nulo.
-//
-//        boolean test = ComponenteCurricular.alterar(c);//salvamos a alteração.
-//
-//        ComponenteCurricular.excluir(c);
-//
-//        assertFalse(test);//precisa ser falso porque não deve aceitar editar e mudar o campo nome para nulo
-//       
-//    }
-
-    /**
      * Teste do método Excluir da classe ComponenteCurricular
      */
     @Test
@@ -201,25 +175,6 @@ public class ComponenteCurricularTest {
         boolean result = ComponenteCurricular.excluir(c);
         assertTrue(result);
     }
-//    
-//    /**
-//     * Teste negativo do método excluir
-//     */
-//     @Test
-//    public void testExcluirNegativo() {
-//        System.out.println("Testando método Excluir negativo");
-//
-//        ComponenteCurricular c = new ComponenteCurricular();
-//        c.setCargahoraria(100);
-//        c.setCod("RPVI");
-//        c.setCreditos(4);
-//        c.setIsativo(true);
-//        c.setLink("www.rpvi.com.br");
-//        c.setNome("Resolução de Problemas VI");
-//      //  ComponenteCurricular.salvar(c);
-//
-//        boolean result = ComponenteCurricular.excluir(c);
-//        assertTrue(result);
-//    }
+
 
 }

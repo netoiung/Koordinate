@@ -17,6 +17,7 @@ import org.hibernate.criterion.Projections;
 
 /**
  * Classe responsável pela persistência dos objetos Oferta
+ *
  * @author Eduardo Amaral
  */
 public class DAOOferta {
@@ -26,6 +27,7 @@ public class DAOOferta {
      *
      * @param c - Objeto a ser persistido
      * @return - um boolean indicando se o objeto foi salvo ou não
+     * @throws excecoes.PeriodoLetivoException
      */
     public static boolean salvar(Oferta c) throws PeriodoLetivoException {
         Session session;
@@ -36,7 +38,7 @@ public class DAOOferta {
         if(!dao.isPeriodoLetivoFree(c.getId(), c.getPeriodoLetivo())){
             throw new PeriodoLetivoException();
         }
-        
+
         try {
             tx = session.beginTransaction();
             session.saveOrUpdate(c);
@@ -126,7 +128,7 @@ public class DAOOferta {
             session.close();
         }
     }
-    
+
     /**
      * Método que busca um concurso específico pelo seu periodo.
      *

@@ -48,6 +48,21 @@ public class CursoTest {
         Docente.excluir(d);
         Concurso.excluir(concurso);
     }
+    
+    @Test
+    public void testSalvar2() throws IntegridadeReferencialException {
+       
+
+        Curso c = new Curso(0, null, "ALES", "software");
+//        c.setCod("ALES");
+//        c.setNome("Engenharia de Software");
+
+        boolean result = Curso.salvar(c);
+        assertTrue(result);
+
+        Curso.excluir(c);
+        
+    }
 
     /**
      * Teste negativo do método salvar

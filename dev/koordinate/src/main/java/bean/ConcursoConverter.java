@@ -2,21 +2,26 @@
 package bean;
 
 import dao.DAOConcurso;
-import dao.DAOCurso;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import model.Concurso;
-import model.Curso;
 
-/**
+/** Classe responsável por converter um Concurso de um select para um objeto
  *
  * @author Luiz Paulo Franz
  */
 @FacesConverter(forClass = Concurso.class, value = "concursoConverter")
 public class ConcursoConverter implements Converter {
 
+    /**
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
@@ -29,6 +34,13 @@ public class ConcursoConverter implements Converter {
         }
     }
 
+    /**
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         String r = "";

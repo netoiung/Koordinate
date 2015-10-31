@@ -77,11 +77,11 @@ public class ConcursoTest {
         c.setArea("Processamento Paralelo");
         c.setEdital("2014/02");
         c.setPrograma("seilá");
-     //   Concurso.salvar(c);
+        Concurso.salvar(c);
 
         Concurso expResult = c;
         Concurso result = Concurso.consultar(c.getId());
-    //    Concurso.excluir(c);
+        Concurso.excluir(c);
         assertNotSame(expResult, result);
     }
 
@@ -136,20 +136,19 @@ public class ConcursoTest {
     /**
      * Teste do método excluir da classe Concurso.
      */
-//    @Test
-//    public void testExcluir() throws IntegridadeReferencialException {
-//        System.out.println("Testando método Excluir");
-//
-//        Concurso c = new Concurso();
-//        c.setArea("Processamento Paralelo");
-//        c.setEdital("2014/02");
-//        c.setPrograma("seilá");
-//        Concurso.salvar(c);
-//
-//        boolean result = Concurso.excluir(c);
-//        Concurso.excluir(c);
-//        assertTrue(result);
-//    }
+    @Test
+    public void testExcluir() throws IntegridadeReferencialException {
+        System.out.println("Testando método Excluir");
+
+        Concurso c = new Concurso();
+        c.setArea("Processamento Paralelo");
+        c.setEdital("2014/02");
+        c.setPrograma("seilá");
+        Concurso.salvar(c);
+
+        boolean result = Concurso.excluir(c);
+        assertTrue(result);
+    }
     
     /**
      * Teste do método exluir negativo
