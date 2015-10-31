@@ -71,10 +71,11 @@
                                                 <div class="form-group" >
                                                     <label for="nome" class="control-label col-lg-2"> Coordenador <span class="required">*</span></label>
                                                     <div style="margin-left: 210px;">
-                                                        <h:selectOneMenu value="#{cursoBean.curso.docente}" class="js-example-basic-single" style=" width:300px" converter="docenteConverter" >
+                                                        <h:selectOneMenu id="coordenador" value="#{cursoBean.curso.docente}" class="js-example-basic-single" style=" width:300px" converter="docenteConverter" required="true" requiredMessage="O campo deve ser preenchido.">
                                                             <f:selectItem itemValue="-1" itemLabel="Selecione..." noSelectionOption="true"/>
                                                             <f:selectItems value="#{docenteBean.docentes}" var="coordenador" itemValue="#{coordenador}" itemLabel="#{coordenador.nome}" />
                                                         </h:selectOneMenu>
+                                                        <h:message for="coordenador" style="color: red" />
                                                     </div>
                                                 </div>
 
