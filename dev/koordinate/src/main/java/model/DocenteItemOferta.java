@@ -29,12 +29,7 @@ public class DocenteItemOferta implements java.io.Serializable {
     public DocenteItemOferta() {
     }
 
-    public DocenteItemOferta(int id, Docente docente, ItemOferta itemOferta, short creditos) {
-        this.id = id;
-        this.docente = docente;
-        this.itemOferta = itemOferta;
-        this.creditos = creditos;
-    }
+ 
 
     @Id
     @GeneratedValue(generator = "docenteitemoferta_seq")

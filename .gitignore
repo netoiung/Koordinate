@@ -1,3 +1,5 @@
 /dev/koordinate/src/main/resources/hibernate.cfg.xml
 #Ignorar arquivos gerados no linux com o gedit
 *~
+dev/koordinate/hs_err_pid12784.log
+dev/koordinate/replay_pid12784.log
