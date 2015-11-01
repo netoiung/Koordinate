@@ -47,6 +47,7 @@ public class ComponenteCurricularTest {
         boolean expResult = false;//falso porque não deve salvar se o nome estiver nulo.
         boolean result = ComponenteCurricular.salvar(c);
         assertEquals(expResult, result);
+        assertFalse(c.equals(ComponenteCurricular.consultar(c.getId())));
     }
 
     /**

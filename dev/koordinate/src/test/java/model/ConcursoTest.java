@@ -44,6 +44,7 @@ public class ConcursoTest {
         boolean result = Concurso.salvar(c);//não deve salvar.
      //   Concurso.excluir(c);
         assertFalse(result);//deve ser falso.
+        assertFalse(c.equals(Concurso.consultar(c.getId())));
     }
 
     /**
