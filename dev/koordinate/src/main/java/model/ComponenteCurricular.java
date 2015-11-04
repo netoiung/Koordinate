@@ -38,12 +38,25 @@ public class ComponenteCurricular implements java.io.Serializable {
     private Set preferencias = new HashSet(0);
     private Set instrucaoComponenteCurriculars = new HashSet(0);
     private Set componenteCursos = new HashSet(0);
-//</editor-fold>
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Construtores">
-    public ComponenteCurricular() {
+
+    /**
+     *
+     */
+        public ComponenteCurricular() {
     }
     
+    /**
+     *
+     * @param id
+     * @param cargahoraria
+     * @param nome
+     * @param link
+     * @param isativo
+     * @param creditos
+     */
     public ComponenteCurricular(int id, int cargahoraria, String nome, String link, boolean isativo, int creditos) {
         this.id = id;
         this.cargahoraria = cargahoraria;
@@ -53,6 +66,19 @@ public class ComponenteCurricular implements java.io.Serializable {
         this.creditos = creditos;
     }
     
+    /**
+     *
+     * @param id
+     * @param cod
+     * @param cargahoraria
+     * @param nome
+     * @param link
+     * @param isativo
+     * @param creditos
+     * @param preferencias
+     * @param instrucaoComponenteCurriculars
+     * @param componenteCursos
+     */
     public ComponenteCurricular(int id, String cod, int cargahoraria, String nome, String link, boolean isativo, int creditos, Set preferencias, Set instrucaoComponenteCurriculars, Set componenteCursos) {
         this.id = id;
         this.cod = cod;
@@ -68,101 +94,182 @@ public class ComponenteCurricular implements java.io.Serializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
-    @Id
+
+    /**
+     *
+     * @return
+     */
+        @Id
     @GeneratedValue(generator = "componentecurricular_seq")
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
     
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name = "cod", length = 50, nullable = false)
     public String getCod() {
         return this.cod;
     }
     
+    /**
+     *
+     * @param cod
+     */
     public void setCod(String cod) {
         this.cod = cod;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name = "cargahoraria", nullable = false)
     public int getCargahoraria() {
         return this.cargahoraria;
     }
     
+    /**
+     *
+     * @param cargahoraria
+     */
     public void setCargahoraria(int cargahoraria) {
         this.cargahoraria = cargahoraria;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name = "nome", nullable = false, length = 80)
     public String getNome() {
         return this.nome;
     }
     
+    /**
+     *
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name = "link", nullable = true, length = 100)
     public String getLink() {
         return this.link;
     }
     
+    /**
+     *
+     * @param link
+     */
     public void setLink(String link) {
         this.link = link;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name = "isativo", nullable = false)
     public boolean isIsativo() {
         return this.isativo;
     }
     
+    /**
+     *
+     * @param isativo
+     */
     public void setIsativo(boolean isativo) {
         this.isativo = isativo;
     }
     
+    /**
+     *
+     * @return
+     */
     @Column(name = "creditos", nullable = false)
     public int getCreditos() {
         return this.creditos;
     }
     
+    /**
+     *
+     * @param creditos
+     */
     public void setCreditos(int creditos){
         this.creditos = creditos;
     }
     
+    /**
+     *
+     * @return
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular")
     public Set<Preferencia> getPreferencias() {
         return this.preferencias;
     }
     
+    /**
+     *
+     * @param preferencias
+     */
     public void setPreferencias(Set preferencias) {
         this.preferencias = preferencias;
     }
     
+    /**
+     *
+     * @return
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular")
     public Set<InstrucaoComponenteCurricular> getInstrucaoComponenteCurriculars() {
         return this.instrucaoComponenteCurriculars;
     }
     
+    /**
+     *
+     * @param instrucaoComponenteCurriculars
+     */
     public void setInstrucaoComponenteCurriculars(Set instrucaoComponenteCurriculars) {
         this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
     }
     
+    /**
+     *
+     * @return
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurricular", cascade=CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Set<ComponenteCurso> getComponenteCursos() {
         return this.componenteCursos;
     }
     
+    /**
+     *
+     * @param componenteCursos
+     */
     public void setComponenteCursos(Set componenteCursos) {
         this.componenteCursos = componenteCursos;
     }
 //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Métodos Equals e HashCode">
+    //<editor-fold defaultstate="collapsed" desc="MÃ©todos Equals e HashCode">
     
     @Override
     public int hashCode() {
@@ -201,26 +308,55 @@ public class ComponenteCurricular implements java.io.Serializable {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Persistencia">
-    static public boolean salvar(ComponenteCurricular c) {
+
+    /**
+     *
+     * @param c
+     * @return
+     */
+        static public boolean salvar(ComponenteCurricular c) {
         return DAOComponenteCurricular.salvar(c);
     }
     
+    /**
+     *
+     * @return
+     */
     static public ArrayList<ComponenteCurricular> consultar() {
         return DAOComponenteCurricular.consultar();
     }
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     static public ComponenteCurricular consultar(int id) {
         return DAOComponenteCurricular.consultar(id);
     }
     
+    /**
+     *
+     * @param d
+     * @return
+     */
     static public boolean alterar(ComponenteCurricular d) {
         return DAOComponenteCurricular.alterar(d);
     }
     
+    /**
+     *
+     * @param d
+     * @return
+     */
     static public boolean excluir(ComponenteCurricular d) {
         return DAOComponenteCurricular.excluir(d);
     }
     
+    /**
+     *
+     * @return
+     */
     static public int count() {
         return DAOComponenteCurricular.count();
     }

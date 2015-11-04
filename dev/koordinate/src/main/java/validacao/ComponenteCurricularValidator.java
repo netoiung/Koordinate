@@ -13,7 +13,7 @@ import validacao.base.CreditosValidator;
 import validacao.base.LinkValidator;
 import validacao.base.NomeValidator;
 
-/**
+/** Classe validadora de Componente Curricular
  *
  * @author Luiz
  */
@@ -21,14 +21,26 @@ public class ComponenteCurricularValidator {
     
     private ComponenteCurricular componente;
 
+    /**
+     *
+     * @param componente
+     */
     public ComponenteCurricularValidator(ComponenteCurricular componente) {
         this.componente = componente;
     }
 
+    /**
+     *
+     * @return
+     */
     public ComponenteCurricular getComponente() {
         return componente;
     }
 
+    /** Método responsável por atualizar o valor da variável componente
+     *
+     * @param componente
+     */
     public void setComponente(ComponenteCurricular componente) {
         this.componente = componente;
     }
