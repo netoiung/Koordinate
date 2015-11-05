@@ -42,21 +42,8 @@ public class Oferta implements java.io.Serializable {
     public Oferta() {
     }
     
-    public Oferta(int id, boolean ativo, Date inicio, Date termino) {
-        this.id = id;
-        this.ativo = ativo;
-        this.inicio = inicio;
-        this.termino = termino;
-    }
-    
-    public Oferta(int id, boolean ativo, Date inicio, Date termino, Set instrucaos, Set itemOfertas) {
-        this.id = id;
-        this.ativo = ativo;
-        this.inicio = inicio;
-        this.termino = termino;
-        this.instrucaos = instrucaos;
-        this.itemOfertas = itemOfertas;
-    }
+
+ 
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
@@ -129,15 +116,15 @@ public class Oferta implements java.io.Serializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Equals e HashCode">
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + this.id;
-        hash = 73 * hash + (this.ativo ? 1 : 0);
-        hash = 73 * hash + Objects.hashCode(this.inicio);
-        hash = 73 * hash + Objects.hashCode(this.termino);
-        return hash;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 73 * hash + this.id;
+//        hash = 73 * hash + (this.ativo ? 1 : 0);
+//        hash = 73 * hash + Objects.hashCode(this.inicio);
+//        hash = 73 * hash + Objects.hashCode(this.termino);
+//        return hash;
+//    }
     
     @Override
     public boolean equals(Object obj) {

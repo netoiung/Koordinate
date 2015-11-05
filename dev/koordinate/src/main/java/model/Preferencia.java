@@ -29,18 +29,7 @@ public class Preferencia implements java.io.Serializable {
     public Preferencia() {
     }
 
-    public Preferencia(int id, ComponenteCurricular componenteCurricular, Docente docente) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.docente = docente;
-    }
-
-    public Preferencia(int id, ComponenteCurricular componenteCurricular, Docente docente, Integer graupreferencia) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.docente = docente;
-        this.graupreferencia = graupreferencia;
-    }
+ 
 
     @Id
     @GeneratedValue(generator = "preferencia_seq")

@@ -38,6 +38,28 @@ public class OfertaTest {
         Oferta.excluir(oferta);
 //</editor-fold>
     }
+    
+    /**
+     * Teste negativo do método salvar
+     */
+    @Test
+    public void testSalvarNegativo() throws PeriodoLetivoException {
+        System.out.println("Testanto método Salvar");
+
+        Oferta oferta = new Oferta();
+        oferta.setAtivo(true);
+        oferta.setInicio(new Date());
+        oferta.setTermino(new Date());
+        oferta.setPeriodoLetivo(null);
+        
+        boolean expResult = true;
+        boolean result = DAOOferta.salvar(oferta);
+        assertNotSame(expResult, result);
+        assertFalse(oferta.equals(DAOOferta.consultar(oferta.getId())));
+        //<editor-fold defaultstate="collapsed" desc="excluir oferta">
+        Oferta.excluir(oferta);
+//</editor-fold>
+    }
 
     /**
      * Test of consultar method, of class Oferta.

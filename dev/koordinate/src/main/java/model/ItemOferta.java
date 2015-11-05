@@ -36,24 +36,7 @@ public class ItemOferta implements java.io.Serializable {
     public ItemOferta() {
     }
 
-    public ItemOferta(int id, ComponenteCurso componenteCurso, Oferta oferta, short vagasOfertadas, short vagasReservadas) {
-        this.id = id;
-        this.componenteCurso = componenteCurso;
-        this.oferta = oferta;
-        this.vagasOfertadas = vagasOfertadas;
-        this.vagasReservadas = vagasReservadas;
-    }
-
-    public ItemOferta(int id, ComponenteCurso componenteCurso, ItemOferta itemOferta, Oferta oferta, short vagasOfertadas, short vagasReservadas, Set itemOfertas, Set docenteItemOfertas) {
-        this.id = id;
-        this.componenteCurso = componenteCurso;
-        this.itemOferta = itemOferta;
-        this.oferta = oferta;
-        this.vagasOfertadas = vagasOfertadas;
-        this.vagasReservadas = vagasReservadas;
-        this.itemOfertas = itemOfertas;
-        this.docenteItemOfertas = docenteItemOfertas;
-    }
+  
 
     @Id
     @GeneratedValue(generator = "itemoferta_seq")

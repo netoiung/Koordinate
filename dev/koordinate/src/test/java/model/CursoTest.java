@@ -77,6 +77,7 @@ public class CursoTest {
 
         boolean result = Curso.salvar(c);//nao deve salvar, pois o nome está setado como nulo.
         assertFalse(result);//deve ser falso.
+        assertFalse(c.equals(Curso.consultar(c.getId())));
 
     }
 

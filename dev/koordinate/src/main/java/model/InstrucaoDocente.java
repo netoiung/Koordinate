@@ -28,11 +28,6 @@ public class InstrucaoDocente implements java.io.Serializable {
     public InstrucaoDocente() {
     }
 
-    public InstrucaoDocente(int id, Docente docente, Instrucao instrucao) {
-        this.id = id;
-        this.docente = docente;
-        this.instrucao = instrucao;
-    }
 
     @Id
     @GeneratedValue(generator = "InstrucaoDocente_seq")

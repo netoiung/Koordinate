@@ -34,22 +34,9 @@ public class ComponenteCurso implements java.io.Serializable {
     public ComponenteCurso() {
     }
 
-    public ComponenteCurso(int id, ComponenteCurricular componenteCurricular, Curso curso, boolean obrigatoria, short semestre) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.curso = curso;
-        this.obrigatoria = obrigatoria;
-        this.semestre = semestre;
-    }
 
-    public ComponenteCurso(int id, ComponenteCurricular componenteCurricular, Curso curso, boolean obrigatoria, short semestre, Set itemOfertas) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.curso = curso;
-        this.obrigatoria = obrigatoria;
-        this.semestre = semestre;
-        this.itemOfertas = itemOfertas;
-    }
+
+  
 
     @Id
     @GeneratedValue(generator = "componentecurso_seq")
