@@ -6,6 +6,7 @@
 package bean;
 
 import dao.DAOCurso;
+import dao.DAOItemOferta;
 import dao.DAOOferta;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,8 +69,19 @@ public class MontarOfertaBean {
         return "/modules/oferta/montarOferta";
     }
     
+    /**
+     * Método responsável por adicionar um componente curricular a uma oferta.
+     */
     public void addComponente(){
-        //ComponenteCursoItemOferta 
+        this.itemOferta = new ItemOferta();
+        this.itemOferta.setOferta(oferta);
+        ComponenteCursoItemOferta ccif = new ComponenteCursoItemOferta();
+        ccif.setComponenteCurso(componenteCurso);
+        ccif.setItemOferta(itemOferta);
+        
+        DAOItemOferta.salvar(this.itemOferta);
+        DAOItemOferta.salvar(ccif);
+        this.montarOferta();
     }
     
     /**
