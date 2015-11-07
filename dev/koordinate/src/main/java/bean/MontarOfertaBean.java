@@ -7,14 +7,14 @@ package bean;
 
 import dao.DAOCurso;
 import dao.DAOOferta;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import model.ComponenteCurso;
+import model.ComponenteCursoItemOferta;
 import model.Curso;
 import model.ItemOferta;
 import model.Oferta;
@@ -33,6 +33,7 @@ public class MontarOfertaBean {
     private Oferta oferta;
     private Curso curso;
     private Map tabelas;
+    private ComponenteCurso componenteCurso;
         
     /**
      * Método responsável por direcionar para a tela de montar ofertas.
@@ -67,14 +68,15 @@ public class MontarOfertaBean {
         return "/modules/oferta/montarOferta";
     }
     
+    public void addComponente(){
+        //ComponenteCursoItemOferta 
+    }
+    
     /**
      * Método responsável por identificar se o semestre é par ou não.
      * @return boolean;
      */
     private boolean isSemestrePar(){
-        //System.out.println("??????");
-        //System.out.println(this.oferta.getPeriodoLetivo());
-        //System.out.println(this.oferta.getPeriodoLetivo().charAt(5));
         byte semestre = (byte) this.oferta.getPeriodoLetivo().charAt(5);
         if (semestre % 2 == 0) {
             return true;
@@ -110,4 +112,14 @@ public class MontarOfertaBean {
     public Map getTabelas(){
         return this.tabelas;
     }
+
+    public ComponenteCurso getComponenteCurso() {
+        return componenteCurso;
+    }
+
+    public void setComponenteCurso(ComponenteCurso componenteCurso) {
+        this.componenteCurso = componenteCurso;
+    }
+    
+    
 }

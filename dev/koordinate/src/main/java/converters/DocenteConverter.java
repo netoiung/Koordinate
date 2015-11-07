@@ -1,5 +1,5 @@
 
-package bean;
+package converters;
 
 import dao.DAODocente;
 import javax.faces.component.UIComponent;

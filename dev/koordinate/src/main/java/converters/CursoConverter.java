@@ -1,4 +1,4 @@
-package bean;
+package converters;
 
 import dao.DAOCurso;
 import javax.faces.component.UIComponent;

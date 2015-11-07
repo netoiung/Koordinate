@@ -1,7 +1,6 @@
 package model;
 // Generated 05/11/2015 20:36:48 by Hibernate Tools 4.3.1
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,60 +14,50 @@ import javax.persistence.Table;
  */
 @Entity
 
-@Table(name="componentecursoitemoferta"
-    ,schema="public"
-)
-public class ComponenteCursoItemOferta  implements java.io.Serializable {
+@Table(name = "componente_curso_item_oferta", schema = "public")
+public class ComponenteCursoItemOferta implements java.io.Serializable {
 
-
-     private int id;
-     private ComponenteCurso componentecurso;
-     private ItemOferta itemoferta;
+    private int id;
+    private ComponenteCurso componenteCurso;
+    private ItemOferta itemOferta;
 
     public ComponenteCursoItemOferta() {
     }
 
-    public ComponenteCursoItemOferta(int id, ComponenteCurso componentecurso, ItemOferta itemoferta) {
-       this.id = id;
-       this.componentecurso = componentecurso;
-       this.itemoferta = itemoferta;
+    public ComponenteCursoItemOferta(int id, ComponenteCurso componenteCurso, ItemOferta itemoferta) {
+        this.id = id;
+        this.componenteCurso = componenteCurso;
+        this.itemOferta = itemoferta;
     }
-   
-     @Id 
 
-    
-    @Column(name="id", unique=true, nullable=false)
+    @Id
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="componentecurso_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "componentecurso_id", nullable = false)
     public ComponenteCurso getComponenteCurso() {
-        return this.componentecurso;
-    }
-    
-    public void setComponenteCurso(ComponenteCurso componentecurso) {
-        this.componentecurso = componentecurso;
+        return this.componenteCurso;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="itemoferta_id", nullable=false)
+    public void setComponenteCurso(ComponenteCurso componenteCurso) {
+        this.componenteCurso = componenteCurso;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemoferta_id", nullable = false)
     public ItemOferta getItemOferta() {
-        return this.itemoferta;
-    }
-    
-    public void setItemOferta(ItemOferta itemoferta) {
-        this.itemoferta = itemoferta;
+        return this.itemOferta;
     }
 
-
-
+    public void setItemOferta(ItemOferta itemOferta) {
+        this.itemOferta = itemOferta;
+    }
 
 }
-
-

@@ -26,7 +26,7 @@ public class ItemOferta implements java.io.Serializable {
 
     private int id;
     private Oferta oferta;
-    private Set componentecursoitemofertas = new HashSet(0);
+    private Set componenteCursoItemOfertas = new HashSet(0);
     private Set docenteItemOfertas = new HashSet(0);
 
     public ItemOferta() {
@@ -53,13 +53,13 @@ public class ItemOferta implements java.io.Serializable {
         this.oferta = oferta;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemoferta")
-    public Set getComponentecursoitemofertas() {
-        return this.componentecursoitemofertas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemOferta")
+    public Set<ComponenteCursoItemOferta> getComponenteCursoItemOfertas() {
+        return this.componenteCursoItemOfertas;
     }
 
-    public void setComponentecursoitemofertas(Set componentecursoitemofertas) {
-        this.componentecursoitemofertas = componentecursoitemofertas;
+    public void setComponenteCursoItemOfertas(Set componentecursoitemofertas) {
+        this.componenteCursoItemOfertas = componentecursoitemofertas;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemOferta")
