@@ -1,5 +1,6 @@
 package model;
 
+import dao.DAODocente;
 import excecoes.IntegridadeReferencialException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -261,6 +262,26 @@ public class DocenteTest {
         boolean result = Docente.excluir(d);
         assertTrue(result);
         Concurso.excluir(concurso);
+    }
+    
+    /**
+     * Teste do método buscartodos
+     */
+    @Test
+    public void testBuscarCoordenadores () {
+        Docente d = new Docente();
+        d.setAreagraduacao("areaGraduação");
+        d.setAtuaposgraduacao(true);
+        d.setEmailinstitucional("1234@uni");
+        d.setLinklattes("lattes");
+        d.setLogin("login");
+        d.setSenha("pass");
+        d.setNome("Eduardo Amaral999");
+        d.setSiape(5432);
+
+        Docente.salvar(d);
+        
+        d.buscarCoordenadores();
     }
 
 }

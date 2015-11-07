@@ -44,27 +44,9 @@ public class ComponenteCurricular implements java.io.Serializable {
     public ComponenteCurricular() {
     }
     
-    public ComponenteCurricular(int id, int cargahoraria, String nome, String link, boolean isativo, int creditos) {
-        this.id = id;
-        this.cargahoraria = cargahoraria;
-        this.nome = nome;
-        this.link = link;
-        this.isativo = isativo;
-        this.creditos = creditos;
-    }
+ 
     
-    public ComponenteCurricular(int id, String cod, int cargahoraria, String nome, String link, boolean isativo, int creditos, Set preferencias, Set instrucaoComponenteCurriculars, Set componenteCursos) {
-        this.id = id;
-        this.cod = cod;
-        this.cargahoraria = cargahoraria;
-        this.nome = nome;
-        this.link = link;
-        this.isativo = isativo;
-        this.creditos = creditos;
-        this.preferencias = preferencias;
-        this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
-        this.componenteCursos = componenteCursos;
-    }
+
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
@@ -164,18 +146,18 @@ public class ComponenteCurricular implements java.io.Serializable {
     
     //<editor-fold defaultstate="collapsed" desc="Métodos Equals e HashCode">
     
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.id;
-        hash = 29 * hash + Objects.hashCode(this.cod);
-        hash = 29 * hash + this.cargahoraria;
-        hash = 29 * hash + Objects.hashCode(this.nome);
-        hash = 29 * hash + Objects.hashCode(this.link);
-        hash = 29 * hash + (this.isativo ? 1 : 0);
-        hash = 29 * hash + this.creditos;
-        return hash;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 29 * hash + this.id;
+//        hash = 29 * hash + Objects.hashCode(this.cod);
+//        hash = 29 * hash + this.cargahoraria;
+//        hash = 29 * hash + Objects.hashCode(this.nome);
+//        hash = 29 * hash + Objects.hashCode(this.link);
+//        hash = 29 * hash + (this.isativo ? 1 : 0);
+//        hash = 29 * hash + this.creditos;
+//        return hash;
+//    }
     
     @Override
     public boolean equals(Object obj) {

@@ -29,26 +29,9 @@ public class ComponenteCurso implements java.io.Serializable {
     private Curso curso;
     private boolean obrigatoria;
     private short semestre;
-    private Set itemOfertas = new HashSet(0);
+    private Set componentecursoitemofertas = new HashSet(0);
 
     public ComponenteCurso() {
-    }
-
-    public ComponenteCurso(int id, ComponenteCurricular componenteCurricular, Curso curso, boolean obrigatoria, short semestre) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.curso = curso;
-        this.obrigatoria = obrigatoria;
-        this.semestre = semestre;
-    }
-
-    public ComponenteCurso(int id, ComponenteCurricular componenteCurricular, Curso curso, boolean obrigatoria, short semestre, Set itemOfertas) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.curso = curso;
-        this.obrigatoria = obrigatoria;
-        this.semestre = semestre;
-        this.itemOfertas = itemOfertas;
     }
 
     @Id
@@ -100,13 +83,13 @@ public class ComponenteCurso implements java.io.Serializable {
         this.semestre = semestre;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurso")
-    public Set<ItemOferta> getItemOfertas() {
-        return this.itemOfertas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componentecurso")
+    public Set getComponentecursoitemofertas() {
+        return this.componentecursoitemofertas;
     }
 
-    public void setItemOfertas(Set itemOfertas) {
-        this.itemOfertas = itemOfertas;
+    public void setComponentecursoitemofertas(Set componentecursoitemofertas) {
+        this.componentecursoitemofertas = componentecursoitemofertas;
     }
 
 }

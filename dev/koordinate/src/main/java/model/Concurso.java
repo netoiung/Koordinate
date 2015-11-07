@@ -42,20 +42,8 @@ public class Concurso implements java.io.Serializable {
     public Concurso() {
     }
     
-    public Concurso(int id, String edital, String area, String programa) {
-        this.id = id;
-        this.edital = edital;
-        this.area = area;
-        this.programa = programa;
-    }
-    
-    public Concurso(int id, String edital, String area, String programa, Set docentes) {
-        this.id = id;
-        this.edital = edital;
-        this.area = area;
-        this.programa = programa;
-        this.docentes = docentes;
-    }
+
+
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Getters e setters">
@@ -109,16 +97,16 @@ public class Concurso implements java.io.Serializable {
     
     //<editor-fold defaultstate="collapsed" desc="Métodos de Equals e HashCode">
     
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + this.id;
-        hash = 43 * hash + Objects.hashCode(this.edital);
-        hash = 43 * hash + Objects.hashCode(this.area);
-        hash = 43 * hash + Objects.hashCode(this.programa);
-        hash = 43 * hash + Objects.hashCode(this.docentes);
-        return hash;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 43 * hash + this.id;
+//        hash = 43 * hash + Objects.hashCode(this.edital);
+//        hash = 43 * hash + Objects.hashCode(this.area);
+//        hash = 43 * hash + Objects.hashCode(this.programa);
+//        hash = 43 * hash + Objects.hashCode(this.docentes);
+//        return hash;
+//    }
     
     @Override
     public boolean equals(Object obj) {

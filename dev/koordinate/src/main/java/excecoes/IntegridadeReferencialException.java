@@ -11,10 +11,17 @@ package excecoes;
  */
 public class IntegridadeReferencialException extends Exception{
     
+    /**
+     * 
+     * @param mensagem
+     */
     public IntegridadeReferencialException(String mensagem) {        
         super(mensagem);
     }
     
+    /**
+     *
+     */
     public IntegridadeReferencialException(){
         super("Esse registro está associado a outros registros, por favor verifique se não há registros filhos deste!");
     }

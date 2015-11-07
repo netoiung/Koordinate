@@ -50,6 +50,21 @@ public class ComponenteCurricularValidatorTest {
             throw e;
         }
     }
+    
+    /**
+     * Teste de validação de carga horaria
+     */
+    @Test(expected = ValidacaoException.class)
+    public void testCargaHorariaValidatorInteiro() throws Exception{
+        System.out.println("Teste de validacao de Carga horária");
+        this.componente.setCargahoraria(-1);
+        try {
+            this.validator.validar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage()+"\n");
+            throw e;
+        }
+    }
 
     /**
      * Teste de validação de nome

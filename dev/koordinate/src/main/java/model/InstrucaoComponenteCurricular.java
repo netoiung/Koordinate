@@ -27,11 +27,7 @@ public class InstrucaoComponenteCurricular implements java.io.Serializable {
     public InstrucaoComponenteCurricular() {
     }
 
-    public InstrucaoComponenteCurricular(int id, ComponenteCurricular componenteCurricular, Instrucao instrucao) {
-        this.id = id;
-        this.componenteCurricular = componenteCurricular;
-        this.instrucao = instrucao;
-    }
+ 
 
     @Id
     @GeneratedValue(generator = "instrucaocomponentecurricular_seq")

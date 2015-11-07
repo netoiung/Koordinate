@@ -48,13 +48,7 @@ public class Curso implements java.io.Serializable {
         this.nome = nome;
     }
 
-    public Curso(int id, Docente docente, String cod, String nome, Set componenteCursos) {
-        this.id = id;
-        this.docente = docente;
-        this.cod = cod;
-        this.nome = nome;
-        this.componenteCursos = componenteCursos;
-    }
+  
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
@@ -109,15 +103,15 @@ public class Curso implements java.io.Serializable {
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Métodos de Equals e HashCode">
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + this.id;
-        hash = 53 * hash + Objects.hashCode(this.docente);
-        hash = 53 * hash + Objects.hashCode(this.cod);
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        return hash;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 53 * hash + this.id;
+//        hash = 53 * hash + Objects.hashCode(this.docente);
+//        hash = 53 * hash + Objects.hashCode(this.cod);
+//        hash = 53 * hash + Objects.hashCode(this.nome);
+//        return hash;
+//    }
 
     @Override
     public boolean equals(Object obj) {

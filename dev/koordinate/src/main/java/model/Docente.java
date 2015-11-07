@@ -52,35 +52,7 @@ public class Docente implements java.io.Serializable {
     public Docente() {
     }
 
-    public Docente(int id, Concurso concurso, String nome, boolean atuaposgraduacao, String linklattes, String emailinstitucional, int siape, String areagraduacao, String login, String senha) {
-        this.id = id;
-        this.concurso = concurso;
-        this.nome = nome;
-        this.atuaposgraduacao = atuaposgraduacao;
-        this.linklattes = linklattes;
-        this.emailinstitucional = emailinstitucional;
-        this.siape = siape;
-        this.areagraduacao = areagraduacao;
-        this.login = login;
-        this.senha = senha;
-    }
-
-    public Docente(int id, Concurso concurso, String nome, boolean atuaposgraduacao, String linklattes, String emailinstitucional, int siape, String areagraduacao, String login, String senha, Set docenteItemOfertas, Set instrucaoDocentes, Set cursos, Set preferencias) {
-        this.id = id;
-        this.concurso = concurso;
-        this.nome = nome;
-        this.atuaposgraduacao = atuaposgraduacao;
-        this.linklattes = linklattes;
-        this.emailinstitucional = emailinstitucional;
-        this.siape = siape;
-        this.areagraduacao = areagraduacao;
-        this.login = login;
-        this.senha = senha;
-        this.docenteItemOfertas = docenteItemOfertas;
-        this.instrucaoDocentes = instrucaoDocentes;
-        this.cursos = cursos;
-        this.preferencias = preferencias;
-    }
+ 
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
@@ -224,13 +196,13 @@ public class Docente implements java.io.Serializable {
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Métodos Equals e HashCode">
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        //hash = 17 * hash + this.id;
-        hash = 17 * hash + this.siape;
-        return hash;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        //hash = 17 * hash + this.id;
+//        hash = 17 * hash + this.siape;
+//        return hash;
+//    }
 
     @Override
     public boolean equals(Object obj) {
