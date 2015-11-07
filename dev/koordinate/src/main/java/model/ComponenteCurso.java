@@ -29,14 +29,10 @@ public class ComponenteCurso implements java.io.Serializable {
     private Curso curso;
     private boolean obrigatoria;
     private short semestre;
-    private Set itemOfertas = new HashSet(0);
+    private Set componentecursoitemofertas = new HashSet(0);
 
     public ComponenteCurso() {
     }
-
-
-
-  
 
     @Id
     @GeneratedValue(generator = "componentecurso_seq")
@@ -87,13 +83,13 @@ public class ComponenteCurso implements java.io.Serializable {
         this.semestre = semestre;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurso")
-    public Set<ItemOferta> getItemOfertas() {
-        return this.itemOfertas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componentecurso")
+    public Set getComponentecursoitemofertas() {
+        return this.componentecursoitemofertas;
     }
 
-    public void setItemOfertas(Set itemOfertas) {
-        this.itemOfertas = itemOfertas;
+    public void setComponentecursoitemofertas(Set componentecursoitemofertas) {
+        this.componentecursoitemofertas = componentecursoitemofertas;
     }
 
 }
