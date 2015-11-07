@@ -9,6 +9,7 @@ import excecoes.PeriodoLetivoException;
 import java.util.ArrayList;
 import java.util.List;
 import model.ComponenteCurso;
+import model.ComponenteCursoItemOferta;
 import model.Curso;
 import model.Oferta;
 import org.hibernate.Criteria;
@@ -258,20 +259,20 @@ public class DAOOferta {
      * @param semestre byte
      * @return ArrayList
      */
-    public ArrayList<ComponenteCurso> getComponentes(Curso c, short semestre){
+    public ArrayList<ComponenteCursoItemOferta> getComponentes(Curso c, short semestre){
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
-        ArrayList<ComponenteCurso> retorno = null;
+        ArrayList<ComponenteCursoItemOferta> retorno = null;
         //short sem = Short.
 
         try {
             Query q;
             tx = session.beginTransaction();
-            q = session.createQuery("FROM ComponenteCurso as cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s");
+            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s");
             q.setParameter("c", c);
             q.setParameter("s", semestre);
-            retorno  = (ArrayList<ComponenteCurso>) q.list();
+            retorno  = (ArrayList<ComponenteCursoItemOferta>) q.list();
 
             return retorno;
         } catch (Exception e) {

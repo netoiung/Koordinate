@@ -72,14 +72,14 @@
                                                             <h:dataTable value="#{tables.value}" class="table table-striped table-advance table-hover" var="o" >
                                                                 <!-- column header -->
                                                                 <h:column class="table-width">
-                                                                    <h:outputText value="#{o.componenteCurricular.nome}"/><br/> 
+                                                                    <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/><br/> 
                                                                     <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
                                                                         <!-- Componentes curriculares deste semestre -->
                                                                         <div class="form-group row">
                                                                             <div class="col-lg-6">
                                                                                 <h:selectOneMenu id="componenteCurso" value="#{montarOfertaBean.componenteCurso}" converter="componenteCursoConverter" class="js-example-basic-single" style=" min-width:200px;">
                                                                                     <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
-                                                                                    <f:selectItems value="#{tables.value}" var="componenteCurso" itemValue="#{componenteCurso}" itemLabel="#{componenteCurso.componenteCurricular.nome}" />
+                                                                                    <f:selectItems value="#{tables.value}" var="componenteCursoIO" itemValue="#{componenteCursoIO.componenteCurso}" itemLabel="#{componenteCursoIO.componenteCurso.componenteCurricular.nome}" />
                                                                                 </h:selectOneMenu>
                                                                             </div>
                                                                             <div class="col-lg-6">
