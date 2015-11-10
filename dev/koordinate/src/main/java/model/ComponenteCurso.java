@@ -92,4 +92,36 @@ public class ComponenteCurso implements java.io.Serializable {
         this.componenteCursoItemOfertas = componentecursoitemofertas;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.id;
+        hash = 79 * hash + (this.obrigatoria ? 1 : 0);
+        hash = 79 * hash + this.semestre;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComponenteCurso other = (ComponenteCurso) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.obrigatoria != other.obrigatoria) {
+            return false;
+        }
+        if (this.semestre != other.semestre) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+
 }
