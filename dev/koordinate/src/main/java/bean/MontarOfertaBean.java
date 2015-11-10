@@ -78,9 +78,19 @@ public class MontarOfertaBean {
         ComponenteCursoItemOferta ccif = new ComponenteCursoItemOferta();
         ccif.setComponenteCurso(componenteCurso);
         ccif.setItemOferta(itemOferta);
-        
+        //salvamos o item oferta e o componente curso item oferta
         DAOItemOferta.salvar(this.itemOferta);
         DAOItemOferta.salvar(ccif);
+        this.montarOferta();
+    }
+    
+    /**
+     * Método responsável por remover um componente de uma oferta.
+     * @param ccio 
+     */
+    public void rmComponente(ComponenteCursoItemOferta ccio){
+        DAOItemOferta.excluir(ccio.getItemOferta());
+        DAOItemOferta.excluir(ccio);
         this.montarOferta();
     }
     

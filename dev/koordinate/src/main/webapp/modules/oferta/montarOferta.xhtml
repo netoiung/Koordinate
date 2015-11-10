@@ -72,7 +72,8 @@
                                                             <h:dataTable value="#{tables.value}" class="table table-striped table-advance table-hover" var="o" >
                                                                 <!-- column header -->
                                                                 <h:column class="table-width">
-                                                                    <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/><br/> 
+                                                                    <!-- PASSAMOS O COMPONENTE CURSO ITEM OFERTA PARA A BEAN -->
+                                                                    <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/>&nbsp;<h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" value="Remover" style="margin-top: -5px;"></h:commandLink><br/> 
                                                                     <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
                                                                         <!-- Componentes curriculares deste semestre -->
                                                                         <div class="form-group row">

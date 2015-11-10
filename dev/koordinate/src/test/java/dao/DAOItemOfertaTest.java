@@ -1,16 +1,11 @@
 package dao;
 
-import excecoes.IntegridadeReferencialException;
 import excecoes.PeriodoLetivoException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import model.ComponenteCurricular;
 import model.ComponenteCurso;
 import model.ComponenteCursoItemOferta;
-import model.Concurso;
 import model.Curso;
-import model.Docente;
 import model.ItemOferta;
 import model.Oferta;
 import org.junit.After;
