@@ -253,7 +253,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por buscar os componenteCurso dado o curso e o
+     * Método responsável por buscar os componenteCurso dado o curso e o
      * semestre.
      *
      * @param c Curso

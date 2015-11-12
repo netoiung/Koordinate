@@ -53,7 +53,11 @@
                                                 </h:selectOneMenu>
                                             </div>
                                             <div class="col-lg-6">
-                                                <h:commandLink action="#{montarOfertaBean.montarOferta()}" class="btn btn-primary" value="Carregar" style="margin-top: 5px;">
+                                                <h:commandLink action="#{montarOfertaBean.montarOferta()}" class="btn btn-primary" value="Carregar" title="Carregar informações do curso selecionado" style="margin: 5px;">
+                                                </h:commandLink>
+                                                <h:commandLink action="#{montarOfertaBean.rmTodosComponentes()}" onclick="return confirmaExclusao()" class="btn btn-danger" value="Remover Todos" title="Remover todos os componentes desse curso à oferta" style="margin: 5px;float:right">
+                                                </h:commandLink>
+                                                <h:commandLink action="#{montarOfertaBean.addTodosComponentes()}" onclick="return confirmaExclusao()" class="btn btn-success" value="Adicionar Todos" title="Adicionar todos os componentes desse curso à oferta" style="margin: 5px; float: right">
                                                 </h:commandLink>
                                             </div>
                                         </div>
@@ -71,44 +75,37 @@
                                         <div class="row">
                                             <!--Fazemos uma iteracao no mapa de tabelas-->
                                             <c:forEach items="#{montarOfertaBean.tabelas}" var="tables" varStatus="loop">
-                                                <!--Esse choose eh como um if-->
-                                                <c:choose>
-                                                    <c:when test="${!loop.last}">
-                                                        <div class="col-lg-6">
-                                                            <h:dataTable value="#{tables.value}" class="table table-striped table-advance table-hover" var="o" >
-                                                                <!-- column header -->
-                                                                <h:column class="table-width">
-                                                                    <!-- PASSAMOS O COMPONENTE CURSO ITEM OFERTA PARA A BEAN -->
-                                                                    <h:form>
-                                                                        <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/>&nbsp;<h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" title="Remover" style="margin-top: -5px;" onclick="return confirmaExclusao()" ><span class="icon_close_alt2"></span></h:commandLink><br/> 
-                                                                    </h:form>
-                                                                    <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
-                                                                        <h:form class="form-horizontal" role="form">
-                                                                            <!-- Componentes curriculares deste semestre -->
-                                                                            <div class="form-group row">
-                                                                                <div class="col-lg-6">
-                                                                                    <h:selectOneMenu id="componenteCurso" value="#{montarOfertaBean.componenteCurso}" converter="componenteCursoConverter" class="js-example-basic-single" style=" min-width:200px;">
-                                                                                        <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
-                                                                                        <f:selectItems value="#{montarOfertaBean.getComponentesBySemestreAndCurso(tables.key)}" var="componenteCurso" itemValue="#{componenteCurso}" itemLabel="#{componenteCurso.componenteCurricular.nome}" />
-                                                                                    </h:selectOneMenu>
-                                                                                    <h:message for="componenteCurso" style="color:red" />
-                                                                                </div>
-                                                                                <div class="col-lg-6">
-                                                                                    <h:commandLink action="#{montarOfertaBean.addComponente()}" class="btn btn-primary" value="Adicionar" style="margin-top: -5px;"></h:commandLink>
-                                                                                </div>
-                                                                            </div>
-                                                                        </h:form>
-                                                                    </f:facet>
-                                                                </h:column>
-                                                            </h:dataTable>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <div class="col-lg-12" style="float: left">
+                                                <div class="col-lg-6">
+                                                    <h:dataTable value="#{tables.value}" class="table table-striped table-advance table-hover" var="o" >
+                                                        <!-- column header -->
+                                                        <h:column class="table-width">
+                                                            <!-- PASSAMOS O COMPONENTE CURSO ITEM OFERTA PARA A BEAN -->
+                                                            <h:form>
+                                                                <h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" title="Remover da Oferta" onclick="return confirmaExclusao()" ><span class="icon_close_alt2"></span></h:commandLink>&nbsp;
+                                                                <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/><br/> 
+                                                            </h:form>
+                                                            <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
+                                                                <h:form class="form-horizontal" role="form">
+                                                                    <!-- Componentes curriculares deste semestre -->
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-6">
+                                                                            <h:selectOneMenu id="componenteCurso" value="#{montarOfertaBean.componenteCurso}" converter="componenteCursoConverter" class="js-example-basic-single" style=" min-width:200px;">
+                                                                                <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
+                                                                                <f:selectItems value="#{montarOfertaBean.getComponentesBySemestreAndCurso(tables.key)}" var="componenteCurso" itemValue="#{componenteCurso}" itemLabel="#{componenteCurso.componenteCurricular.nome}" />
+                                                                            </h:selectOneMenu>
+                                                                            <h:message for="componenteCurso" style="color:red" />
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <h:commandLink action="#{montarOfertaBean.addComponente()}" class="btn btn-primary" value="Adicionar" title="Adicionar o componente selecionado à oferta"></h:commandLink>&nbsp;
+                                                                            <h:commandLink action="#{montarOfertaBean.addComponenteBySemestre(tables.key)}" class="btn btn-success" value="Adicionar Todos" title="Adicionar todos os componentes desse semestre" style="float: right"></h:commandLink>
+                                                                        </div>
+                                                                    </div>
+                                                                </h:form>
+                                                            </f:facet>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
 
-                                                        </div>
-                                                    </c:otherwise>
-                                                </c:choose>
                                             </c:forEach>
                                         </div>
                                     </section>

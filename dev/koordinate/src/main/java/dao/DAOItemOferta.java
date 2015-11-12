@@ -77,6 +77,53 @@ public class DAOItemOferta {
         }
 
     }
+    
+    /**
+     * Método responsavel por persistir todos os itens de oferta, dada a Oferta
+     *  o semestre  e o curso.
+     * @param semestre
+     * @param c
+     * @param o 
+     */
+    public void salvarTodosPorSemestre(short semestre, Curso c, Oferta o){
+        DAOOferta dao = new DAOOferta();
+        
+        List<ComponenteCurso> componentes = dao.getComponentesNaoOfertados(c, semestre);
+        //objetos necessarios
+        ItemOferta io;
+        ComponenteCursoItemOferta ccio;
+        //percorremos e inserimos
+        for (ComponenteCurso cc : componentes) {
+            io = new ItemOferta();
+            io.setOferta(o);
+
+            ccio = new ComponenteCursoItemOferta();
+            ccio.setComponenteCurso(cc);
+            ccio.setItemOferta(io);
+            //salvamos o item oferta e o componente curso item oferta
+            DAOItemOferta.salvar(io);
+            DAOItemOferta.salvar(ccio);
+        }
+    }
+    
+    /**
+     * Método responsavel por excluir todos os itens de oferta, dada a Oferta
+     *  o semestre  e o curso.
+     * @param semestre
+     * @param c
+     */
+    public void excluiTodosPorSemestre(short semestre, Curso c){
+        DAOOferta dao = new DAOOferta();
+        ItemOferta io;
+        List<ComponenteCursoItemOferta> componentes = dao.getComponentesOfertados(c, semestre);
+        //percorremos e inserimos
+        for (ComponenteCursoItemOferta ccio : componentes) {
+            io = ccio.getItemOferta();
+            //excluimos o item oferta e o componente curso item oferta
+            DAOItemOferta.excluir(ccio);
+            DAOItemOferta.excluir(io);
+        }
+    }
 
     /**
      * Método que realiza a busca de todos os objetos do tipo Oferta
