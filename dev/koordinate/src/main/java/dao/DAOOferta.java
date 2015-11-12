@@ -260,7 +260,7 @@ public class DAOOferta {
      * @param semestre byte
      * @return ArrayList
      */
-    public ArrayList<ComponenteCursoItemOferta> getComponentesOfertados(Curso c, short semestre) {
+    public ArrayList<ComponenteCursoItemOferta> getComponentesOfertados(Curso c, short semestre, Oferta o) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -270,9 +270,10 @@ public class DAOOferta {
         try {
             Query q;
             tx = session.beginTransaction();
-            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s");
+            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN FETCH ccif.itemOferta AS io JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s AND io=:o");
             q.setParameter("c", c);
             q.setParameter("s", semestre);
+            q.setParameter("o", o);
             retorno = (ArrayList<ComponenteCursoItemOferta>) q.list();
 
             return retorno;

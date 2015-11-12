@@ -8,7 +8,6 @@ package bean;
 import dao.DAOCurso;
 import dao.DAOItemOferta;
 import dao.DAOOferta;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,12 +62,12 @@ public class MontarOfertaBean {
         DAOOferta dao = new DAOOferta();
         if (isSemestrePar()) {
             for (short i = 2; i <= this.curso.getNumeroDeSemestres(); i++) {
-                tabelas.put(i, dao.getComponentesOfertados(this.curso, i));
+                tabelas.put(i, dao.getComponentesOfertados(this.curso, i, oferta));
                 i++;
             }
         } else {
             for (short i = 1; i <= this.curso.getNumeroDeSemestres(); i++) {
-                tabelas.put(i, dao.getComponentesOfertados(this.curso, i));
+                tabelas.put(i, dao.getComponentesOfertados(this.curso, i, oferta));
                 i++;
             }
         }
