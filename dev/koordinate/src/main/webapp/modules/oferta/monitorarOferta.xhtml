@@ -77,18 +77,11 @@
 
                                             <h:column>
                                                 <!-- column header -->
-                                                <f:facet name="header"><i class="fa fa-institution"></i> Créditos Totais</f:facet>
-                                                <!-- row record -->
-                                                <h:outputText value="#{ofertaBean.retornaCreditosDocenteItemOfertas(ccif.id)}"/>
-                                            </h:column>
-                                            
-                                            <h:column>
-                                                <!-- column header -->
                                                 <f:facet name="header"><i class="fa fa-institution"></i> Docente</f:facet>
                                                 <!-- row record -->                                                
                                                 <ui:repeat value="#{ofertaBean.retornaDocenteItemOfertas(ccif.id)}" var="docIt" varStatus="loop">
                                                     <c:choose>
-                                                        <c:when test="${!loop.last}">
+                                                        <c:when test="#{!loop.last}">
                                                             <h:outputText value="#{docIt.docente.nome}, "/>
                                                         </c:when>
                                                         <c:otherwise>
@@ -98,6 +91,15 @@
                                                     </c:choose>
                                                 </ui:repeat>
                                             </h:column> 
+
+                                            <h:column>
+                                                <!-- column header -->
+                                                <f:facet name="header"><i class="fa fa-institution"></i> Créditos Totais</f:facet>
+                                                <!-- row record -->
+                                                <h:outputText value="#{ofertaBean.retornaCreditosDocenteItemOfertas(ccif.id)}"/>
+                                            </h:column>
+
+
 
 
                                         </h:dataTable>

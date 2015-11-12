@@ -337,7 +337,7 @@ public class DAOOferta {
         try {
             Query q;
             tx = session.beginTransaction();
-            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccio JOIN fetch ccio.componenteCurso AS cc JOIN fetch cc.componenteCurricular JOIN fetch ccio.itemOferta AS io JOIN fetch io.oferta AS o JOIN fetch io.docenteItemOfertas AS dio JOIN fetch dio.docente  WHERE cc.curso=:c AND io.oferta=:o");
+            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccio LEFT JOIN fetch ccio.componenteCurso AS cc LEFT JOIN fetch cc.componenteCurricular LEFT JOIN fetch ccio.itemOferta AS io LEFT JOIN fetch io.oferta AS o LEFT JOIN fetch io.docenteItemOfertas AS dio LEFT JOIN fetch dio.docente  WHERE cc.curso=:c AND io.oferta=:o");
             q.setParameter("c", c);
             q.setParameter("o", o);
             retorno = (ArrayList<ComponenteCursoItemOferta>) q.list();
