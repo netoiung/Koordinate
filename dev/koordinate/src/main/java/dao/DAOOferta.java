@@ -11,6 +11,7 @@ import java.util.List;
 import model.ComponenteCurso;
 import model.ComponenteCursoItemOferta;
 import model.Curso;
+import model.DocenteItemOferta;
 import model.Oferta;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -307,6 +308,32 @@ public class DAOOferta {
             q.setParameter("c", c);
             q.setParameter("s", semestre);
             retorno  = (ArrayList<ComponenteCurso>) q.list();
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    public ArrayList<DocenteItemOferta> getComponentesOfertados(Curso c, Oferta o){
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        ArrayList<DocenteItemOferta> retorno = null;
+        //short sem = Short.
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("FROM DocenteItemOferta AS dio JOIN fetch dio.docente JOIN fetch dio.itemOferta AS io WHERE cc.curso=:c AND io.oferta=:o");
+            q.setParameter("c", c);
+            q.setParameter("o", o);
+            retorno  = (ArrayList<DocenteItemOferta>) q.list();
 
             return retorno;
         } catch (Exception e) {

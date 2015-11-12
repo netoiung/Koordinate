@@ -9,6 +9,7 @@ import dao.DAOCurso;
 import dao.DAOItemOferta;
 import dao.DAOOferta;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -49,7 +50,7 @@ public class MontarOfertaBean {
      * @return addInstrucoes
      */
     public String montarOferta() {
-        this.tabelas = new HashMap();
+        this.tabelas = new LinkedHashMap();
         //verificamos se há cursos cadastrados.
         if(DAOCurso.consultar().isEmpty()){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Impossível montar oferta. Você não tem cursos cadastrados.");
@@ -61,17 +62,15 @@ public class MontarOfertaBean {
         //montamos as tabelas de acordo com o semestre par ou impar
         DAOOferta dao = new DAOOferta();
         if(isSemestrePar()){
-            tabelas.put("2", dao.getComponentesOfertados(this.curso, Short.valueOf("2")));
-            tabelas.put("4", dao.getComponentesOfertados(this.curso, Short.valueOf("4")));
-            tabelas.put("6", dao.getComponentesOfertados(this.curso, Short.valueOf("6")));
-            tabelas.put("8", dao.getComponentesOfertados(this.curso, Short.valueOf("8")));
-            tabelas.put("10", dao.getComponentesOfertados(this.curso, Short.valueOf("10")));
+            for(short i = 2; i <= this.curso.getNumeroDeSemestres(); i++){
+                tabelas.put(i, dao.getComponentesOfertados(this.curso, i));
+                i++;
+            }
         } else {
-            tabelas.put("1", dao.getComponentesOfertados(this.curso, Short.valueOf("1")));
-            tabelas.put("3", dao.getComponentesOfertados(this.curso, Short.valueOf("3")));
-            tabelas.put("5", dao.getComponentesOfertados(this.curso, Short.valueOf("5")));
-            tabelas.put("7", dao.getComponentesOfertados(this.curso, Short.valueOf("7")));
-            tabelas.put("9", dao.getComponentesOfertados(this.curso, Short.valueOf("9")));
+            for(short i = 1; i <= this.curso.getNumeroDeSemestres(); i++){
+                tabelas.put(i, dao.getComponentesOfertados(this.curso, i));
+                i++;
+            }
         }
         return "/modules/oferta/montarOferta";
     }
@@ -106,8 +105,9 @@ public class MontarOfertaBean {
      * @param ccio 
      */
     public void rmComponente(ComponenteCursoItemOferta ccio){
-        DAOItemOferta.excluir(ccio.getItemOferta());
+        //primeiro excluimos esse
         DAOItemOferta.excluir(ccio);
+        DAOItemOferta.excluir(ccio.getItemOferta());
         this.montarOferta();
     }
     
