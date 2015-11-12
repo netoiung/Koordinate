@@ -58,7 +58,7 @@ public class DAOItemOfertaTest {
         oferta.setAtivo(true);
         oferta.setInicio(new Date());
         oferta.setTermino(new Date());
-        oferta.setPeriodoLetivo("1234/5");
+        oferta.setPeriodoLetivo("0000/5");
         //Curso
         Curso c = new Curso();
         c.setCod("ALES");
