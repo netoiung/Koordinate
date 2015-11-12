@@ -105,7 +105,7 @@ public class Oferta implements java.io.Serializable {
         this.instrucaos = instrucaos;
     }
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "oferta")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oferta")
     public Set<ItemOferta> getItemOfertas() {
         return this.itemOfertas;
     }

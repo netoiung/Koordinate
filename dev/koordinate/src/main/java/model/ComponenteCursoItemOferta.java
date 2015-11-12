@@ -1,6 +1,7 @@
 package model;
 // Generated 05/11/2015 20:36:48 by Hibernate Tools 4.3.1
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -58,6 +59,10 @@ public class ComponenteCursoItemOferta implements java.io.Serializable {
 
     public void setItemOferta(ItemOferta itemOferta) {
         this.itemOferta = itemOferta;
+    }
+    
+    public Set<DocenteItemOferta> retornarLista(){
+       return this.itemOferta.getDocenteItemOfertas();
     }
 
 }

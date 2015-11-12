@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -42,6 +43,7 @@ public class Docente implements java.io.Serializable {
     private String login;
     private String senha;
     private int nivel = 0;
+    private int creditos;
     private Set<DocenteItemOferta> docenteItemOfertas = new HashSet(0);
     private Set<InstrucaoDocente> instrucaoDocentes = new HashSet(0);
     private Set<Curso> cursos = new HashSet(0);
@@ -272,6 +274,15 @@ public class Docente implements java.io.Serializable {
             }
         }
         return coordenadores;
+    }
+
+    @Transient
+    public int getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(int creditos) {
+        this.creditos = creditos;
     }
 
 }

@@ -8,11 +8,17 @@ package bean;
 import dao.DAOOferta;
 import excecoes.PeriodoLetivoException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import model.ComponenteCursoItemOferta;
+import model.Curso;
+import model.Docente;
+import model.DocenteItemOferta;
 import model.Oferta;
 
 /**
@@ -28,15 +34,25 @@ public class OfertaBean {
     //<editor-fold defaultstate="collapsed" desc="variaveis">
     private Oferta oferta;
     private ArrayList<Oferta> ofertas;
+    private Curso curso;
+    private ArrayList<ComponenteCursoItemOferta> ccif;
+    private int id;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      *
      * @return
      */
-        public Oferta getOferta() {
+    public Oferta getOferta() {
         return oferta;
     }
 
@@ -64,14 +80,39 @@ public class OfertaBean {
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public ArrayList<ComponenteCursoItemOferta> getCcif() {
+        this.ccif = DAOOferta.getComponenteCursoItemOferta(curso, oferta);
+
+        for (int i = 0; i < ccif.size(); i++) {
+            for (int j = 1; j < ccif.size(); j++) {
+                if (ccif.get(i).getId() == ccif.get(j).getId()) {
+                    ccif.remove(ccif.get(j));
+                }
+            }
+        }
+        return ccif;
+    }
+
+    public void setCcif(ArrayList<ComponenteCursoItemOferta> ccif) {
+        this.ccif = ccif;
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
-
-    /** Método inicializador de variaveis
+    /**
+     * Método inicializador de variaveis
      *
      */
-        @PostConstruct
+    @PostConstruct
     public void init() {
         this.oferta = new Oferta();
     }
@@ -86,7 +127,8 @@ public class OfertaBean {
      */
     public String consultar(Oferta reg) {
         this.oferta = DAOOferta.consultar(reg.getId());
-        return "/modules/oferta/consulta";
+        this.curso = new Curso();
+        return "/modules/oferta/monitorarOferta";
     }
 
     /**
@@ -169,5 +211,33 @@ public class OfertaBean {
         return "/modules/oferta/addInstrucoes";
     }
 //</editor-fold>
+
+    public int retornaCreditosDocenteItemOfertas(int id) {
+        int creditos = 0;
+        this.id = id;
+        for (ComponenteCursoItemOferta dio : ccif) {
+            if (dio.getId() == id) {
+                Iterator<DocenteItemOferta> iter = dio.getItemOferta().getDocenteItemOfertas().iterator();
+
+                while (iter.hasNext()) {
+                    DocenteItemOferta docIt = new DocenteItemOferta();
+                    docIt = iter.next();
+                    creditos += docIt.getCreditos();
+                }
+
+            }
+        }
+        return creditos;
+    }
+
+    public ArrayList<DocenteItemOferta> retornaDocenteItemOfertas(int id) {
+        getCcif();
+        for (ComponenteCursoItemOferta dio : ccif) {
+            if (dio.getId() == id) {
+                return new ArrayList<DocenteItemOferta>(dio.getItemOferta().getDocenteItemOfertas());
+            }
+        }
+        return null;
+    }
 
 }

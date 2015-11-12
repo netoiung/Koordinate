@@ -23,7 +23,7 @@ import model.ItemOferta;
 import model.Oferta;
 
 /**
- * MontarOfertaBean é a classe responsável por montar a oferta das disciplinas 
+ * MontarOfertaBean é a classe responsável por montar a oferta das disciplinas
  * no sistema de gestão de oferta e horário.
  *
  * @author Luiz Paulo Franz
@@ -37,12 +37,12 @@ public class MontarOfertaBean {
     private Curso curso;
     private Map tabelas;
     private ComponenteCurso componenteCurso;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         componenteCurso = new ComponenteCurso();
     }
-        
+
     /**
      * Método responsável por direcionar para a tela de montar ofertas.
      *
@@ -51,16 +51,16 @@ public class MontarOfertaBean {
     public String montarOferta() {
         this.tabelas = new HashMap();
         //verificamos se há cursos cadastrados.
-        if(DAOCurso.consultar().isEmpty()){
+        if (DAOCurso.consultar().isEmpty()) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Impossível montar oferta. Você não tem cursos cadastrados.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
             return "/modules/oferta/lista";
-        }else if(this.curso == null){
+        } else if (this.curso == null) {
             this.curso = DAOCurso.consultar().get(0);
         }
         //montamos as tabelas de acordo com o semestre par ou impar
         DAOOferta dao = new DAOOferta();
-        if(isSemestrePar()){
+        if (isSemestrePar()) {
             tabelas.put("2", dao.getComponentesOfertados(this.curso, Short.valueOf("2")));
             tabelas.put("4", dao.getComponentesOfertados(this.curso, Short.valueOf("4")));
             tabelas.put("6", dao.getComponentesOfertados(this.curso, Short.valueOf("6")));
@@ -75,21 +75,22 @@ public class MontarOfertaBean {
         }
         return "/modules/oferta/montarOferta";
     }
-    
+
     /**
      * Método responsável por retornar apenas os cursos não ofertados.
+     *
      * @param semestre
-     * @return 
+     * @return
      */
-    public List<ComponenteCurso> getComponentesBySemestreAndCurso(Short semestre){
+    public List<ComponenteCurso> getComponentesBySemestreAndCurso(Short semestre) {
         DAOOferta dao = new DAOOferta();
         return dao.getComponentesNaoOfertados(curso, semestre);
     }
-    
+
     /**
      * Método responsável por adicionar um componente curricular a uma oferta.
      */
-    public void addComponente(){
+    public void addComponente() {
         this.itemOferta = new ItemOferta();
         this.itemOferta.setOferta(oferta);
         ComponenteCursoItemOferta ccif = new ComponenteCursoItemOferta();
@@ -100,30 +101,38 @@ public class MontarOfertaBean {
         DAOItemOferta.salvar(ccif);
         this.montarOferta();
     }
-    
+
     /**
      * Método responsável por remover um componente de uma oferta.
-     * @param ccio 
+     *
+     * @param ccio
      */
-    public void rmComponente(ComponenteCursoItemOferta ccio){
+    public void rmComponente(ComponenteCursoItemOferta ccio) {
         DAOItemOferta.excluir(ccio.getItemOferta());
         DAOItemOferta.excluir(ccio);
         this.montarOferta();
     }
-    
+
     /**
      * Método responsável por identificar se o semestre é par ou não.
+     *
      * @return boolean;
      */
-    private boolean isSemestrePar(){
+    private boolean isSemestrePar() {
         byte semestre = (byte) this.oferta.getPeriodoLetivo().charAt(5);
         if (semestre % 2 == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
+
+    public String dirMontarOferta() {
+        this.curso = new Curso();
+        return "/modules/oferta/montarOferta";
+
+    }
+
     public ItemOferta getItemOferta() {
         return itemOferta;
     }
@@ -139,7 +148,7 @@ public class MontarOfertaBean {
     public void setOferta(Oferta oferta) {
         this.oferta = oferta;
     }
-    
+
     public Curso getCurso() {
         return curso;
     }
@@ -147,8 +156,8 @@ public class MontarOfertaBean {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-    
-    public Map getTabelas(){
+
+    public Map getTabelas() {
         return this.tabelas;
     }
 
@@ -159,6 +168,5 @@ public class MontarOfertaBean {
     public void setComponenteCurso(ComponenteCurso componenteCurso) {
         this.componenteCurso = componenteCurso;
     }
-    
-    
+
 }

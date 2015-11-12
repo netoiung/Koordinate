@@ -61,6 +61,8 @@
     <script>
         $(document).ready(function () {
             $('#curso').DataTable();
+            $('#docentes').DataTable({"paging": false,
+                "info": false});
             $('#docente').DataTable();
             $('#componentes').DataTable();
             $('#concurso').DataTable();

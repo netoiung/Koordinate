@@ -52,7 +52,7 @@ public class DocenteItemOferta implements java.io.Serializable {
         this.docente = docente;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_oferta_id", nullable = false)
     public ItemOferta getItemOferta() {
         return this.itemOferta;

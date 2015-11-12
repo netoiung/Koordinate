@@ -50,6 +50,7 @@ public class Curso implements java.io.Serializable {
     }
 
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
     @Id
     @GeneratedValue(generator = "curso_seq")
@@ -110,6 +111,7 @@ public class Curso implements java.io.Serializable {
     }
 
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Métodos de Equals e HashCode">
 //    @Override
 //    public int hashCode() {
@@ -139,6 +141,7 @@ public class Curso implements java.io.Serializable {
     }
 
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Metodos de Persistencia">
     static public boolean salvar(Curso c) {
         return DAOCurso.salvar(c);

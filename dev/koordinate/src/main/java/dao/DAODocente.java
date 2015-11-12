@@ -10,7 +10,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import excecoes.IntegridadeReferencialException;
 import java.util.Set;
+import model.ComponenteCursoItemOferta;
 import model.Curso;
+import model.Oferta;
 
 /**
  * Classe responsável pela persistência dos objetos Docente
@@ -298,6 +300,39 @@ public class DAODocente {
             session.close();
         }
         return 0;
+    }
+
+    /**
+     * MÃƒÂ©todo responsÃƒÂ¡vel por buscar os componenteCurso dado o curso e o
+     * semestre.
+     *
+     * @param doc
+     * @return ArrayList
+     */
+    public static int getCreditos(Docente doc) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        //short sem = Short.
+        int retorno = 0;
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("SELECT sum(dio.creditos) FROM DocenteItemOferta AS dio WHERE dio.docente=:doc");
+            q.setParameter("doc", doc);
+            List<Long> obj = q.list();
+            retorno =  Integer.parseInt(obj.get(0).toString());
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
     }
 
 }
