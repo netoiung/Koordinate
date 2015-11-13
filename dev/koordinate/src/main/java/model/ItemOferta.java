@@ -3,6 +3,7 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,7 +54,7 @@ public class ItemOferta implements java.io.Serializable {
         this.oferta = oferta;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "itemOferta")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "itemOferta", cascade = CascadeType.REMOVE)
     public Set<ComponenteCursoItemOferta> getComponenteCursoItemOfertas() {
         return this.componenteCursoItemOfertas;
     }
@@ -62,7 +63,7 @@ public class ItemOferta implements java.io.Serializable {
         this.componenteCursoItemOfertas = componentecursoitemofertas;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "itemOferta")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "itemOferta", cascade = CascadeType.REMOVE)
     public Set<DocenteItemOferta> getDocenteItemOfertas() {
         return this.docenteItemOfertas;
     }
