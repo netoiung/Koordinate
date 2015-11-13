@@ -20,17 +20,17 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 
 /**
- * Classe responsÃƒÂ¡vel pela persistÃƒÂªncia dos objetos Oferta
+ * Classe responsável pela persistência dos objetos Oferta
  *
  * @author Eduardo Amaral
  */
 public class DAOOferta {
 
     /**
-     * MÃƒÂ©todo que realiza a persistÃƒÂªncia de um objeto Oferta
+     * Método que realiza a persistência de um objeto Oferta
      *
-     * @param c - Objeto a ser persistido
-     * @return - um boolean indicando se o objeto foi salvo ou nÃƒÂ£o
+     * @param c - Oferta: Objeto a ser persistido
+     * @return - um boolean indicando se o objeto foi salvo ou não
      * @throws excecoes.PeriodoLetivoException
      */
     public static boolean salvar(Oferta c) throws PeriodoLetivoException {
@@ -59,9 +59,9 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo que realiza a busca de todos os objetos do tipo Oferta
+     * Método que realiza a busca de todos os objetos do tipo Oferta
      *
-     * @return - Um ArrayList com todos os Concursos recuperados no banco
+     * @return - List
      */
     public static ArrayList<Oferta> consultar() {
         Session session;
@@ -93,7 +93,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo que busca um concurso especÃƒÂ­fico pelo seu id
+     * Método que busca um concurso específico pelo seu id
      *
      * @param id - identificador do concurso
      * @return - O concurso especificado
@@ -136,6 +136,7 @@ public class DAOOferta {
     /**
      * Método que busca um concurso específico pelo seu periodo.
      *
+     * @param id
      * @param periodo - periodo letivo
      * @return - O concurso especificado
      */
@@ -176,8 +177,8 @@ public class DAOOferta {
     /**
      * Método responsável por realizar a alteração de um objeto Oferta
      *
-     * @param c - VariÃƒÂ¡vel que contÃƒÂ©m o objeto modificado
-     * @return - Uma variÃƒÂ¡vel boolean indicando se o salvamento foi bem
+     * @param c - Variável que contém o objeto modificado
+     * @return - Uma varável boolean indicando se o salvamento foi bem
      * sucedido
      */
     public static boolean alterar(Oferta c) {
@@ -200,7 +201,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por excluir um registro referente a um objeto Oferta
+     * Método responsável por excluir um registro referente a um objeto Oferta
      *
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
@@ -225,10 +226,10 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por mostrar a quantidade de registros na tabela de
+     * Método responsável por mostrar a quantidade de registros na tabela de
      * Oferta
      *
-     * @return - O nÃƒÂºmero de registros na tabela
+     * @return - O número de registros na tabela
      */
     public static int count() {
         Session session;
@@ -256,12 +257,13 @@ public class DAOOferta {
      * Método responsável por buscar os componenteCurso dado o curso e o
      * semestre.
      *
-     * @param c Curso
+     * @param curso Curso
+     * @param oferta Oferta
      * @param semestre byte
-     * @param o Oferta
-     * @return ArrayList
+     * 
+     * @return List
      */
-    public ArrayList<ComponenteCursoItemOferta> getComponentesOfertados(Curso c, short semestre, Oferta o) {
+    public ArrayList<ComponenteCursoItemOferta> getComponentesOfertados(Curso curso, Oferta oferta, short semestre ) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -272,9 +274,48 @@ public class DAOOferta {
             Query q;
             tx = session.beginTransaction();
             q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN FETCH ccif.itemOferta AS io JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s AND io.oferta=:o");
-            q.setParameter("c", c);
+            q.setParameter("c", curso);
             q.setParameter("s", semestre);
-            q.setParameter("o", o);
+            q.setParameter("o", oferta);
+            retorno = (ArrayList<ComponenteCursoItemOferta>) q.list();
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    /**
+     * Método responsável por buscar os componenteCurso dado o curso e o
+     * semestre.
+     *
+     * @param curso
+     * @param semestre byte
+     * @param oferta
+     * @param obrigatoria
+     * 
+     * @return List
+     */
+    public List<ComponenteCursoItemOferta> getComponentesOfertados(Curso curso, short semestre, Oferta oferta, boolean obrigatoria) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        ArrayList<ComponenteCursoItemOferta> retorno = null;
+        //short sem = Short.
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN FETCH ccif.itemOferta AS io JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s AND cc.obrigatoria=:obrigatoria AND io.oferta=:o");
+            q.setParameter("c", curso);
+            q.setParameter("s", semestre);
+            q.setParameter("o", oferta);
+            q.setParameter("obrigatoria", obrigatoria);
             retorno = (ArrayList<ComponenteCursoItemOferta>) q.list();
 
             return retorno;
@@ -289,7 +330,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por buscar os DocenteItemOferta dado o curso e a
+     * Método responsável por buscar os DocenteItemOferta dado o curso e a
      * oferta.
      *
      * @param c Curso
@@ -356,15 +397,53 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por buscar os componenteCurso dado o curso e o
-     * semestre.
+     * Método responsável por buscar os componenteCurso dado o curso, o
+     * semestre e a sua obrigatoriedade.
+     *
+     * @param c Curso
+     * @param semestre byte
+     * @param oferta Oferta
+     * @param obrigatoria
+     * 
+     * @return List
+     */
+    public List<ComponenteCurso> getComponentesNaoOfertados(Curso c, short semestre, Oferta oferta, boolean obrigatoria) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        ArrayList<ComponenteCurso> retorno = null;
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("FROM ComponenteCurso AS cc JOIN fetch cc.componenteCurricular LEFT JOIN fetch cc.componenteCursoItemOfertas AS ccio LEFT JOIN fetch ccio.itemOferta AS io WHERE cc.curso=:c AND cc.semestre=:s AND cc.obrigatoria=:obrigatoria AND (io.oferta!=:o OR io.oferta IS NULL)");
+            q.setParameter("c", c);
+            q.setParameter("s", semestre);
+            q.setParameter("o", oferta);
+            q.setParameter("obrigatoria", obrigatoria);
+            retorno = (ArrayList<ComponenteCurso>) q.list();
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    /**
+     * Método responsável por buscar os componenteCurso dado o curso, o
+     * semestre e a sua obrigatoriedade.
      *
      * @param c Curso
      * @param semestre byte
      * @param oferta Oferta
      * @return ArrayList
      */
-    public ArrayList<ComponenteCurso> getComponentesNaoOfertados(Curso c, short semestre, Oferta oferta) {
+    public List<ComponenteCurso> getComponentesNaoOfertados(Curso c, short semestre, Oferta oferta) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
@@ -391,7 +470,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo que realiza a busca de todos os objetos do tipo Oferta
+     * Método que realiza a busca de todos os objetos do tipo Oferta
      *
      * @return - Um ArrayList com todos os ComponenteCursoItemOferta recuperados no banco
      */
