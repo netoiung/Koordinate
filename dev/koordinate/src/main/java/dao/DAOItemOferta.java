@@ -88,7 +88,7 @@ public class DAOItemOferta {
     public void salvarTodosPorSemestre(short semestre, Curso c, Oferta o){
         DAOOferta dao = new DAOOferta();
         
-        List<ComponenteCurso> componentes = dao.getComponentesNaoOfertados(c, semestre);
+        List<ComponenteCurso> componentes = dao.getComponentesNaoOfertados(c, semestre, o);
         //objetos necessarios
         ItemOferta io;
         ComponenteCursoItemOferta ccio;
@@ -109,13 +109,15 @@ public class DAOItemOferta {
     /**
      * Método responsavel por excluir todos os itens de oferta, dada a Oferta
      *  o semestre  e o curso.
+     * 
      * @param semestre
-     * @param c
+     * @param curso
+     * @param oferta
      */
-    public void excluiTodosPorSemestre(short semestre, Curso c){
+    public void excluiTodosPorSemestre(short semestre, Curso curso, Oferta oferta){
         DAOOferta dao = new DAOOferta();
         ItemOferta io;
-        List<ComponenteCursoItemOferta> componentes = dao.getComponentesOfertados(c, semestre);
+        List<ComponenteCursoItemOferta> componentes = dao.getComponentesOfertados(curso, semestre, oferta);
         //percorremos e inserimos
         for (ComponenteCursoItemOferta ccio : componentes) {
             io = ccio.getItemOferta();

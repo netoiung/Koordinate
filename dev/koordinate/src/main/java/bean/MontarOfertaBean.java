@@ -46,7 +46,7 @@ public class MontarOfertaBean {
     /**
      * Método responsável por direcionar para a tela de montar ofertas.
      *
-     * @return addInstrucoes
+     * @return String
      */
     public String montarOferta() {
         this.tabelas = new LinkedHashMap();
@@ -59,6 +59,7 @@ public class MontarOfertaBean {
             this.curso = DAOCurso.consultar().get(0);
         }
         //montamos as tabelas de acordo com o semestre par ou impar
+        //listamos apenas os componentes que já estão na oferta
         DAOOferta dao = new DAOOferta();
         if (isSemestrePar()) {
             for (short i = 2; i <= this.curso.getNumeroDeSemestres(); i++) {
@@ -82,7 +83,7 @@ public class MontarOfertaBean {
      */
     public List<ComponenteCurso> getComponentesBySemestreAndCurso(Short semestre) {
         DAOOferta dao = new DAOOferta();
-        return dao.getComponentesNaoOfertados(curso, semestre);
+        return dao.getComponentesNaoOfertados(curso, semestre, oferta);
     }
 
     /**
@@ -138,11 +139,12 @@ public class MontarOfertaBean {
         DAOItemOferta dao = new DAOItemOferta();
         if (isSemestrePar()) {
             for (short i = 2; i <= this.curso.getNumeroDeSemestres(); i++) {
-                dao.excluiTodosPorSemestre(i, curso);
+                dao.excluiTodosPorSemestre(i, curso, oferta);
                 i++;
             }
         } else {
             for (short i = 1; i <= this.curso.getNumeroDeSemestres(); i++) {
+                dao.excluiTodosPorSemestre(i, curso, oferta);
                 i++;
             }
         }
@@ -158,6 +160,17 @@ public class MontarOfertaBean {
         //primeiro excluimos esse
         DAOItemOferta.excluir(ccio);
         DAOItemOferta.excluir(ccio.getItemOferta());
+        this.montarOferta();
+    }
+    
+    /**
+     * Método responsável por remover todos os componetes de um semestre.
+     * 
+     * @param semestre
+     */
+    public void rmComponenteBySemestre(short semestre) {
+        DAOItemOferta dao = new DAOItemOferta();
+        dao.excluiTodosPorSemestre(semestre, curso, oferta);
         this.montarOferta();
     }
 

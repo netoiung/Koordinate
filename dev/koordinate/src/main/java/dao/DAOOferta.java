@@ -134,7 +134,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo que busca um concurso especÃƒÂ­fico pelo seu periodo.
+     * Método que busca um concurso específico pelo seu periodo.
      *
      * @param periodo - periodo letivo
      * @return - O concurso especificado
@@ -174,7 +174,7 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por realizar a alteraÃƒÂ§ÃƒÂ£o de um objeto Oferta
+     * Método responsável por realizar a alteração de um objeto Oferta
      *
      * @param c - VariÃƒÂ¡vel que contÃƒÂ©m o objeto modificado
      * @return - Uma variÃƒÂ¡vel boolean indicando se o salvamento foi bem
@@ -258,6 +258,7 @@ public class DAOOferta {
      *
      * @param c Curso
      * @param semestre byte
+     * @param o Oferta
      * @return ArrayList
      */
     public ArrayList<ComponenteCursoItemOferta> getComponentesOfertados(Curso c, short semestre, Oferta o) {
@@ -270,7 +271,7 @@ public class DAOOferta {
         try {
             Query q;
             tx = session.beginTransaction();
-            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN FETCH ccif.itemOferta AS io JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s AND io=:o");
+            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccif JOIN FETCH ccif.itemOferta AS io JOIN fetch ccif.componenteCurso AS cc JOIN fetch cc.componenteCurricular WHERE cc.curso=:c AND cc.semestre=:s AND io.oferta=:o");
             q.setParameter("c", c);
             q.setParameter("s", semestre);
             q.setParameter("o", o);
@@ -355,26 +356,27 @@ public class DAOOferta {
     }
 
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por buscar os componenteCurso dado o curso e o
+     * Método responsável por buscar os componenteCurso dado o curso e o
      * semestre.
      *
      * @param c Curso
      * @param semestre byte
+     * @param oferta Oferta
      * @return ArrayList
      */
-    public ArrayList<ComponenteCurso> getComponentesNaoOfertados(Curso c, short semestre) {
+    public ArrayList<ComponenteCurso> getComponentesNaoOfertados(Curso c, short semestre, Oferta oferta) {
         Session session;
         session = ConexaoHibernate.getInstance();
         Transaction tx = null;
         ArrayList<ComponenteCurso> retorno = null;
-        //short sem = Short.
 
         try {
             Query q;
             tx = session.beginTransaction();
-            q = session.createQuery("FROM ComponenteCurso AS cc JOIN fetch cc.componenteCurricular LEFT JOIN fetch cc.componenteCursoItemOfertas AS ccio WHERE cc.curso=:c AND cc.semestre=:s AND ccio IS NULL");
+            q = session.createQuery("FROM ComponenteCurso AS cc JOIN fetch cc.componenteCurricular LEFT JOIN fetch cc.componenteCursoItemOfertas AS ccio LEFT JOIN fetch ccio.itemOferta AS io WHERE cc.curso=:c AND cc.semestre=:s AND (io.oferta!=:o OR io.oferta IS NULL)");
             q.setParameter("c", c);
             q.setParameter("s", semestre);
+            q.setParameter("o", oferta);
             retorno = (ArrayList<ComponenteCurso>) q.list();
 
             return retorno;

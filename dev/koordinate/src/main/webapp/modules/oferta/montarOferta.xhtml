@@ -22,7 +22,7 @@
                         <!--overview start-->
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3 class="page-header"><i class="fa fa-user"></i> Montar Oferta </h3>
+                                <h3 class="page-header"><i class="fa fa-user"></i> Montar Oferta (<h:outputText value="#{montarOfertaBean.oferta.periodoLetivo}" />)</h3>
                                 <ol class="breadcrumb">
                                     <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
                                     <li><i class="fa fa-user"></i><h:link outcome="lista.xhtml">Ofertas</h:link></li>
@@ -55,9 +55,11 @@
                                             <div class="col-lg-6">
                                                 <h:commandLink action="#{montarOfertaBean.montarOferta()}" class="btn btn-primary" value="Carregar" title="Carregar informações do curso selecionado" style="margin: 5px;">
                                                 </h:commandLink>
-                                                <h:commandLink action="#{montarOfertaBean.rmTodosComponentes()}" onclick="return confirmaExclusao()" class="btn btn-danger" value="Remover Todos" title="Remover todos os componentes desse curso à oferta" style="margin: 5px;float:right">
+                                                <h:commandLink action="#{montarOfertaBean.rmTodosComponentes()}" onclick="return confirmaExclusao()" class="btn btn-danger" title="Remover todos os componentes desse curso da oferta" style="margin: 5px;float:right">
+                                                    <span class="icon_close_alt2"></span>
                                                 </h:commandLink>
-                                                <h:commandLink action="#{montarOfertaBean.addTodosComponentes()}" onclick="return confirmaExclusao()" class="btn btn-success" value="Adicionar Todos" title="Adicionar todos os componentes desse curso à oferta" style="margin: 5px; float: right">
+                                                <h:commandLink action="#{montarOfertaBean.addTodosComponentes()}" onclick="return confirmaAddTodos()()" class="btn btn-success" title="Adicionar todos os componentes desse curso à oferta" style="margin: 5px; float: right">
+                                                    <span class="fa fa-plus-circle"></span>
                                                 </h:commandLink>
                                             </div>
                                         </div>
@@ -81,7 +83,7 @@
                                                         <h:column class="table-width">
                                                             <!-- PASSAMOS O COMPONENTE CURSO ITEM OFERTA PARA A BEAN -->
                                                             <h:form>
-                                                                <h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" title="Remover da Oferta" onclick="return confirmaExclusao()" ><span class="icon_close_alt2"></span></h:commandLink>&nbsp;
+                                                                <h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" title="Remover esse componente da oferta" onclick="return confirmaExclusao()" style="float:right"><span class="icon_close_alt2"></span></h:commandLink>&nbsp;
                                                                 <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/><br/> 
                                                             </h:form>
                                                             <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
@@ -96,8 +98,9 @@
                                                                             <h:message for="componenteCurso" style="color:red" />
                                                                         </div>
                                                                         <div class="col-lg-6">
-                                                                            <h:commandLink action="#{montarOfertaBean.addComponente()}" class="btn btn-primary" value="Adicionar" title="Adicionar o componente selecionado à oferta"></h:commandLink>&nbsp;
-                                                                            <h:commandLink action="#{montarOfertaBean.addComponenteBySemestre(tables.key)}" class="btn btn-success" value="Adicionar Todos" title="Adicionar todos os componentes desse semestre" style="float: right"></h:commandLink>
+                                                                            <h:commandLink action="#{montarOfertaBean.addComponente()}" class="btn btn-primary" title="Adicionar o componente selecionado à oferta"><span class="fa fa-plus-circle"></span></h:commandLink>&nbsp;
+                                                                            <h:commandLink action="#{montarOfertaBean.rmComponenteBySemestre(tables.key)}" class="btn btn-danger" title="Remover todos os componentes desse semestre" style="float: right" onclick="return confirmaExclusao()"><span class="icon_close_alt2"></span></h:commandLink>
+                                                                            <h:commandLink action="#{montarOfertaBean.addComponenteBySemestre(tables.key)}" class="btn btn-success" title="Adicionar todos os componentes desse semestre" style="float: right;margin-right: 5px"><span class="fa fa-plus-circle"></span></h:commandLink>
                                                                         </div>
                                                                     </div>
                                                                 </h:form>
