@@ -20,17 +20,17 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 
 /**
- * Classe responsável pela persistência dos objetos Oferta
+ * Classe responsÃ¡vel pela persistÃªncia dos objetos Oferta
  *
  * @author Eduardo Amaral
  */
 public class DAOOferta {
 
     /**
-     * Método que realiza a persistência de um objeto Oferta
+     * MÃ©todo que realiza a persistÃªncia de um objeto Oferta
      *
      * @param c - Oferta: Objeto a ser persistido
-     * @return - um boolean indicando se o objeto foi salvo ou não
+     * @return - um boolean indicando se o objeto foi salvo ou nÃ£o
      * @throws excecoes.PeriodoLetivoException
      */
     public static boolean salvar(Oferta c) throws PeriodoLetivoException {
@@ -59,7 +59,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método que realiza a busca de todos os objetos do tipo Oferta
+     * MÃ©todo que realiza a busca de todos os objetos do tipo Oferta
      *
      * @return - List
      */
@@ -93,7 +93,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método que busca um concurso específico pelo seu id
+     * MÃ©todo que busca um concurso especÃ­fico pelo seu id
      *
      * @param id - identificador do concurso
      * @return - O concurso especificado
@@ -134,7 +134,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método que busca um concurso específico pelo seu periodo.
+     * MÃ©todo que busca um concurso especÃ­fico pelo seu periodo.
      *
      * @param id
      * @param periodo - periodo letivo
@@ -175,10 +175,10 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por realizar a alteração de um objeto Oferta
+     * MÃ©todo responsÃ¡vel por realizar a alteraÃ§Ã£o de um objeto Oferta
      *
-     * @param c - Variável que contém o objeto modificado
-     * @return - Uma varável boolean indicando se o salvamento foi bem
+     * @param c - VariÃ¡vel que contÃ©m o objeto modificado
+     * @return - Uma varÃ¡vel boolean indicando se o salvamento foi bem
      * sucedido
      */
     public static boolean alterar(Oferta c) {
@@ -201,7 +201,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por excluir um registro referente a um objeto Oferta
+     * MÃ©todo responsÃ¡vel por excluir um registro referente a um objeto Oferta
      *
      * @param d - O objeto referente ao registro que deve ser excluido do banco
      * @return - Um boolean indicando se o salvamento foi bem sucedido
@@ -226,10 +226,10 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por mostrar a quantidade de registros na tabela de
+     * MÃ©todo responsÃ¡vel por mostrar a quantidade de registros na tabela de
      * Oferta
      *
-     * @return - O número de registros na tabela
+     * @return - O nÃºmero de registros na tabela
      */
     public static int count() {
         Session session;
@@ -254,7 +254,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por buscar os componenteCurso dado o curso e o
+     * MÃ©todo responsÃ¡vel por buscar os componenteCurso dado o curso e o
      * semestre.
      *
      * @param curso Curso
@@ -291,7 +291,7 @@ public class DAOOferta {
     }
     
     /**
-     * Método responsável por buscar os componenteCurso dado o curso e o
+     * MÃ©todo responsÃ¡vel por buscar os componenteCurso dado o curso e o
      * semestre.
      *
      * @param curso
@@ -330,7 +330,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método responsável por buscar os DocenteItemOferta dado o curso e a
+     * MÃ©todo responsÃ¡vel por buscar os DocenteItemOferta dado o curso e a
      * oferta.
      *
      * @param c Curso
@@ -363,7 +363,7 @@ public class DAOOferta {
         }
     }
     /**
-     * MÃƒÂ©todo responsÃƒÂ¡vel por buscar os componenteCurso dado o curso e o
+     * MÃƒÆ’Ã‚Â©todo responsÃƒÆ’Ã‚Â¡vel por buscar os componenteCurso dado o curso e o
      * semestre.
      *
      * @param c Curso
@@ -395,9 +395,42 @@ public class DAOOferta {
             session.close();
         }
     }
+    
+        /**
+     * MÃƒÆ’Ã‚Â©todo responsÃƒÆ’Ã‚Â¡vel por buscar os componenteCursoItemOferta sem docente alocado, dado o curso e a oferta.
+     *
+     * @param c Curso
+     * @param o
+     * @return ArrayList
+     */
+    public static ArrayList<ComponenteCursoItemOferta> getComponenteCursoItemOfertaSemDocente(Oferta o) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        ArrayList<ComponenteCursoItemOferta> retorno = null;
+        //short sem = Short.
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("FROM ComponenteCursoItemOferta AS ccio LEFT JOIN fetch ccio.componenteCurso AS cc LEFT JOIN fetch cc.componenteCurricular LEFT JOIN fetch cc.curso LEFT JOIN fetch ccio.itemOferta AS io LEFT JOIN fetch io.oferta AS o LEFT JOIN fetch io.docenteItemOfertas AS dio LEFT JOIN fetch dio.docente  WHERE io.oferta=:o AND io.docenteItemOfertas IS EMPTY");
+            q.setParameter("o", o);
+            retorno = (ArrayList<ComponenteCursoItemOferta>) q.list();
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
+    }
+    
 
     /**
-     * Método responsável por buscar os componenteCurso dado o curso, o
+     * MÃ©todo responsÃ¡vel por buscar os componenteCurso dado o curso, o
      * semestre e a sua obrigatoriedade.
      *
      * @param c Curso
@@ -435,7 +468,7 @@ public class DAOOferta {
     }
     
     /**
-     * Método responsável por buscar os componenteCurso dado o curso, o
+     * MÃ©todo responsÃ¡vel por buscar os componenteCurso dado o curso, o
      * semestre e a sua obrigatoriedade.
      *
      * @param c Curso
@@ -470,7 +503,7 @@ public class DAOOferta {
     }
 
     /**
-     * Método que realiza a busca de todos os objetos do tipo Oferta
+     * MÃ©todo que realiza a busca de todos os objetos do tipo Oferta
      *
      * @return - Um ArrayList com todos os ComponenteCursoItemOferta recuperados no banco
      */

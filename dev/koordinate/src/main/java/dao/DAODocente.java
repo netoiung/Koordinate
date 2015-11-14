@@ -10,9 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import excecoes.IntegridadeReferencialException;
 import java.util.Set;
-import model.ComponenteCursoItemOferta;
 import model.Curso;
-import model.Oferta;
 
 /**
  * Classe responsável pela persistência dos objetos Docente
