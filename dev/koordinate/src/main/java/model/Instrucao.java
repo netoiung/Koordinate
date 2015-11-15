@@ -39,19 +39,6 @@ public class Instrucao implements java.io.Serializable {
     public Instrucao() {
     }
 
-    public Instrucao(int id, Oferta oferta, String descricao) {
-        this.id = id;
-        this.oferta = oferta;
-        this.descricao = descricao;
-    }
-
-    public Instrucao(int id, Oferta oferta, String descricao, Set instrucaoDocentes, Set instrucaoComponenteCurriculars) {
-        this.id = id;
-        this.oferta = oferta;
-        this.descricao = descricao;
-        this.instrucaoDocentes = instrucaoDocentes;
-        this.instrucaoComponenteCurriculars = instrucaoComponenteCurriculars;
-    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters e setters">

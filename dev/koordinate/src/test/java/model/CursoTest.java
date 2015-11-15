@@ -38,7 +38,7 @@ public class CursoTest {
 
         Curso c = new Curso();
         c.setCod("ALES");
-        c.setNome("Engenharia de Software");
+        c.setNome("Engenharia de Software1");
         c.setDocente(d);
 
         boolean result = Curso.salvar(c);
@@ -48,10 +48,9 @@ public class CursoTest {
         Docente.excluir(d);
         Concurso.excluir(concurso);
     }
-    
+
     @Test
     public void testSalvar2() throws IntegridadeReferencialException {
-       
 
         Curso c = new Curso(0, null, "ALES", "software");
 //        c.setCod("ALES");
@@ -61,7 +60,7 @@ public class CursoTest {
         assertTrue(result);
 
         Curso.excluir(c);
-        
+
     }
 
     /**
@@ -108,7 +107,7 @@ public class CursoTest {
 
         Curso c = new Curso();
         c.setCod("ALES");
-        c.setNome("Engenharia de Software");
+        c.setNome("Engenharia de Software2");
         c.setDocente(d);
 
         Curso.salvar(c);
@@ -149,7 +148,7 @@ public class CursoTest {
 
         Curso c = new Curso();
         c.setCod("ALES");
-        c.setNome("Engenharia de Software");
+        c.setNome("Engenharia de Software3");
         c.setDocente(d);
 
         Curso.salvar(c);
@@ -172,9 +171,9 @@ public class CursoTest {
 
         Curso c = new Curso();
         c.setCod("ALES");
-        c.setNome("Engenharia de Software");
+        c.setNome("Engenharia de Software4");
 
-       // Curso.salvar(c);//não salvamos nada.
+        // Curso.salvar(c);//não salvamos nada.
         Curso expResult = c;
         Curso result = Curso.consultar(c.getId());//não deve encontrar o objeto.
         assertNotSame(expResult, result);
@@ -208,7 +207,7 @@ public class CursoTest {
 
         Curso c = new Curso();
         c.setCod("ALES");
-        c.setNome("Engenharia de Software");
+        c.setNome("Engenharia de Software5");
         c.setDocente(d);
 
         Curso.salvar(c);
@@ -230,27 +229,6 @@ public class CursoTest {
         Curso.excluir(c);
         Docente.excluir(d);
         Concurso.excluir(concurso);
-    }
-
-    /**
-     * Teste do método alterar negativo
-     */
-    @Test
-    public void testAlterarNegativo() throws IntegridadeReferencialException {
-        System.out.println("Testando método Alterar Negativo");
-
-        Curso c = new Curso();
-        c.setCod("ALES");
-        c.setNome("Engenharia de Software");
-
-        Curso.salvar(c);
-
-        c.setNome(null);//setamos o campo nome como nulo.
-
-        boolean test = Curso.alterar(c);
-        assertFalse(test);//precisa ser falso, pois não deve alterar um registro com o nome setado em nulo.
-
-        Curso.excluir(c);
     }
 
     /**
@@ -280,7 +258,7 @@ public class CursoTest {
 
         Curso c = new Curso();
         c.setCod("ALES");
-        c.setNome("Engenharia de Software");
+        c.setNome("Engenharia de Software6");
         c.setDocente(d);
 
         Curso.salvar(c);

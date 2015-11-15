@@ -105,7 +105,29 @@
                 <version>0.5.7.201204190339</version>
                 <configuration>
                     <excludes>
-                        <exclude></exclude>
+                        <exclude>**/*Conexao*</exclude>
+                        <exclude>**/*InstrucaoDocente*</exclude>
+                        <exclude>**/*InstrucaoComponenteCurricular*</exclude>
+                        <exclude>**/*ComponenteCurso*</exclude>
+                        <exclude>**/*ComponenteCursoItemOferta*</exclude>
+                        <exclude>**/*DocenteItemOferta*</exclude>
+                        <exclude>**/*Preferencia*</exclude>
+                        <exclude>**/*EmailValidator*</exclude>
+                        <exclude>**/*LinkValidator*</exclude>
+                        <exclude>**/*AlfaNumericoValidator*</exclude>
+                        <exclude>**/*PeriodoLetivoValidator*</exclude>
+                        <exclude>**/*InteiroValidator*</exclude>
+                        <exclude>**/*StringValidator*</exclude>
+                        <exclude>**/*ConcursoValidator*</exclude>
+                        <exclude>**/*CursoValidator*</exclude>
+                        <exclude>**/*DocenteValidator*</exclude>
+                        <exclude>**/*SemestreValidator*</exclude>
+                        <exclude>**/*SiepeValidator*</exclude>
+                        <exclude>**/*ComponenteCurricularValidator*</exclude>
+                        <exclude>**/*DocenteConverter*</exclude>
+                        <exclude>**/*CursoConverter*</exclude>
+                        <exclude>**/*ConcursoConverter*</exclude>
+                        <exclude>**/*ComponenteCurricularConverter*</exclude>
                     </excludes>
                     
                 </configuration>

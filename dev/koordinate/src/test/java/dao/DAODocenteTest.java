@@ -145,7 +145,7 @@ public class DAODocenteTest {
         d.setSiape(5432);
 
         Docente.salvar(d);
-        Collection<Docente> result = Docente.consultar("Eduardo Amaral999");
+        Collection<Docente> result = Docente.consultar("Eduardo AmaralDAO");
 
         assertNotNull(result);
 
@@ -164,7 +164,7 @@ public class DAODocenteTest {
         d.setLinklattes("lattes");
         d.setLogin("login");
         d.setSenha("pass");
-        d.setNome("Eduardo Amaral999");
+        d.setNome("Eduardo AmaralAlterando");
         d.setSiape(5432);
 
         Docente.salvar(d);
@@ -180,8 +180,6 @@ public class DAODocenteTest {
         DAODocente.excluir(d);
     }
 
-   
-
     /**
      * Test of excluir method, of class DAODocente.
      */
@@ -195,7 +193,7 @@ public class DAODocenteTest {
         d.setLinklattes("lattes");
         d.setLogin("login");
         d.setSenha("pass");
-        d.setNome("Eduardo Amaral999");
+        d.setNome("Eduardo AmaralExcluir");
         d.setSiape(5432);
 
         DAODocente.salvar(d);
@@ -203,5 +201,26 @@ public class DAODocenteTest {
         boolean result = DAODocente.excluir(d);
         assertTrue(result);
     }
+
+    /**
+     * Test of getCreditos method, of class DAODocente.
+//     */
+//    @Test
+//    public void testGetCreditos() {
+//        Docente d = new Docente();
+//        d.setAreagraduacao("areaGraduação");
+//        d.setAtuaposgraduacao(true);
+//        d.setEmailinstitucional("1234@uni");
+//        d.setLinklattes("lattes");
+//        d.setLogin("login");
+//        d.setSenha("pass");
+//        d.setNome("Eduardo AmaralExcluir");
+//        d.setSiape(5432); 
+//        d.setCreditos(5);
+//        
+//        DAODocente.salvar(d);
+//        
+//        assertEquals(5, DAODocente.getCreditos(d));
+//    }
 
 }
