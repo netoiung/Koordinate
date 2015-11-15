@@ -122,9 +122,10 @@
                         <exclude>**/*CursoValidator*</exclude>
                         <exclude>**/*DocenteValidator*</exclude>
                         <exclude>**/*SemestreValidator*</exclude>
-                        <exclude>**/*SiepeValidator*</exclude>
+                        <exclude>**/*SiapeValidator*</exclude>
                         <exclude>**/*ComponenteCurricularValidator*</exclude>
                         <exclude>**/*DocenteConverter*</exclude>
+                        <exclude>**/*JavaMailApp*</exclude>
                         <exclude>**/*CursoConverter*</exclude>
                         <exclude>**/*ConcursoConverter*</exclude>
                         <exclude>**/*ComponenteCurricularConverter*</exclude>
