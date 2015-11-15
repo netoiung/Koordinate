@@ -37,6 +37,7 @@ public class OfertaBean {
     private Curso curso;
     private ArrayList<ComponenteCursoItemOferta> ccif;
     private int id;
+    private ArrayList<ComponenteCursoItemOferta> ccifsd;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
@@ -94,7 +95,7 @@ public class OfertaBean {
 
         for (int i = 0; i < ccif.size(); i++) {
             for (int j = 1; j < ccif.size(); j++) {
-                if (ccif.get(i).getId() == ccif.get(j).getId()) {
+                if (i != j && ccif.get(i).getId() == ccif.get(j).getId()) {
                     ccif.remove(ccif.get(j));
                 }
             }
@@ -104,6 +105,15 @@ public class OfertaBean {
 
     public void setCcif(ArrayList<ComponenteCursoItemOferta> ccif) {
         this.ccif = ccif;
+    }
+
+    public ArrayList<ComponenteCursoItemOferta> getCcifsd() {
+        this.ccifsd = DAOOferta.getComponenteCursoItemOfertaSemDocente(oferta);
+        return ccifsd;
+    }
+
+    public void setCcifsd(ArrayList<ComponenteCursoItemOferta> ccifsd) {
+        this.ccifsd = ccifsd;
     }
 //</editor-fold>
 
@@ -115,6 +125,7 @@ public class OfertaBean {
     @PostConstruct
     public void init() {
         this.oferta = new Oferta();
+        getCcifsd();
     }
     //</editor-fold>
 
@@ -231,6 +242,7 @@ public class OfertaBean {
     }
 
     public ArrayList<DocenteItemOferta> retornaDocenteItemOfertas(int id) {
+
         getCcif();
         for (ComponenteCursoItemOferta dio : ccif) {
             if (dio.getId() == id) {
@@ -238,6 +250,12 @@ public class OfertaBean {
             }
         }
         return null;
+    }
+    
+    public String finalizarOferta(){
+        this.oferta.setAtivo(false);
+        this.salvar();
+        return "index";
     }
 
 }

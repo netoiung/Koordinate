@@ -51,7 +51,7 @@ public class DAOItemOferta {
         }
 
     }
-    
+
     /**
      * Método que realiza a persistência de um objeto Oferta
      *
@@ -77,25 +77,29 @@ public class DAOItemOferta {
         }
 
     }
-    
+
     /**
      * Método responsavel por persistir todos os itens de oferta, dada a Oferta
-     *  o semestre  e o curso.
+     * o semestre o curso e a obrigatoriedade do componente curricular.
+     *
      * @param semestre
-     * @param c
-     * @param o 
+     * @param curso
+     * @param oferta
+     * @param obrigatorio
      */
-    public void salvarTodosPorSemestre(short semestre, Curso c, Oferta o){
+    public void salvarTodosPorSemestre(short semestre, Curso curso, Oferta oferta, boolean obrigatorio) {
         DAOOferta dao = new DAOOferta();
-        
-        List<ComponenteCurso> componentes = dao.getComponentesNaoOfertados(c, semestre);
+        List<ComponenteCurso> componentes;
+
+        componentes = dao.getComponentesNaoOfertados(curso, semestre, oferta, obrigatorio);
+
         //objetos necessarios
         ItemOferta io;
         ComponenteCursoItemOferta ccio;
         //percorremos e inserimos
         for (ComponenteCurso cc : componentes) {
             io = new ItemOferta();
-            io.setOferta(o);
+            io.setOferta(oferta);
 
             ccio = new ComponenteCursoItemOferta();
             ccio.setComponenteCurso(cc);
@@ -105,17 +109,71 @@ public class DAOItemOferta {
             DAOItemOferta.salvar(ccio);
         }
     }
-    
+
     /**
-     * Método responsavel por excluir todos os itens de oferta, dada a Oferta
-     *  o semestre  e o curso.
+     * Método responsavel por persistir todos os itens de oferta, dada a Oferta
+     * o semestre e o curso, ignorando sua obrigatoriedade.
+     *
      * @param semestre
-     * @param c
+     * @param curso
+     * @param oferta
      */
-    public void excluiTodosPorSemestre(short semestre, Curso c){
+    public void salvarTodosPorSemestre(short semestre, Curso curso, Oferta oferta) {
+        DAOOferta dao = new DAOOferta();
+        List<ComponenteCurso> componentes;
+        componentes = dao.getComponentesNaoOfertados(curso, semestre, oferta);
+
+        //objetos necessarios
+        ItemOferta io;
+        ComponenteCursoItemOferta ccio;
+        //percorremos e inserimos
+        for (ComponenteCurso cc : componentes) {
+            io = new ItemOferta();
+            io.setOferta(oferta);
+
+            ccio = new ComponenteCursoItemOferta();
+            ccio.setComponenteCurso(cc);
+            ccio.setItemOferta(io);
+            //salvamos o item oferta e o componente curso item oferta
+            DAOItemOferta.salvar(io);
+            DAOItemOferta.salvar(ccio);
+        }
+    }
+
+    /**
+     * Método responsavel por excluir todos os itens de oferta, dada a Oferta o
+     * semestre e o curso (ignora a obrigatoriedade).
+     *
+     * @param semestre
+     * @param curso
+     * @param oferta
+     */
+    public void excluiTodosPorSemestre(short semestre, Curso curso, Oferta oferta) {
         DAOOferta dao = new DAOOferta();
         ItemOferta io;
-        List<ComponenteCursoItemOferta> componentes = dao.getComponentesOfertados(c, semestre);
+        List<ComponenteCursoItemOferta> componentes = dao.getComponentesOfertados(curso, oferta, semestre);
+        //percorremos e inserimos
+        for (ComponenteCursoItemOferta ccio : componentes) {
+            io = ccio.getItemOferta();
+            //excluimos o item oferta e o componente curso item oferta
+            DAOItemOferta.excluir(ccio);
+            DAOItemOferta.excluir(io);
+        }
+    }
+    
+    /**
+     * Método responsavel por excluir todos os itens de oferta, dada a Oferta o
+     * semestre o curso e a obrigatoriedade.
+     *
+     * @param semestre
+     * @param curso
+     * @param oferta
+     * @param obrigatorio
+     */
+    public void excluiTodosPorSemestre(short semestre, Curso curso, Oferta oferta, boolean obrigatorio) {
+        DAOOferta dao = new DAOOferta();
+        ItemOferta io;
+        List<ComponenteCursoItemOferta> componentes = dao.getComponentesOfertados(curso, semestre, oferta, obrigatorio);
         //percorremos e inserimos
         for (ComponenteCursoItemOferta ccio : componentes) {
             io = ccio.getItemOferta();
@@ -249,7 +307,7 @@ public class DAOItemOferta {
             session.close();
         }
     }
-    
+
     public static boolean excluir(ComponenteCursoItemOferta d) {
         Session session;
         session = ConexaoHibernate.getInstance();

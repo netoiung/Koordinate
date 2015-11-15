@@ -46,16 +46,92 @@
                                 <section class="panel">
                                     <h:form class="form-horizontal" role="form">
                                         <div class="form-group row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-5">
                                                 <label for="curso"><h2 style="display: inline">Selecione o Curso:</h2>&nbsp;</label>
                                                 <h:selectOneMenu id="curso" value="#{ofertaBean.curso}" converter="cursoConverter" class="js-example-basic-single" style=" min-width:200px;">
                                                     <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
                                                     <f:selectItems value="#{cursoBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nome}" />
                                                 </h:selectOneMenu>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-6" style="margin-top: 19px">
                                                 <h:commandLink onclick="window.location.href = window.location.href"   class="btn btn-primary" value="Carregar" style="margin-top: 5px;">
                                                 </h:commandLink>
+                                                <c:if test="${ofertaBean.oferta.ativo}">
+                                                    <c:if test="${not empty ofertaBean.ccifsd}">
+                                                        <h:commandButton class="btn btn-success" value="Finalizar Oferta" style="margin-top: 5px; float: right">
+                                                            <f:passThroughAttribute name="data-toggle" value="modal" />
+                                                            <f:passThroughAttribute name="data-target" value="#myModal" />
+                                                        </h:commandButton>
+                                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <h:form id="cadastro" role="form">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                            <h4 class="modal-title" id="myModalLabel">Falha ao finalizar oferta!</h4>
+                                                                        </div>
+
+                                                                        <div class="modal-body">
+                                                                            <fieldset>
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <h:outputLabel value="Alguns componentes curriculares ainda não tiveram docentes alocados. Por favor, entre em contato com os coordenadores de curso referentes aos itens abaixo:" />
+                                                                                    </div>
+
+                                                                                    <c:forEach items="#{ofertaBean.ccifsd}" var="ccifsd">
+                                                                                        <h:outputText style="color: red" value="#{ccifsd.componenteCurso.curso.nome} - #{ccifsd.componenteCurso.componenteCurricular.nome}"></h:outputText>
+                                                                                        <br/>
+                                                                                    </c:forEach>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.modal-content -->
+                                                                </div>
+                                                                <!-- /.modal-dialog -->
+                                                            </h:form>
+                                                        </div>
+                                                    </c:if>
+                                                    <c:if test="${empty ofertaBean.ccifsd}">
+                                                        <h:commandButton class="btn btn-success" value="Finalizar Oferta" style="margin-top: 5px; float: right">
+                                                            <f:passThroughAttribute name="data-toggle" value="modal" />
+                                                            <f:passThroughAttribute name="data-target" value="#myModal" />
+                                                        </h:commandButton>
+                                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <h:form id="cadastro" role="form">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                            <h4 class="modal-title" id="myModalLabel">Finalizar Oferta</h4>
+                                                                        </div>
+
+                                                                        <div class="modal-body">
+                                                                            <fieldset>
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <h:outputLabel value="Ao confirmar a finalização, nenhuma alteração poderá ser realizada nesta oferta até que a mesma torne-se ativa novamente (o processo é reversível ao editar esta oferta e marcá-la como ativa." />
+                                                                                        <h4 style="color: red">Você tem certeza de que deseja de que deseja finalizar esta oferta?</h4>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <h:commandButton actionListener="#{ofertaBean.finalizarOferta()}" class="btn btn-danger" value="Sim" style="margin-top: 5px;">
+                                                                            </h:commandButton>
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.modal-content -->
+                                                                </div>
+                                                                <!-- /.modal-dialog -->
+                                                            </h:form>
+                                                        </div>
+                                                    </c:if>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </h:form>
@@ -77,18 +153,11 @@
 
                                             <h:column>
                                                 <!-- column header -->
-                                                <f:facet name="header"><i class="fa fa-institution"></i> Créditos Totais</f:facet>
-                                                <!-- row record -->
-                                                <h:outputText value="#{ofertaBean.retornaCreditosDocenteItemOfertas(ccif.id)}"/>
-                                            </h:column>
-                                            
-                                            <h:column>
-                                                <!-- column header -->
                                                 <f:facet name="header"><i class="fa fa-institution"></i> Docente</f:facet>
                                                 <!-- row record -->                                                
                                                 <ui:repeat value="#{ofertaBean.retornaDocenteItemOfertas(ccif.id)}" var="docIt" varStatus="loop">
                                                     <c:choose>
-                                                        <c:when test="${!loop.last}">
+                                                        <c:when test="#{!loop.last}">
                                                             <h:outputText value="#{docIt.docente.nome}, "/>
                                                         </c:when>
                                                         <c:otherwise>
@@ -98,6 +167,15 @@
                                                     </c:choose>
                                                 </ui:repeat>
                                             </h:column> 
+
+                                            <h:column>
+                                                <!-- column header -->
+                                                <f:facet name="header"><i class="fa fa-institution"></i> Créditos Totais</f:facet>
+                                                <!-- row record -->
+                                                <h:outputText value="#{ofertaBean.retornaCreditosDocenteItemOfertas(ccif.id)}"/>
+                                            </h:column>
+
+
 
 
                                         </h:dataTable>

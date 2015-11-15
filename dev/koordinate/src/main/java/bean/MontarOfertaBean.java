@@ -8,7 +8,6 @@ package bean;
 import dao.DAOCurso;
 import dao.DAOItemOferta;
 import dao.DAOOferta;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,8 @@ public class MontarOfertaBean {
     private ItemOferta itemOferta;
     private Oferta oferta;
     private Curso curso;
-    private Map tabelas;
+    private Map tabelasObrigatorias; //tabelas de disciplinas obrigatorias
+    private Map tabelasComplementares; //tabelas de disciplinas complementares
     private ComponenteCurso componenteCurso;
 
     @PostConstruct
@@ -47,10 +47,11 @@ public class MontarOfertaBean {
     /**
      * Método responsável por direcionar para a tela de montar ofertas.
      *
-     * @return addInstrucoes
+     * @return String
      */
     public String montarOferta() {
-        this.tabelas = new LinkedHashMap();
+        this.tabelasObrigatorias = new LinkedHashMap();
+        this.tabelasComplementares = new LinkedHashMap();
         //verificamos se há cursos cadastrados.
         if (DAOCurso.consultar().isEmpty()) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Impossível montar oferta. Você não tem cursos cadastrados.");
@@ -60,15 +61,19 @@ public class MontarOfertaBean {
             this.curso = DAOCurso.consultar().get(0);
         }
         //montamos as tabelas de acordo com o semestre par ou impar
+        //listamos apenas os componentes que já estão na oferta
         DAOOferta dao = new DAOOferta();
         if (isSemestrePar()) {
             for (short i = 2; i <= this.curso.getNumeroDeSemestres(); i++) {
-                tabelas.put(i, dao.getComponentesOfertados(this.curso, i));
+                //o true indica retorna apenas as diciplinas obrigatorias
+                tabelasObrigatorias.put(i, dao.getComponentesOfertados(curso, i, oferta, true));
+                tabelasComplementares.put(i, dao.getComponentesOfertados(curso, i, oferta, false));
                 i++;
             }
         } else {
             for (short i = 1; i <= this.curso.getNumeroDeSemestres(); i++) {
-                tabelas.put(i, dao.getComponentesOfertados(this.curso, i));
+                tabelasObrigatorias.put(i, dao.getComponentesOfertados(this.curso, i, oferta, true));
+                tabelasComplementares.put(i, dao.getComponentesOfertados(curso, i, oferta, false));
                 i++;
             }
         }
@@ -79,11 +84,12 @@ public class MontarOfertaBean {
      * Método responsável por retornar apenas os cursos não ofertados.
      *
      * @param semestre
+     * @param obrigatorio
      * @return
      */
-    public List<ComponenteCurso> getComponentesBySemestreAndCurso(Short semestre) {
+    public List<ComponenteCurso> getComponentesBySemestreAndCurso(Short semestre, boolean obrigatorio) {
         DAOOferta dao = new DAOOferta();
-        return dao.getComponentesNaoOfertados(curso, semestre);
+        return dao.getComponentesNaoOfertados(curso, semestre, oferta, obrigatorio);
     }
 
     /**
@@ -102,13 +108,15 @@ public class MontarOfertaBean {
     }
 
     /**
-     * Método responsável por adicionar todos os componetes de um semestre à
-     * Oferta.
+     * Método responsável por adicionar todos os componetes (obrigatorios ou 
+     * não) de um semestre à Oferta.
+     * 
      * @param semestre
+     * @param obrigatorio
      */
-    public void addComponenteBySemestre(short semestre) {
+    public void addComponenteBySemestre(short semestre, boolean obrigatorio) {
         DAOItemOferta dao = new DAOItemOferta();
-        dao.salvarTodosPorSemestre(semestre, curso, oferta);
+        dao.salvarTodosPorSemestre(semestre, curso, oferta, obrigatorio);
         this.montarOferta();
     }
     
@@ -139,11 +147,13 @@ public class MontarOfertaBean {
         DAOItemOferta dao = new DAOItemOferta();
         if (isSemestrePar()) {
             for (short i = 2; i <= this.curso.getNumeroDeSemestres(); i++) {
-                dao.excluiTodosPorSemestre(i, curso);
+                //esse metodo ignora a obrigatoriedade, removo todos
+                dao.excluiTodosPorSemestre(i, curso, oferta);
                 i++;
             }
         } else {
             for (short i = 1; i <= this.curso.getNumeroDeSemestres(); i++) {
+                dao.excluiTodosPorSemestre(i, curso, oferta);
                 i++;
             }
         }
@@ -159,6 +169,18 @@ public class MontarOfertaBean {
         //primeiro excluimos esse
         DAOItemOferta.excluir(ccio);
         DAOItemOferta.excluir(ccio.getItemOferta());
+        this.montarOferta();
+    }
+    
+    /**
+     * Método responsável por remover todos os componetes de um semestre.
+     * 
+     * @param semestre
+     * @param obrigatoria
+     */
+    public void rmComponenteBySemestre(short semestre, boolean obrigatoria) {
+        DAOItemOferta dao = new DAOItemOferta();
+        dao.excluiTodosPorSemestre(semestre, curso, oferta, obrigatoria);
         this.montarOferta();
     }
 
@@ -200,8 +222,12 @@ public class MontarOfertaBean {
         this.curso = curso;
     }
 
-    public Map getTabelas() {
-        return this.tabelas;
+    public Map getTabelasObrigatorias() {
+        return this.tabelasObrigatorias;
+    }
+    
+    public Map getTabelasComplementares() {
+        return this.tabelasComplementares;
     }
 
     public ComponenteCurso getComponenteCurso() {

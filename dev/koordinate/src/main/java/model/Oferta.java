@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -96,7 +97,7 @@ public class Oferta implements java.io.Serializable {
         this.termino = termino;
     }
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "oferta")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "oferta", cascade = CascadeType.REMOVE)
     public Set<Instrucao> getInstrucaos() {
         return this.instrucaos;
     }
@@ -105,7 +106,7 @@ public class Oferta implements java.io.Serializable {
         this.instrucaos = instrucaos;
     }
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oferta")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oferta", cascade = CascadeType.REMOVE)
     public Set<ItemOferta> getItemOfertas() {
         return this.itemOfertas;
     }
