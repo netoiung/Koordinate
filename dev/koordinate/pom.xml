@@ -129,6 +129,7 @@
                         <exclude>**/*CursoConverter*</exclude>
                         <exclude>**/*ConcursoConverter*</exclude>
                         <exclude>**/*ComponenteCurricularConverter*</exclude>
+                        <exclude>**/*PeriodoLetivoException*</exclude>
                     </excludes>
                     
                 </configuration>
