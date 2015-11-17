@@ -112,10 +112,10 @@ public class CursoBeanTest {
         
         bean.getCurso().setNome("NOOME EDITADO");
         
-        String resultado = bean.editar();
-        assertEquals("/modules/curso/lista", resultado);
         
-        DAOCurso.excluir(bean.getCurso());
+        assertEquals("/modules/curso/lista", bean.editar());
+        
+        DAOCurso.excluir(DAOCurso.consultar(bean.getCurso().getId()));
         
     }
 

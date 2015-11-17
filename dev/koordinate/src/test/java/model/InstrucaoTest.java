@@ -171,8 +171,9 @@ public class InstrucaoTest {
 
         assertEquals(docente, Instrucao.consultarDoc().get(Instrucao.consultarDoc().size() - 1).getDocente());
 
-        Docente.excluir(docente);
+        
         Instrucao.excluir(i);
+        Docente.excluir(docente);
         Oferta.excluir(o);
 
     }
