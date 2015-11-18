@@ -56,6 +56,7 @@ public class DAOConcursoTest {
 
     /**
      * Teste negativo do método salvar
+     * @throws excecoes.IntegridadeReferencialException
      */
     @Test
     public void testSalvarNegativo() throws IntegridadeReferencialException {
@@ -70,6 +71,7 @@ public class DAOConcursoTest {
 
     /**
      * Test of consultar method, of class DAOConcurso.
+     * @throws excecoes.IntegridadeReferencialException
      */
     @Test
     public void testConsultar_int() throws IntegridadeReferencialException {
@@ -87,7 +89,27 @@ public class DAOConcursoTest {
     }
 
     /**
+     * Test of consultar method, of class DAOConcurso.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test(expected = Exception.class)
+    public void testConsultar_intExcecao() throws Exception  {
+
+        Concurso c = new Concurso();
+        c.setArea("Processamento Paralelo");
+        c.setEdital("2014/02");
+        c.setPrograma("programa");
+        DAOConcurso.salvar(c);
+        DAOConcurso.excluir(c);
+        DAOConcurso.consultar(Integer.parseInt("d"));
+        
+        
+    }
+
+    /**
      * Teste do método alterar
+     * @throws excecoes.IntegridadeReferencialException
      */
     @Test
     public void testAlterar() throws IntegridadeReferencialException {
@@ -114,6 +136,7 @@ public class DAOConcursoTest {
 
     /**
      * Test of excluir method, of class DAOConcurso.
+     * @throws java.lang.Exception
      */
     @Test
     public void testExcluir() throws Exception {

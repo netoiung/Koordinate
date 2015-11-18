@@ -98,7 +98,7 @@
                     </filesets>
                 </configuration>
             </plugin>
-            
+           
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -134,6 +134,7 @@
                         <exclude>**/*ComponenteCurricularConverter*</exclude>
                         <exclude>**/*PeriodoLetivoException*</exclude>
                         <exclude>**/*TestantoHibernate*</exclude>
+                        <exclude>**/*Bean*</exclude>
                     </excludes>
                     
                 </configuration>
@@ -163,6 +164,11 @@
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
