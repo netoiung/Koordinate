@@ -92,7 +92,7 @@ public class ComponenteCurricularBean {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Excluído com sucesso.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         } else {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, esse componente está sendo usado em uma oferta.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         }
         //DAOComponenteCurricular dao = new DAOComponenteCurricular();
