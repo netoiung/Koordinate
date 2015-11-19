@@ -132,8 +132,8 @@ public class InstrucaoTest {
 
         assertEquals(componente, Instrucao.consultarComp().get(Instrucao.consultarComp().size() - 1).getComponenteCurricular());
 
-        ComponenteCurricular.excluir(componente);
         Instrucao.excluir(i);
+        ComponenteCurricular.excluir(ComponenteCurricular.consultar(componente.getId()));
         Oferta.excluir(o);
 
     }
@@ -172,8 +172,9 @@ public class InstrucaoTest {
 
         assertEquals(docente, Instrucao.consultarDoc().get(Instrucao.consultarDoc().size() - 1).getDocente());
 
-        Docente.excluir(docente);
+        
         Instrucao.excluir(i);
+        Docente.excluir(docente);
         Oferta.excluir(o);
 
     }
