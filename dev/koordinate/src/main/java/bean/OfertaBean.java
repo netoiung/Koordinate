@@ -38,8 +38,8 @@ public class OfertaBean {
     private ArrayList<ComponenteCursoItemOferta> ccif;
     private int id;
     private ArrayList<ComponenteCursoItemOferta> ccifsd;
-//</editor-fold>
 
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
     public int getId() {
         return id;
@@ -89,6 +89,8 @@ public class OfertaBean {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
+
+
 
     public ArrayList<ComponenteCursoItemOferta> getCcif() {
         this.ccif = DAOOferta.getComponenteCursoItemOferta(curso, oferta);
@@ -251,11 +253,13 @@ public class OfertaBean {
         }
         return null;
     }
-    
-    public String finalizarOferta(){
+
+    public String finalizarOferta() {
         this.oferta.setAtivo(false);
         this.salvar();
         return "index";
     }
 
+
+    
 }

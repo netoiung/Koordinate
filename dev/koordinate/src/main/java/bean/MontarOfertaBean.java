@@ -8,6 +8,7 @@ package bean;
 import dao.DAOCurso;
 import dao.DAOItemOferta;
 import dao.DAOOferta;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,16 @@ public class MontarOfertaBean {
     private Map tabelasObrigatorias; //tabelas de disciplinas obrigatorias
     private Map tabelasComplementares; //tabelas de disciplinas complementares
     private ComponenteCurso componenteCurso;
+    private boolean exibe;
+    private ArrayList<Curso> cursos;
+
+    public ArrayList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
+    }
 
     @PostConstruct
     public void init() {
@@ -77,6 +88,7 @@ public class MontarOfertaBean {
                 i++;
             }
         }
+        exibe = false;
         return "/modules/oferta/montarOferta";
     }
 
@@ -101,6 +113,15 @@ public class MontarOfertaBean {
         ComponenteCursoItemOferta ccif = new ComponenteCursoItemOferta();
         ccif.setComponenteCurso(componenteCurso);
         ccif.setItemOferta(itemOferta);
+       
+        for (Curso curso1 : cursos) {
+            ComponenteCurso compCurso = new ComponenteCurso();
+            compCurso = DAOOferta.getComponenteCursos(componenteCurso.getComponenteCurricular(), curso1).get(0);
+            ComponenteCursoItemOferta ccif2 = new ComponenteCursoItemOferta();
+            ccif2.setComponenteCurso(compCurso);
+            ccif2.setItemOferta(itemOferta);
+            DAOItemOferta.salvar(ccif2);
+        }
         //salvamos o item oferta e o componente curso item oferta
         DAOItemOferta.salvar(this.itemOferta);
         DAOItemOferta.salvar(ccif);
@@ -108,9 +129,9 @@ public class MontarOfertaBean {
     }
 
     /**
-     * Método responsável por adicionar todos os componetes (obrigatorios ou 
+     * Método responsável por adicionar todos os componetes (obrigatorios ou
      * não) de um semestre à Oferta.
-     * 
+     *
      * @param semestre
      * @param obrigatorio
      */
@@ -119,7 +140,7 @@ public class MontarOfertaBean {
         dao.salvarTodosPorSemestre(semestre, curso, oferta, obrigatorio);
         this.montarOferta();
     }
-    
+
     /**
      * Método responsável por adicionar todos os componetes listados à oferta
      * vigente.
@@ -139,7 +160,7 @@ public class MontarOfertaBean {
         }
         this.montarOferta();
     }
-    
+
     /**
      * Método responsável por remover todos os componetes dessa oferta.
      */
@@ -171,10 +192,14 @@ public class MontarOfertaBean {
         DAOItemOferta.excluir(ccio.getItemOferta());
         this.montarOferta();
     }
-    
+
+    public List<Curso> buscarCursos() {
+        return DAOOferta.getCursos(componenteCurso);
+    }
+
     /**
      * Método responsável por remover todos os componetes de um semestre.
-     * 
+     *
      * @param semestre
      * @param obrigatoria
      */
@@ -225,7 +250,7 @@ public class MontarOfertaBean {
     public Map getTabelasObrigatorias() {
         return this.tabelasObrigatorias;
     }
-    
+
     public Map getTabelasComplementares() {
         return this.tabelasComplementares;
     }
@@ -236,6 +261,22 @@ public class MontarOfertaBean {
 
     public void setComponenteCurso(ComponenteCurso componenteCurso) {
         this.componenteCurso = componenteCurso;
+    }
+
+    public boolean isExibe() {
+        return exibe;
+    }
+
+    public void setExibe(boolean exibe) {
+        this.exibe = exibe;
+    }
+
+    public void exibe() {
+        exibe = !exibe;
+    }
+
+    public void test() {
+        this.cursos.hashCode();
     }
 
 }

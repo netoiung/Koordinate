@@ -8,6 +8,7 @@ package dao;
 import excecoes.PeriodoLetivoException;
 import java.util.ArrayList;
 import java.util.List;
+import model.ComponenteCurricular;
 import model.ComponenteCurso;
 import model.ComponenteCursoItemOferta;
 import model.Curso;
@@ -534,6 +535,72 @@ public class DAOOferta {
 
         return c;
 
+    }
+    
+        /**
+     * MÃ©todo responsÃ¡vel por buscar os cursos dado o componenteCurso
+     *
+     * @param componente
+     * 
+     * @return List
+     */
+    public static List<Curso> getCursos(ComponenteCurso componente) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        ArrayList<Curso> retorno = null;
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("FROM Curso AS c JOIN FETCH c.componenteCursos AS cc where cc.componenteCurricular=:componente AND c!=:curso");
+            q.setParameter("componente", componente.getComponenteCurricular());
+            q.setParameter("curso", componente.getCurso());
+            
+            retorno = (ArrayList<Curso>) q.list();
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
+    }
+    
+    
+          /**
+     * MÃ©todo responsÃ¡vel por buscar os cursos dado o componenteCurso
+     *
+     * @param cc
+     * 
+     * @return List
+     */
+    public static List<ComponenteCurso> getComponenteCursos(ComponenteCurricular componente, Curso curso) {
+        Session session;
+        session = ConexaoHibernate.getInstance();
+        Transaction tx = null;
+        ArrayList<ComponenteCurso> retorno = null;
+
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery("FROM ComponenteCurso AS cc WHERE cc.componenteCurricular=:componente AND cc.curso=:curso");
+            q.setParameter("componente", componente);
+            q.setParameter("curso", curso);
+            retorno = (ArrayList<ComponenteCurso>) q.list();
+
+            return retorno;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return retorno;
+
+        } finally {
+            session.close();
+        }
     }
 
 }

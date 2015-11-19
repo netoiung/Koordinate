@@ -85,14 +85,15 @@ public class InstrucaoTest {
         Instrucao i = new Instrucao();
         Oferta o = new Oferta();
         o.setAtivo(true);
-        o.setPeriodoLetivo("2015/02");
+        o.setPeriodoLetivo("0409/02");
         o.setInicio(new Date(2015, 5, 10));
         o.setTermino(new Date(2015, 10, 10));
         Oferta.salvar(o);
         i.setDescricao("oferta de 2015/01");
         i.setOferta(o);
         Instrucao.salvar(i);
-        assertEquals(i, Instrucao.consultarGeral().get(Instrucao.consultarGeral().size() - 1));
+        Instrucao instrucao = Instrucao.consultar(i.getId());
+        assertEquals(i, instrucao);
         Instrucao.excluir(i);
         Oferta.excluir(o);
     }
@@ -254,7 +255,7 @@ public class InstrucaoTest {
         Instrucao i = new Instrucao();
         Oferta o = new Oferta();
         o.setAtivo(true);
-        o.setPeriodoLetivo("2019/01");
+        o.setPeriodoLetivo("0001/01");
         o.setInicio(new Date(2015, 5, 10));
         o.setTermino(new Date(2015, 10, 10));
         Oferta.salvar(o);
@@ -273,15 +274,16 @@ public class InstrucaoTest {
         Instrucao i1 = new Instrucao();
         Oferta o1 = new Oferta();
         o1.setAtivo(true);
-        o1.setPeriodoLetivo("2019/01");
+        o1.setPeriodoLetivo("0003/01");
         o1.setInicio(new Date(2015, 5, 10));
         o1.setTermino(new Date(2015, 10, 10));
         Oferta.salvar(o1);
         i1.setDescricao("2019/01");
         i1.setOferta(o1);
         Instrucao.salvar(i1);
+        int a = Instrucao.consultarGeral().size();
 
-        assertEquals(1, Instrucao.count());
+        assertEquals(a, Instrucao.count());
 
         Instrucao.excluir(i1);
         Oferta.excluir(o1);
