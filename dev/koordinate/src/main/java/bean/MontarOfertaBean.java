@@ -113,7 +113,8 @@ public class MontarOfertaBean {
         ComponenteCursoItemOferta ccif = new ComponenteCursoItemOferta();
         ccif.setComponenteCurso(componenteCurso);
         ccif.setItemOferta(itemOferta);
-       
+        DAOItemOferta.salvar(this.itemOferta);
+
         for (Curso curso1 : cursos) {
             ComponenteCurso compCurso = new ComponenteCurso();
             compCurso = DAOOferta.getComponenteCursos(componenteCurso.getComponenteCurricular(), curso1).get(0);
@@ -188,7 +189,6 @@ public class MontarOfertaBean {
      */
     public void rmComponente(ComponenteCursoItemOferta ccio) {
         //primeiro excluimos esse
-        DAOItemOferta.excluir(ccio);
         DAOItemOferta.excluir(ccio.getItemOferta());
         this.montarOferta();
     }
