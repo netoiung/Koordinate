@@ -134,6 +134,18 @@ public class ComponenteCurricularBean {
         this.componente = dao.consultarWithJoin(reg);
         return "/modules/componenteCurricular/form";
     }
+    
+    /**
+     * adicionarRelacao é o método responsável pelo direcionamento para a tela de adicionar relação com cursos.
+     *
+     * @param reg
+     * @return form
+     */
+    public String adicionarRelacao(ComponenteCurricular reg) {
+        DAOComponenteCurricular dao = new DAOComponenteCurricular();
+        this.componente = dao.consultarWithJoin(reg);
+        return "/modules/componenteCurricular/adicionarC";
+    }
 
     /** Método responsável por consultar um componente curricular através do seu id
      *
