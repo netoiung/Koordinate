@@ -115,13 +115,15 @@ public class MontarOfertaBean {
         ccif.setItemOferta(itemOferta);
         DAOItemOferta.salvar(this.itemOferta);
 
-        for (Curso curso1 : cursos) {
-            ComponenteCurso compCurso = new ComponenteCurso();
-            compCurso = DAOOferta.getComponenteCursos(componenteCurso.getComponenteCurricular(), curso1).get(0);
-            ComponenteCursoItemOferta ccif2 = new ComponenteCursoItemOferta();
-            ccif2.setComponenteCurso(compCurso);
-            ccif2.setItemOferta(itemOferta);
-            DAOItemOferta.salvar(ccif2);
+        if (cursos != null) {
+            for (Curso curso1 : cursos) {
+                ComponenteCurso compCurso = new ComponenteCurso();
+                compCurso = DAOOferta.getComponenteCursos(componenteCurso.getComponenteCurricular(), curso1).get(0);
+                ComponenteCursoItemOferta ccif2 = new ComponenteCursoItemOferta();
+                ccif2.setComponenteCurso(compCurso);
+                ccif2.setItemOferta(itemOferta);
+                DAOItemOferta.salvar(ccif2);
+            }
         }
         //salvamos o item oferta e o componente curso item oferta
         DAOItemOferta.salvar(this.itemOferta);
@@ -144,18 +146,19 @@ public class MontarOfertaBean {
 
     /**
      * Método responsável por adicionar todos os componetes listados à oferta
-     * vigente.
+     * vigente (Apenas componentes obrigatórios).
      */
     public void addTodosComponentes() {
         DAOItemOferta dao = new DAOItemOferta();
+        //Adicionamos apenas os componentes obrigatorios
         if (isSemestrePar()) {
             for (short i = 2; i <= this.curso.getNumeroDeSemestres(); i++) {
-                dao.salvarTodosPorSemestre(i, curso, oferta);
+                dao.salvarTodosPorSemestre(i, curso, oferta, true);
                 i++;
             }
         } else {
             for (short i = 1; i <= this.curso.getNumeroDeSemestres(); i++) {
-                dao.salvarTodosPorSemestre(i, curso, oferta);
+                dao.salvarTodosPorSemestre(i, curso, oferta, true);
                 i++;
             }
         }
