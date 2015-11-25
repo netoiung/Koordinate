@@ -34,6 +34,7 @@ public class Curso implements java.io.Serializable {
     private Docente docente;
     private String cod;
     private String nome;
+    private int numeroDeSemestres;
     private Set componenteCursos = new HashSet(0);
 //</editor-fold>
 
@@ -48,9 +49,8 @@ public class Curso implements java.io.Serializable {
         this.nome = nome;
     }
 
-  
 //</editor-fold>
-
+    
     //<editor-fold defaultstate="collapsed" desc="Getters e Setters">
     @Id
     @GeneratedValue(generator = "curso_seq")
@@ -91,6 +91,15 @@ public class Curso implements java.io.Serializable {
         this.nome = nome;
     }
 
+    @Column(name = "numerodesemestre", nullable = false)
+    public int getNumeroDeSemestres() {
+        return numeroDeSemestres;
+    }
+
+    public void setNumeroDeSemestres(int numeroDeSemestres) {
+        this.numeroDeSemestres = numeroDeSemestres;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Set<ComponenteCurso> getComponenteCursos() {
@@ -102,6 +111,7 @@ public class Curso implements java.io.Serializable {
     }
 
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Métodos de Equals e HashCode">
 //    @Override
 //    public int hashCode() {
@@ -112,7 +122,6 @@ public class Curso implements java.io.Serializable {
 //        hash = 53 * hash + Objects.hashCode(this.nome);
 //        return hash;
 //    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -132,6 +141,7 @@ public class Curso implements java.io.Serializable {
     }
 
 //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Metodos de Persistencia">
     static public boolean salvar(Curso c) {
         return DAOCurso.salvar(c);
@@ -157,4 +167,5 @@ public class Curso implements java.io.Serializable {
         return DAOCurso.count();
     }
 //</editor-fold>
+
 }

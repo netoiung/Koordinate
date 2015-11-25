@@ -64,7 +64,6 @@ public class DocenteTest {
         boolean expResult = false;//porque nao deve salvar com nome nulo.
         boolean result = Docente.salvar(d);//tento salvar com o nome nulo.
         assertEquals(expResult, result);
-        ;
     }
 
     /**
@@ -188,7 +187,7 @@ public class DocenteTest {
         d.setSiape(5432);
 
         Docente.salvar(d);
-        Collection<Docente> result = Docente.consultar("Eduardo Amaral999");
+        Collection<Docente> result = Docente.consultar("Eduardo AmaralConsulta");
 
         assertNotNull(result);
 
@@ -218,7 +217,7 @@ public class DocenteTest {
         d.setLinklattes("lattes");
         d.setLogin("login");
         d.setSenha("pass");
-        d.setNome("Eduardo Amaral999");
+        d.setNome("Eduardo AmaralAletandoDocente");
         d.setSiape(5432);
 
         Docente.salvar(d);
@@ -255,7 +254,7 @@ public class DocenteTest {
         d.setLinklattes("lattes");
         d.setLogin("login");
         d.setSenha("pass");
-        d.setNome("Eduardo Amaral999");
+        d.setNome("Eduardo AmaralExcluir2");
         d.setSiape(5432);
 
         Docente.salvar(d);
@@ -263,26 +262,6 @@ public class DocenteTest {
         boolean result = Docente.excluir(d);
         assertTrue(result);
         Concurso.excluir(concurso);
-    }
-    
-    /**
-     * Teste do método buscartodos
-     */
-    @Test
-    public void testBuscarCoordenadores () {
-        Docente d = new Docente();
-        d.setAreagraduacao("areaGraduação");
-        d.setAtuaposgraduacao(true);
-        d.setEmailinstitucional("1234@uni");
-        d.setLinklattes("lattes");
-        d.setLogin("login");
-        d.setSenha("pass");
-        d.setNome("Eduardo Amaral999");
-        d.setSiape(5432);
-
-        Docente.salvar(d);
-        
-        d.buscarCoordenadores();
     }
 
 }

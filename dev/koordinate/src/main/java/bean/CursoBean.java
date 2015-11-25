@@ -140,6 +140,7 @@ public class CursoBean {
      */
     public String cadastrar() {
         this.curso = new Curso();
+        this.curso.setNumeroDeSemestres(10);
         return "/modules/curso/formCadastrar";
     }
 

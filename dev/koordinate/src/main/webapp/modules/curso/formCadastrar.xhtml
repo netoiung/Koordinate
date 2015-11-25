@@ -68,8 +68,18 @@
                                                         <h:message for="nome" style="color: red" />
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group ">
+                                                    <label for="nSemestres" class="control-label col-lg-2"> N° de semestres: <span class="required">*</span></label>
+                                                    <div class="col-lg-10">
+                                                        <h:inputText  class="form-control" value="#{cursoBean.curso.numeroDeSemestres}" id="nSemestres" required="true" requiredMessage="O campo deve ser preenchido." validatorMessage="O número deve estar entre 1 e 12." converterMessage="Digite somente números inteiros."> 
+                                                            <f:validateLongRange minimum="1" maximum="12"/>
+                                                        </h:inputText>
+                                                        <h:message for="nSemestres" style="color: red" />
+                                                    </div>
+                                                </div>
                                                 <div class="form-group" >
-                                                    <label for="nome" class="control-label col-lg-2"> Coordenador <span class="required">*</span></label>
+                                                    <label for="coordenador" class="control-label col-lg-2"> Coordenador <span class="required">*</span></label>
                                                     <div style="margin-left: 210px;">
                                                         <h:selectOneMenu id="coordenador" value="#{cursoBean.curso.docente}" class="js-example-basic-single" style=" width:300px" converter="docenteConverter" required="true" requiredMessage="O campo deve ser preenchido.">
                                                             <f:selectItem itemValue="-1" itemLabel="Selecione..." noSelectionOption="true"/>
@@ -96,7 +106,7 @@
                     </section>
                 </section>
                 <!--main content end-->
-                
+
             </ui:define>
 
         </ui:composition>

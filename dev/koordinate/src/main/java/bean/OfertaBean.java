@@ -7,16 +7,18 @@ package bean;
 
 import dao.DAOOferta;
 import excecoes.PeriodoLetivoException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Iterator;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import model.ComponenteCurricular;
+import model.ComponenteCursoItemOferta;
+import model.Curso;
+import model.Docente;
+import model.DocenteItemOferta;
 import model.Oferta;
 
 /**
@@ -32,15 +34,26 @@ public class OfertaBean {
     //<editor-fold defaultstate="collapsed" desc="variaveis">
     private Oferta oferta;
     private ArrayList<Oferta> ofertas;
-//</editor-fold>
+    private Curso curso;
+    private ArrayList<ComponenteCursoItemOferta> ccif;
+    private int id;
+    private ArrayList<ComponenteCursoItemOferta> ccifsd;
 
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="getters e setters">
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      *
      * @return
      */
-        public Oferta getOferta() {
+    public Oferta getOferta() {
         return oferta;
     }
 
@@ -68,16 +81,53 @@ public class OfertaBean {
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+
+
+    public ArrayList<ComponenteCursoItemOferta> getCcif() {
+        this.ccif = DAOOferta.getComponenteCursoItemOferta(curso, oferta);
+
+        for (int i = 0; i < ccif.size(); i++) {
+            for (int j = 1; j < ccif.size(); j++) {
+                if (i != j && ccif.get(i).getId() == ccif.get(j).getId()) {
+                    ccif.remove(ccif.get(j));
+                }
+            }
+        }
+        return ccif;
+    }
+
+    public void setCcif(ArrayList<ComponenteCursoItemOferta> ccif) {
+        this.ccif = ccif;
+    }
+
+    public ArrayList<ComponenteCursoItemOferta> getCcifsd() {
+        this.ccifsd = DAOOferta.getComponenteCursoItemOfertaSemDocente(oferta);
+        return ccifsd;
+    }
+
+    public void setCcifsd(ArrayList<ComponenteCursoItemOferta> ccifsd) {
+        this.ccifsd = ccifsd;
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Init">
-
-    /** Método inicializador de variaveis
+    /**
+     * Método inicializador de variaveis
      *
      */
-        @PostConstruct
+    @PostConstruct
     public void init() {
         this.oferta = new Oferta();
+        getCcifsd();
     }
     //</editor-fold>
 
@@ -90,7 +140,8 @@ public class OfertaBean {
      */
     public String consultar(Oferta reg) {
         this.oferta = DAOOferta.consultar(reg.getId());
-        return "/modules/oferta/consulta";
+        this.curso = new Curso();
+        return "/modules/oferta/monitorarOferta";
     }
 
     /**
@@ -100,7 +151,13 @@ public class OfertaBean {
      */
     public void excluir(Oferta reg) {
         this.oferta = reg;
-        Oferta.excluir(this.oferta);
+        if (Oferta.excluir(this.oferta)) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Registro excluído com sucesso.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir o registro, por favor tente novamente.");
+            FacesContext.getCurrentInstance().addMessage("mensagens", fm);
+        }
         this.listar();
     }
 
@@ -134,8 +191,8 @@ public class OfertaBean {
      * @param reg
      * @return formulario de edição de oferta
      */
-    public String alterar(ComponenteCurricular reg) {
-        this.oferta = Oferta.consultar(reg.getId());
+    public String alterar(Oferta reg) {
+        this.oferta = reg;
         return "/modules/oferta/form";
     }
 
@@ -157,7 +214,7 @@ public class OfertaBean {
     public String listar() {
         return "/modules/oferta/lista";
     }
-    
+
     /**
      * Método responsável por direcionar para a tela de acrescentar instrucoes
      *
@@ -168,4 +225,41 @@ public class OfertaBean {
     }
 //</editor-fold>
 
+    public int retornaCreditosDocenteItemOfertas(int id) {
+        int creditos = 0;
+        this.id = id;
+        for (ComponenteCursoItemOferta dio : ccif) {
+            if (dio.getId() == id) {
+                Iterator<DocenteItemOferta> iter = dio.getItemOferta().getDocenteItemOfertas().iterator();
+
+                while (iter.hasNext()) {
+                    DocenteItemOferta docIt = new DocenteItemOferta();
+                    docIt = iter.next();
+                    creditos += docIt.getCreditos();
+                }
+
+            }
+        }
+        return creditos;
+    }
+
+    public ArrayList<DocenteItemOferta> retornaDocenteItemOfertas(int id) {
+
+        getCcif();
+        for (ComponenteCursoItemOferta dio : ccif) {
+            if (dio.getId() == id) {
+                return new ArrayList<DocenteItemOferta>(dio.getItemOferta().getDocenteItemOfertas());
+            }
+        }
+        return null;
+    }
+
+    public String finalizarOferta() {
+        this.oferta.setAtivo(false);
+        this.salvar();
+        return "index";
+    }
+
+
+    
 }

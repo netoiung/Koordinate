@@ -1,19 +1,21 @@
-package bean;
 
-import dao.DAOCurso;
+package converters;
+
+import dao.DAOComponenteCurso;
+import dao.DAODocente;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import model.Curso;
+import model.ComponenteCurso;
+import model.Docente;
 
-/**
- * lasse responsável por converter um Curso de um select para um objeto
+/** Classe responsável por converter um Docente de um select para um objeto
  *
  * @author Luiz Paulo Franz
  */
-@FacesConverter(forClass = Curso.class, value = "cursoConverter")
-public class CursoConverter implements Converter {
+@FacesConverter(forClass = Docente.class, value = "componenteCursoConverter")
+public class ComponenteCursoConverter implements Converter {
 
     /**
      *
@@ -28,9 +30,10 @@ public class CursoConverter implements Converter {
         if (value == null || value.isEmpty()) {
             return null;
         } else {
+            DAOComponenteCurso dao = new DAOComponenteCurso();
             int id = Integer.parseInt(value);
-            Curso curso = DAOCurso.consultar(id);
-            return curso;
+            ComponenteCurso componenteCurso = dao.consultar(id);
+            return componenteCurso;
         }
     }
 
@@ -44,10 +47,10 @@ public class CursoConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         String r = "";
-        if (value instanceof Curso) {
-            Curso c = (Curso) value;
-            r = String.valueOf(c.getId());
-        } else if (value instanceof String) {
+        if (value instanceof ComponenteCurso) {
+            ComponenteCurso d = (ComponenteCurso) value;
+            r = String.valueOf(d.getId());
+        } else if(value instanceof String){
             r = (String) value;
         }
         return r;

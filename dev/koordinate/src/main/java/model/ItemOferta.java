@@ -3,11 +3,11 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,8 +26,8 @@ public class ItemOferta implements java.io.Serializable {
 
     private int id;
     private Oferta oferta;
-    private Set componentecursoitemofertas = new HashSet(0);
-    private Set docenteItemOfertas = new HashSet(0);
+    private Set<ComponenteCursoItemOferta> componenteCursoItemOfertas = new HashSet(0);
+    private Set<DocenteItemOferta> docenteItemOfertas = new HashSet(0);
 
     public ItemOferta() {
     }
@@ -53,16 +53,16 @@ public class ItemOferta implements java.io.Serializable {
         this.oferta = oferta;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemoferta")
-    public Set getComponentecursoitemofertas() {
-        return this.componentecursoitemofertas;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "itemOferta", cascade = CascadeType.REMOVE)
+    public Set<ComponenteCursoItemOferta> getComponenteCursoItemOfertas() {
+        return this.componenteCursoItemOfertas;
     }
 
-    public void setComponentecursoitemofertas(Set componentecursoitemofertas) {
-        this.componentecursoitemofertas = componentecursoitemofertas;
+    public void setComponenteCursoItemOfertas(Set componentecursoitemofertas) {
+        this.componenteCursoItemOfertas = componentecursoitemofertas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemOferta")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "itemOferta", cascade = CascadeType.REMOVE)
     public Set<DocenteItemOferta> getDocenteItemOfertas() {
         return this.docenteItemOfertas;
     }

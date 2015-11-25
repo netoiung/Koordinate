@@ -29,7 +29,7 @@ public class ComponenteCurso implements java.io.Serializable {
     private Curso curso;
     private boolean obrigatoria;
     private short semestre;
-    private Set componentecursoitemofertas = new HashSet(0);
+    private Set componenteCursoItemOfertas = new HashSet(0);
 
     public ComponenteCurso() {
     }
@@ -83,13 +83,45 @@ public class ComponenteCurso implements java.io.Serializable {
         this.semestre = semestre;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componentecurso")
-    public Set getComponentecursoitemofertas() {
-        return this.componentecursoitemofertas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "componenteCurso")
+    public Set<ComponenteCursoItemOferta> getComponenteCursoItemOfertas() {
+        return this.componenteCursoItemOfertas;
     }
 
-    public void setComponentecursoitemofertas(Set componentecursoitemofertas) {
-        this.componentecursoitemofertas = componentecursoitemofertas;
+    public void setComponenteCursoItemOfertas(Set componentecursoitemofertas) {
+        this.componenteCursoItemOfertas = componentecursoitemofertas;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.id;
+        hash = 79 * hash + (this.obrigatoria ? 1 : 0);
+        hash = 79 * hash + this.semestre;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComponenteCurso other = (ComponenteCurso) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.obrigatoria != other.obrigatoria) {
+            return false;
+        }
+        if (this.semestre != other.semestre) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }

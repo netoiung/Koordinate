@@ -61,11 +61,14 @@
     <script>
         $(document).ready(function () {
             $('#curso').DataTable();
+            $('#docentes').DataTable({"paging": false,
+                "info": false});
             $('#docente').DataTable();
             $('#componentes').DataTable();
             $('#concurso').DataTable();
             $('#oferta0099').DataTable();
             $(".js-example-basic-single").select2();
+            $(".js-example-basic-multiple").select2();
 
         });
 

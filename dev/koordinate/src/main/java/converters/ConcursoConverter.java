@@ -1,5 +1,5 @@
 
-package bean;
+package converters;
 
 import dao.DAOConcurso;
 import javax.faces.component.UIComponent;

@@ -92,7 +92,7 @@ public class ComponenteCurricularBean {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Excluído com sucesso.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         } else {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, por favor tente novamente.");
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Não foi possível excluir, esse componente está sendo usado em uma oferta.");
             FacesContext.getCurrentInstance().addMessage("mensagens", fm);
         }
         //DAOComponenteCurricular dao = new DAOComponenteCurricular();
@@ -133,6 +133,18 @@ public class ComponenteCurricularBean {
         DAOComponenteCurricular dao = new DAOComponenteCurricular();
         this.componente = dao.consultarWithJoin(reg);
         return "/modules/componenteCurricular/form";
+    }
+    
+    /**
+     * adicionarRelacao é o método responsável pelo direcionamento para a tela de adicionar relação com cursos.
+     *
+     * @param reg
+     * @return form
+     */
+    public String adicionarRelacao(ComponenteCurricular reg) {
+        DAOComponenteCurricular dao = new DAOComponenteCurricular();
+        this.componente = dao.consultarWithJoin(reg);
+        return "/modules/componenteCurricular/adicionarC";
     }
 
     /** Método responsável por consultar um componente curricular através do seu id

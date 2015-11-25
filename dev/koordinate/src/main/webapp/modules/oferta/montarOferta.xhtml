@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="/templates/Template.xhtml">
+
+            <ui:define name="title">
+                Koordinate - Montar a Oferta de Componentes Curriculares
+            </ui:define>
+
+            <ui:define name="conteudo">
+
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-user"></i> Montar Oferta (<h:outputText value="#{montarOfertaBean.oferta.periodoLetivo}" />)</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><h:link outcome="/index.xhtml">Página Inicial</h:link></li>
+                                    <li><i class="fa fa-user"></i><h:link outcome="lista.xhtml">Ofertas</h:link></li>
+                                    <li><i class="fa fa-search"></i><i>Montar Oferta</i></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Aqui você pode visualizar e acrescentar componentes curriculares à oferta.
+                            </p>
+                        </div>
+
+                        <h:link styleClass="btn btn-primary btn-lg" outcome="lista"><span class="fa fa-arrow-left"></span> Voltar</h:link>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel">
+                                    <h:form class="form-horizontal" role="form">
+                                        <div class="form-group row">
+                                            <div class="col-lg-6">
+                                                <label for="curso"><h2 style="display: inline">Selecione o Curso:</h2>&nbsp;</label>
+                                                <h:selectOneMenu id="curso" value="#{montarOfertaBean.curso}" converter="cursoConverter" class="js-example-basic-single" style=" min-width:200px;">
+                                                    <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
+                                                    <f:selectItems value="#{cursoBean.cursos}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nome}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h:commandLink action="#{montarOfertaBean.montarOferta()}" class="btn btn-primary" value="Carregar" title="Carregar informações do curso selecionado" style="margin: 5px;">
+                                                </h:commandLink>
+                                                <h:commandLink action="#{montarOfertaBean.rmTodosComponentes()}" onclick="return confirmaExclusao()" class="btn btn-danger" title="Remover todos os componentes desse curso da oferta" style="margin: 5px;float:right">
+                                                    <span class="icon_close_alt2"></span>
+                                                </h:commandLink>
+                                                <h:commandLink action="#{montarOfertaBean.addTodosComponentes()}" onclick="return confirmaAddTodos()" class="btn btn-success" title="Adicionar todos os componentes desse curso à oferta" style="margin: 5px; float: right">
+                                                    <span class="fa fa-plus-circle"></span>
+                                                </h:commandLink>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </section>
+                                <c:if test="#{montarOfertaBean.curso.nome == null}">
+                                    <h3 class="page-header">Por favor, selecione um dos cursos acima para iniciar.</h3>
+                                </c:if>
+
+                                <c:if test="#{montarOfertaBean.curso.nome != null}">
+                                    <h3 class="page-header"><i class="fa fa-institution"></i> <h:outputText value="#{montarOfertaBean.curso.nome}"></h:outputText> </h3>
+                                    <!-- TABELA DE DISCIPLINAS OBRIGATORIAS -->
+                                    <h4>Disciplinas Obrigatórias</h4>
+                                    <section class="panel">
+                                        <div class="row">
+                                            <!--Fazemos uma iteracao no mapa de tabelas-->
+                                            <c:forEach items="#{montarOfertaBean.tabelasObrigatorias}" var="tables" varStatus="loop">
+                                                <div class="col-lg-6">
+                                                    <h:dataTable value="#{tables.value}" class="table table-striped table-advance table-hover" var="o" >
+                                                        <!-- column header -->
+                                                        <h:column class="table-width">
+                                                            <!-- PASSAMOS O COMPONENTE CURSO ITEM OFERTA PARA A BEAN -->
+                                                            <h:form>
+                                                                <h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" title="Remover esse componente da oferta" onclick="return confirmaExclusao()" style="float:right"><span class="icon_close_alt2"></span></h:commandLink>&nbsp;
+                                                                <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/><br/> 
+                                                            </h:form>
+                                                            <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
+                                                                <h:form class="form-horizontal" role="form">
+                                                                    <!-- Componentes curriculares deste semestre -->
+                                                                    <h:panelGroup layout="block" id="select">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-9">
+
+                                                                                <h:selectOneMenu id="componenteCurso" value="#{montarOfertaBean.componenteCurso}" converter="componenteCursoConverter" class="js-example-basic-single" style=" min-width:200px;">
+                                                                                    <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
+                                                                                    <f:ajax event="valueChange" render="select"/>
+                                                                                    <f:selectItems value="#{montarOfertaBean.getComponentesBySemestreAndCurso(tables.key, true)}" var="componenteCurso" itemValue="#{componenteCurso}" itemLabel="#{componenteCurso.componenteCurricular.nome}" />
+                                                                                </h:selectOneMenu>
+                                                                                <h:message for="componenteCurso" style="color:red" />
+
+                                                                                <h:commandLink title="Adicionar oferta conjunta" rendered="#{!montarOfertaBean.exibe}" class="btn btn-primary" action="#{montarOfertaBean.exibe}"> 
+                                                                                    <i class="fa fa-link"></i>
+                                                                                    <f:ajax event="click" execute="@form" listener="#{montarOfertaBean.exibe}" render="select"/>
+                                                                                </h:commandLink>
+
+                                                                                <h:selectManyListbox id="cursosSelect" rendered="#{montarOfertaBean.exibe}" value="#{montarOfertaBean.cursos}" converter="cursoConverter" required="false" requiredMessage="O campo deve ser preenchido." class="js-example-basic-multiple" style="width: 80%">
+                                                                                    <f:selectItems value="#{montarOfertaBean.buscarCursos()}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nome}" />
+                                                                                </h:selectManyListbox>
+                                                                                <h:message for="cursos" style="color: red;display: block;clear: both"/>
+                                                                                <h:commandLink title="Fechar oferta conjunta" rendered="#{montarOfertaBean.exibe}" class="btn btn-danger" action="#{montarOfertaBean.exibe}"> 
+                                                                                    <i class="icon icon_close_alt2"></i>
+                                                                                    <f:ajax event="click" execute="@this" listener="#{montarOfertaBean.exibe}" render="select"/>
+                                                                                </h:commandLink>
+
+                                                                            </div>
+
+
+
+                                                                            <h:commandLink action="#{montarOfertaBean.addComponente()}" style="" class="btn btn-primary" title="Adicionar o componente selecionado à oferta"><span class="fa fa-plus-circle"></span></h:commandLink>&nbsp;
+                                                                            <h:commandLink action="#{montarOfertaBean.rmComponenteBySemestre(tables.key, true)}" class="btn btn-danger" title="Remover todos os componentes desse semestre" style="float: right" onclick="return confirmaExclusao()"><span class="icon_close_alt2"></span></h:commandLink>
+                                                                            <h:commandLink action="#{montarOfertaBean.addComponenteBySemestre(tables.key, true)}" class="btn btn-success" title="Adicionar todos os componentes desse semestre" style="float: right;margin-right: 5px"><span class="fa fa-plus-circle"></span></h:commandLink>
+                                                                        </div>
+                                                                        <script>
+                                                                            $(".js-example-basic-single").select2();
+                                                                            $(".js-example-basic-multiple").select2();
+                                                                            $(".js-example-basic-multiple").select2({
+                                                                                placeholder: "Selecione os cursos da oferta conjunta"
+                                                                            });
+                                                                        </script>
+                                                                    </h:panelGroup>
+
+                                                                </h:form>
+                                                            </f:facet>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
+
+                                            </c:forEach>
+                                        </div>
+                                    </section>
+
+                                    <!-- TABELA DE DISCIPLINAS COMPLEMENTARES -->
+                                    <h4 class="page-header">Disciplinas Complementares</h4>
+                                    <section class="panel">
+                                        <div class="row">
+                                            <!--Fazemos uma iteracao no mapa de tabelas-->
+                                            <c:forEach items="#{montarOfertaBean.tabelasComplementares}" var="tables" varStatus="loop">
+                                                <div class="col-lg-6">
+                                                    <h:dataTable value="#{tables.value}" class="table table-striped table-advance table-hover" var="o" >
+                                                        <!-- column header -->
+                                                        <h:column class="table-width">
+                                                            <!-- PASSAMOS O COMPONENTE CURSO ITEM OFERTA PARA A BEAN -->
+                                                            <h:form>
+                                                                <h:commandLink action="#{montarOfertaBean.rmComponente(o)}" class="btn btn-danger" title="Remover esse componente da oferta" onclick="return confirmaExclusao()" style="float:right"><span class="icon_close_alt2"></span></h:commandLink>&nbsp;
+                                                                <h:outputText value="#{o.componenteCurso.componenteCurricular.nome}"/><br/> 
+                                                            </h:form>
+                                                            <f:facet name="header" class="table-width"><h:outputText value="#{tables.key}"/>º Semestre &nbsp;
+                                                                <h:form class="form-horizontal" role="form">
+                                                                    <!-- Componentes curriculares deste semestre -->
+                                                                    <h:panelGroup layout="block" id="select2">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-lg-8">
+                                                                                <h:selectOneMenu id="componenteCurso" value="#{montarOfertaBean.componenteCurso}" converter="componenteCursoConverter" class="js-example-basic-single" style=" min-width:200px;">
+                                                                                    <f:selectItem itemValue="" itemLabel="Selecione..." noSelectionOption="true" />
+                                                                                    <f:ajax event="valueChange" render="select2"/>
+                                                                                    <f:selectItems value="#{montarOfertaBean.getComponentesBySemestreAndCurso(tables.key, false)}" var="componenteCurso" itemValue="#{componenteCurso}" itemLabel="#{componenteCurso.componenteCurricular.nome}" />
+                                                                                </h:selectOneMenu>
+                                                                                <h:message for="componenteCurso" style="color:red" />
+
+                                                                                <h:commandLink title="Adicionar oferta conjunta" rendered="#{!montarOfertaBean.exibe}" class="btn btn-primary" action="#{montarOfertaBean.exibe}"> 
+                                                                                    <i class="fa fa-link"></i>
+                                                                                    <f:ajax event="click" execute="@form" listener="#{montarOfertaBean.exibe}" render="select2"/>
+                                                                                </h:commandLink>
+
+                                                                                <h:selectManyListbox id="cursosSelect" rendered="#{montarOfertaBean.exibe}" value="#{montarOfertaBean.cursos}" converter="cursoConverter" required="false" requiredMessage="O campo deve ser preenchido." class="js-example-basic-multiple" style="width: 80%">
+                                                                                    <f:selectItems value="#{montarOfertaBean.buscarCursos()}" var="curso" itemValue="#{curso}" itemLabel="#{curso.nome}" />
+                                                                                </h:selectManyListbox>
+                                                                                <h:message for="cursos" style="color: red;display: block;clear: both"/>
+                                                                                <h:commandLink title="Fechar oferta conjunta" rendered="#{montarOfertaBean.exibe}" class="btn btn-danger" action="#{montarOfertaBean.exibe}"> 
+                                                                                    <i class="icon icon_close_alt2"></i>
+                                                                                    <f:ajax event="click" execute="@this" listener="#{montarOfertaBean.exibe}" render="select2"/>
+                                                                                </h:commandLink>
+
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                <h:commandLink action="#{montarOfertaBean.addComponente()}" class="btn btn-primary" title="Adicionar o componente selecionado à oferta"><span class="fa fa-plus-circle"></span></h:commandLink>&nbsp;
+                                                                                <h:commandLink action="#{montarOfertaBean.rmComponenteBySemestre(tables.key, false)}" class="btn btn-danger" title="Remover todos os componentes desse semestre" style="float: right" onclick="return confirmaExclusao()"><span class="icon_close_alt2"></span></h:commandLink>
+                                                                                <h:commandLink action="#{montarOfertaBean.addComponenteBySemestre(tables.key, false)}" class="btn btn-success" title="Adicionar todos os componentes desse semestre" style="float: right;margin-right: 5px"><span class="fa fa-plus-circle"></span></h:commandLink>
+                                                                            </div>
+                                                                        </div>
+                                                                        <script>
+                                                                            $(".js-example-basic-single").select2();
+                                                                            $(".js-example-basic-multiple").select2();
+                                                                            $(".js-example-basic-multiple").select2({
+                                                                                placeholder: "Selecione os cursos da oferta conjunta"
+                                                                            });
+                                                                        </script>
+                                                                    </h:panelGroup>
+                                                                </h:form>
+                                                            </f:facet>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
+
+                                            </c:forEach>
+                                        </div>
+                                    </section>
+                                </c:if>
+
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <!--main content end-->
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

@@ -28,7 +28,7 @@ public class OfertaTest {
         oferta.setAtivo(true);
         oferta.setInicio(new Date());
         oferta.setTermino(new Date());
-        oferta.setPeriodoLetivo("2015/1");
+        oferta.setPeriodoLetivo("1234/7");
 
         boolean expResult = true;
         boolean result = DAOOferta.salvar(oferta);
@@ -72,7 +72,7 @@ public class OfertaTest {
         Oferta oferta = new Oferta();
         oferta.setInicio(new java.sql.Date(2015, 10, 17));
         oferta.setTermino(new java.sql.Date(2016, 4, 17));
-        oferta.setPeriodoLetivo("2015/1");
+        oferta.setPeriodoLetivo("1234/7");
         oferta.setAtivo(false);
         Oferta.salvar(oferta);
         //</editor-fold>
@@ -97,7 +97,7 @@ public class OfertaTest {
         Oferta oferta = new Oferta();
         oferta.setInicio(new java.sql.Date(2015, 10, 17));
         oferta.setTermino(new java.sql.Date(2016, 4, 17));
-        oferta.setPeriodoLetivo("2015/1");
+        oferta.setPeriodoLetivo("1234/7");
         oferta.setAtivo(false);
         Oferta.salvar(oferta);
         //</editor-fold>
@@ -122,7 +122,7 @@ public class OfertaTest {
         Oferta oferta = new Oferta();
         oferta.setInicio(new java.sql.Date(2015, 10, 17));
         oferta.setTermino(new java.sql.Date(2016, 4, 17));
-        oferta.setPeriodoLetivo("2015/1");
+        oferta.setPeriodoLetivo("1234/7");
         oferta.setAtivo(false);
         Oferta.salvar(oferta);
         //</editor-fold>
@@ -152,7 +152,7 @@ public class OfertaTest {
         Oferta oferta = new Oferta();
         oferta.setInicio(new java.sql.Date(2015, 10, 17));
         oferta.setTermino(new java.sql.Date(2016, 4, 17));
-        oferta.setPeriodoLetivo("2015/1");
+        oferta.setPeriodoLetivo("1234/7");
         oferta.setAtivo(false);
         Oferta.salvar(oferta);
         //</editor-fold>

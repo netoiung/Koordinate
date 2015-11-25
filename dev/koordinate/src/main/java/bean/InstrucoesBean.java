@@ -17,8 +17,8 @@ import model.InstrucaoDocente;
 import model.Oferta;
 
 /**
- * InstrucoesBean Ã© a classe responsÃ¡vel pelas instrucoes das ofertas do
- * sistema de gestÃ£o de oferta e horÃ¡rio.
+ * InstrucoesBean é a classe responsável pelas instrucoes das ofertas do
+ * sistema de gestão de oferta e horário.
  *
  * @author Eduardo Amaral
  */

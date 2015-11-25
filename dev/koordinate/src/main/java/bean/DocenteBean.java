@@ -2,6 +2,7 @@ package bean;
 
 import dao.DAODocente;
 import excecoes.IntegridadeReferencialException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -45,6 +46,7 @@ public class DocenteBean {
     public List<Docente> getDocentes() {
         DAODocente dao = new DAODocente();
         this.docentes = DAODocente.consultar();
+        contarCreditos();
         return this.docentes;
     }
 
@@ -152,4 +154,12 @@ public class DocenteBean {
         this.listar();
     }
 //</editor-fold>
+    
+    public void contarCreditos(){
+        for (Docente docente1 : docentes) {
+            int c = DAODocente.getCreditos(docente1);
+            docente1.setCreditos(c);
+        }
+        
+    }
 }

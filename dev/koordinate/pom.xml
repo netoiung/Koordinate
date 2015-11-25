@@ -98,14 +98,43 @@
                     </filesets>
                 </configuration>
             </plugin>
-            
+           
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.5.7.201204190339</version>
                 <configuration>
                     <excludes>
-                        <exclude></exclude>
+                        <exclude>**/*Conexao*</exclude>
+                        <exclude>**/*InstrucaoDocente*</exclude>
+                        <exclude>**/*InstrucaoComponenteCurricular*</exclude>
+                        <exclude>**/*ComponenteCurso*</exclude>
+                        <exclude>**/*ComponenteCursoItemOferta*</exclude>
+                        <exclude>**/*DocenteItemOferta*</exclude>
+                        <exclude>**/*ItemOferta*</exclude>
+                        <exclude>**/*ValidacaoException*</exclude>
+                        <exclude>**/*Preferencia*</exclude>
+                        <exclude>**/*EmailValidator*</exclude>
+                        <exclude>**/*LinkValidator*</exclude>
+                        <exclude>**/*AlfaNumericoValidator*</exclude>
+                        <exclude>**/*PeriodoLetivoValidator*</exclude>
+                        <exclude>**/*InteiroValidator*</exclude>
+                        <exclude>**/*StringValidator*</exclude>
+                        <exclude>**/*ConcursoValidator*</exclude>
+                        <exclude>**/*CursoValidator*</exclude>
+                        <exclude>**/*IntegridadeReferencialException*</exclude>
+                        <exclude>**/*DocenteValidator*</exclude>
+                        <exclude>**/*SemestreValidator*</exclude>
+                        <exclude>**/*SiapeValidator*</exclude>
+                        <exclude>**/*ComponenteCurricularValidator*</exclude>
+                        <exclude>**/*DocenteConverter*</exclude>
+                        <exclude>**/*JavaMailApp*</exclude>
+                        <exclude>**/*CursoConverter*</exclude>
+                        <exclude>**/*ConcursoConverter*</exclude>
+                        <exclude>**/*ComponenteCurricularConverter*</exclude>
+                        <exclude>**/*PeriodoLetivoException*</exclude>
+                        <exclude>**/*TestantoHibernate*</exclude>
+                        <exclude>**/*Bean*</exclude>
                     </excludes>
                     
                 </configuration>
@@ -135,6 +164,11 @@
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

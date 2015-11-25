@@ -35,7 +35,8 @@
 
                             </p>
                         </div>
-
+                        <h:message id="mensagens" for="mensagens" errorClass="alert alert-danger" infoClass="alert alert-success" warnClass="alert alert-warning" style="display: block"/> 
+                        
                         <h:link styleClass="btn btn-primary btn-lg" outcome="#{componenteCurricularBean.cadastrar()}" style="float: right"><span class="fa fa-plus"></span> Cadastrar Novo</h:link>
                         <br/>
                         <br/>
@@ -81,6 +82,7 @@
                                                 <h:form>
                                                     <h:commandLink title="Consultar" styleClass="btn btn-primary" action="#{componenteCurricularBean.consultar(componente)}"><span class="fa fa-search"></span></h:commandLink>
                                                     <h:commandLink title="Editar" styleClass="btn btn-success" action="#{componenteCurricularBean.alterar(componente)}"><span class="fa fa-pencil"></span></h:commandLink>
+                                                    <h:commandLink title="Adicionar Relação" styleClass="btn btn-warning" action="#{componenteCurricularBean.adicionarRelacao(componente)}"><span class="fa fa-link"></span></h:commandLink>
                                                     <h:commandLink title="Excluir" styleClass="btn btn-danger" onclick="return confirmaExclusao()" action="#{componenteCurricularBean.excluir(componente)}" >   <span class="icon_close_alt2"></span></h:commandLink>
                                                 </h:form>
                                             </div>
