@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
++To change this license header, choose License Headers in Project Properties.
++To change this template file, choose Tools | Templates
++and open the template in the editor.
++-->
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../Template.xhtml">
+    <ui:define name="content">
+
+
+        <h:body>
+            <p:growl autoUpdate="true"/>
+            <p:panel header="Cadastro de  Oferta" style="text-align:left" >
+                <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainOferta()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w" style="float: right"/>   
+                <h:form id="cadastroOferta">
+                    <h:panelGrid columns="2" cellpadding="5"  >
+                        <h:outputText value="Período: " />
+                        <p:inputText id="periodo" value="#{ofertaBean.oferta.periodoLetivo}" style="width:200%" required="true" requiredMessage="O campo deve ser preenchido.">
+                            <f:validator validatorId="validacao.view.PeriodoLetivoValidator" />
+                        </p:inputText>
+                        
+                        <h:outputText value="Data Inicial: " />
+                        <p:calendar value="#{ofertaBean.oferta.inicio}" pattern="dd/MM/yyyy" id="inicial" locale="pt" required="true" requiredMessage="O campo deve ser preenchido."/>                        
+                        
+                        <h:outputText value="Data Término: " />
+                        <p:calendar value="#{ofertaBean.oferta.termino}" pattern="dd/MM/yyyy" id="termino" locale="pt" required="true" requiredMessage="O campo deve ser preenchido." />
+                        
+                        <h:outputText value="Ativo? " />
+                        <h:selectBooleanCheckbox value="#{ofertaBean.oferta.ativo}" id="ativo" style="margin-top: 12px">
+                        </h:selectBooleanCheckbox>
+                    </h:panelGrid>
+                    <p:commandButton value="Adicionar" update="cadastroOferta" actionListener="#{ofertaBean.salvar()}"  />                     
+                </h:form>
+            </p:panel>
+        </h:body>
+    </ui:define>
+</ui:composition>

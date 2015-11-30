@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../Template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="mainForm" >
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{usuarioBean.setUsuario(loginHandler.loggedUser)}" />
+                <f:event type="preRenderView" listener="#{usuarioBean.setUpdating(true)}" />
+            </f:metadata>
+
+            <p:toolbar  style="margin-left: 40%; width: 15%;">
+                <p:toolbarGroup >
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{usuarioBean.save()}"/>
+                </p:toolbarGroup>
+                <p:separator />
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Voltar" class="red_button"
+                                     actionListener="#{myNavigationHandler.goToMainPage()}" process="@this"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <!--</h:form>-->
+
+            <!--<h:form id="mainForm" >-->
+            <p:focus for="idEmailIn" />
+            <h1 class="center">
+                Editar Perfil
+            </h1>
+            <p:separator /> 
+            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
+            <br />
+
+            <p:panelGrid columns="2" style="margin-left: 5%;">
+                <p:panel >
+                    <p:outputLabel value="Email: " for="idEmailIn" />
+                    <br />
+                    <p:inputText id="idEmailIn" value="#{usuarioBean.usuario.email}" required="true" placeholder="email@unimapma.edu.br" 
+                                 requiredMessage="Campo Email Obrigatório!" />
+
+                    <br /> <br />
+                    <p:commandButton value="Recuperar Senha"
+                                     rendered="#{usuarioBean.updating}"
+                                     actionListener="#{usuarioBean.passwordRecovery()}"/>
+                </p:panel>
+                <p:panel >
+                    <p:outputLabel value="Siape: " for="idSiapeIn"/>
+                    <br />
+                    <p:inputText id="idSiapeIn" value="#{usuarioBean.usuario.docente.siape}" type="number" required="true" requiredMessage="Campo Siape Obrigatório!" />
+
+                    <br /> <br />
+                    <p:outputLabel value="Nome: " />
+                    <br />
+                    <p:inputText id="idNomeIn" value="#{usuarioBean.usuario.docente.nome}" placeholder="Nome..." />
+
+                    <br /> <br />
+                    <p:outputLabel value="Curriculo Lattes: " />
+                    <br />
+                    <p:inputText id="idLattesIn" value="#{usuarioBean.usuario.docente.linkLattes}" placeholder="http://lattes.com.br" />
+                </p:panel>
+            </p:panelGrid>
+            <br /> <br />
+        </h:form>
+    </ui:define>
+</ui:composition>

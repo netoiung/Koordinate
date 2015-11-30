@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../Template.xhtml">
+    <ui:define name="content">
+
+        <div class="well" align="right" >
+            <h:form>
+                <p:commandButton value="Novo" id="novo" actionListener="#{myNavigationHandler.goToDocenteForm()}" update="novo" icon="ui-icon-plusthick" action="#{docenteBean.limparDocente()}"/>
+                <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainPage()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w"/>    
+            </h:form>
+        </div>
+
+
+        <h:form id="form">
+            <p:dataTable  value="#{docenteBean.docentes}" id="docentes-table" widgetVar="docentes-table"
+                          emptyMessage="Nenhuma docente cadastrada." rows="20" 
+                          paginator="true" paginatorPosition="both"
+                          var="docente"
+                          sortBy="#{docente.nome}" rowKey="#{docente.id}"
+                          selection="#{docenteBean.selectedDocente}"
+                          style="margin-top: 2%;margin-left: 5%;margin-right: 5%">
+                <f:facet name="header" class="right_content">
+                    Buscar Docente:
+                    <p:inputText id="globalFilter" onkeyup="PF('docentes-table').filter()" style="width: 60%; " placeholder="Pesquise global por qualquer informação de docente" />       
+                </f:facet>
+
+                <p:column headerText="ID" width="130" style="text-align: center;" filterBy="#{docente.id}" filterStyle="display:none">
+                    <h:outputText value="#{docente.id}"  />
+                </p:column>
+                <p:column headerText="Nome" filterBy="#{docente.nome}" filterStyle="display:none">
+                    <h:outputText value="#{docente.nome}"/>
+                </p:column>
+                <p:column headerText="Siape" filterBy="#{docente.siape}" filterStyle="display:none">
+                    <h:outputText value="#{docente.siape}"/>
+                </p:column>
+                <p:column headerText=" Aréia Graduação" filterBy="#{docente.areagraduacao}" filterStyle="display:none">
+                    <h:outputText value="#{docente.areagraduacao}"/>
+                </p:column>
+                <p:column headerText="Ação" width="140" style="text-align: center;">
+                    <p:commandButton icon="ui-icon-close" oncomplete="PF('excluir').show()" actionListener="#{docenteBean.setDocente(docente)}" >                     
+                    </p:commandButton>  
+                    <p:commandButton  update=":form:display2" oncomplete="PF('visualizar').show()" icon="ui-icon-search" title="View" actionListener="#{docenteBean.setDocente(docente)}">                       
+                    </p:commandButton>
+                    
+                    <p:commandButton  id="editar" action="#{myNavigationHandler.goToDocenteFormEditar()}" actionListener="#{docenteBean.setDocente(docente)}"  icon="ui-icon-refresh">
+                     </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog widgetVar="excluir" showEffect="fade" hideEffect="fade" header="Desejar excluir esse docente?">
+                <h:panelGrid id="display" columns="2" cellpadding="5">             
+                    <p:commandButton value="Sim" id="sim" actionListener="#{docenteBean.excluir()}" oncomplete="PF('excluir').hide()" update="docentes-table" />
+                    <p:commandButton value="Não" id="nao"  oncomplete="PF('excluir').hide()" />
+
+                </h:panelGrid>
+            </p:dialog>
+     
+            <p:dialog widgetVar="visualizar" closable="false" showEffect="fade" hideEffect="fade" header="Consulta Docente">
+                <h:panelGrid id="display2" columns="2" cellpadding="5">                                                 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{docenteBean.docente.id}" />
+                <h:outputText value="Nome:" />
+                <h:outputText value="#{docenteBean.docente.nome}" />
+                <h:outputText value="Aréa de Graduação:" />
+                <h:outputText value="#{docenteBean.docente.areagraduacao}" />
+                <h:outputText value="Atua na pos graduação" />
+                <h:outputText value="#{docenteBean.docente.atuaposgraduacao}" />
+                <h:outputText value="Siape " />
+                <h:outputText value="#{docenteBean.docente.siape}" />
+                <h:outputText value="Link Lattes " />
+                <h:outputText value="#{docenteBean.docente.linklattes}" />
+                
+                 <h:outputText value="Concurso " />
+                 <h:outputText value="#{docenteBean.docente.concurso.area}" /> 
+                 <p:commandButton value="OK" id="OK" actionListener="#{docenteBean.limparDocente()}" oncomplete="PF('visualizar').hide()" update="docentes-table" />  
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>  
+    </ui:define>
+</ui:composition>
+

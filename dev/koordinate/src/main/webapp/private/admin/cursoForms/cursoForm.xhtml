@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
++To change this license header, choose License Headers in Project Properties.
++To change this template file, choose Tools | Templates
++and open the template in the editor.
++-->
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../Template.xhtml">
+    <ui:define name="content">
+       
+       
+            <h:body>
+                <p:growl autoUpdate="true"/>
+                <p:panel header="Cadastro de  Curso" style="text-align:left" >
+                    <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainCurso()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w" style="float: right"/>   
+                    <h:form id="cadastroDocente"   >                      
+                        <h:panelGrid columns="2" cellpadding="5"  >
+                            <h:outputText value="Codigo: " />
+                            <p:inputText id="siape" value="#{cursoBean.curso.cod}" style="width:200%" required="true" requiredMessage="O campo deve ser preenchido." converterMessage="Digite somente números inteiros." >
+                                <f:validator validatorId="validacao.view.AlfaNumericoValidator" />
+                            </p:inputText>
+                            <h:outputText value="Nome do Curso: " />
+                            <p:inputText value="#{cursoBean.curso.nome}" id="nome" style="width: 200%" required="true" requiredMessage="O campo deve ser preenchido.">
+                                <f:validator validatorId="validacao.view.StringValidator" />
+                            </p:inputText>
+                           <h:outputText value="Coordenador: " />
+                           <p:autoComplete id="docenteAutocomplete"  value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                            var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                        </h:panelGrid>
+                        <p:commandButton value="Adicionar" update="cadastroDocente" actionListener="#{cursoBean.salvar()}"  />                     
+                    </h:form>
+                    </p:panel>
+            </h:body>
+    </ui:define>
+</ui:composition>

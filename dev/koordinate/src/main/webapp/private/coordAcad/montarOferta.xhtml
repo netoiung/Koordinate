@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../Template.xhtml">
+    <ui:define name="content">
+
+        <div class="well" align="right" >
+            <h:form>
+                <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainPage()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w"/>    
+            </h:form>
+        </div>
+        <div>
+
+
+        </div>
+        <h:form id="form">
+            <div >
+                <h:outputText value="Selecionar Curso :" style="font-size: x-large;float: left" />
+                <p:autoComplete  style="float: left" id="docenteAutocomplete"  value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                 var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                <p:commandButton value="Carregar"    style="margin-right:25%"/>  
+                <p:commandButton value="Adicionar Todos"   />    
+                <p:commandButton value="Remover Todos"    />    
+            </div>
+            <br></br>
+            <div>
+                <h:outputText value=" Curso selecionado" style="font-size: xx-large;float: left;" />    
+            </div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div class="well" align="left">
+                    <p:panel id="s1" header="1° semestre" style="margin-bottom:-20px" >
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s2" header="2° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+            </div>
+            <p:panel id="s3" header="3° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"  value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s4" header="4° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s5" header="5° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s6" header="6° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s7" header="7° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s8" header="8° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+            <p:panel id="s9" header="9° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"  value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+            <p:panel id="s10" header="10° semestre" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:autoComplete  style="float: left"   value="#{cursoBean.curso.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                     var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" /> 
+                </h:panelGrid>
+            </p:panel>
+
+
+
+        </h:form>  
+    </ui:define>
+</ui:composition>
+

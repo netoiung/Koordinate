@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+        <ui:composition template="/templates/Template.xhtml">
+            <ui:define name="title">
+                Koordinate - Início
+            </ui:define>
+            
+            <ui:define name="conteudo">
+
+                <!--main content start-->
+                <section id="main-content">
+                    <section class="wrapper">            
+                        <!--overview start-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><i class="fa fa-home"></i> Página Inicial</h3>
+                                <ol class="breadcrumb">
+                                    <li><i class="fa fa-home"></i><h:link value="Página Inicial" outcome="index"/></li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p>Bem Vindo ao Koordinate, seu software para gestão de horários!<br/>
+                                Abaixo, temos informações sobre quantos registros de cada tipo nosso sistema tem no momento. Para visualiza-los, clique sobre o mesmo (ou no menu lateral, na aba "Cadastros").
+                            </p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <h:link outcome="#{componenteCurricularBean.listar()}">
+                                    <div class="info-box blue-bg">
+                                        <i class="fa fa-book"></i>
+                                        <div class="count"><h:outputText value="#{beanCount.countComp}"/></div>
+                                        <div class="title">Componentes Curriculares</div>						
+                                    </div><!--/.info-box-->	
+                                </h:link>
+
+                            </div><!--/.col-->
+
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <h:link outcome="#{docenteBean.listar()}" >
+                                    <div class="info-box brown-bg">
+                                        <i class="fa fa-user"></i>
+                                        <div class="count"><h:outputText value="#{beanCount.countDoc}"/></div>
+                                        <div class="title">Docentes</div>						
+                                    </div><!--/.info-box-->	
+                                </h:link>
+                            </div><!--/.col-->	
+
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <h:link outcome="#{cursoBean.listar()}">
+
+                                    <div class="info-box dark-bg">
+                                        <i class="fa fa-institution"></i>
+                                        <div class="count"><h:outputText value="#{beanCount.countCur}"/></div>
+                                        <div class="title">Cursos </div>						
+                                    </div><!--/.info-box-->	
+                                </h:link>
+                            </div><!--/.col-->
+                            
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <h:link outcome="#{concursoBean.listar()}">
+
+                                    <div class="info-box yellow-bg">
+                                        <i class="fa fa-archive"></i>
+                                        <div class="count"><h:outputText value="#{beanCount.countConc}"/></div>
+                                        <div class="title">Concursos</div>						
+                                    </div><!--/.info-box-->	
+                                </h:link>
+                            </div><!--/.col-->
+                        </div><!--/.row-->
+                    </section>
+                </section>
+                <!--main content end-->
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
+

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../Template.xhtml">
+    <ui:define name="content">
+
+        <div class="well" align="right" >
+            <h:form>
+                <p:commandButton value="Novo" id="novo" actionListener="#{myNavigationHandler.goToCursoForm()}" update="novo" icon="ui-icon-plusthick" action="#{cursoBean.limparCurso()}"/>
+                <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainPage()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w"/>    
+            </h:form>
+        </div>
+        <h:form id="form">
+            <p:dataTable  value="#{cursoBean.cursos}" id="cursos-table" widgetVar="cursos-table"
+                          emptyMessage="Nenhuma curso encontrado." rows="20" 
+                          paginator="true" paginatorPosition="both"
+                          var="curso"
+                          sortBy="#{curso.nome}" rowKey="#{curso.id}"
+                          selection="#{cursoBean.curso}"
+                          style="margin-top: 2%;margin-left: 5%;margin-right: 5%">
+                <f:facet name="header" class="right_content">
+                    Buscar Curso:
+                    <p:inputText id="globalFilter" onkeyup="PF('cursos-table').filter()" style="width: 60%; " placeholder="Pesquise  por qualquer informação de Curso" />       
+                </f:facet>
+
+                <p:column headerText="Codigo" width="130" style="text-align: center;" filterBy="#{curso.cod}" filterStyle="display:none">
+                    <h:outputText value="#{curso.cod}"  />
+                </p:column>
+                <p:column headerText="Nome" filterBy="#{curso.nome}" filterStyle="display:none">
+                    <h:outputText value="#{curso.nome}"/>
+                </p:column>
+                <p:column headerText="Coordenador" filterBy="#{curso.docente.nome}" filterStyle="display:none">
+                    <h:outputText value="#{curso.docente.nome}"/>
+                </p:column>
+
+                <p:column headerText="Ação" width="140" style="text-align: center;">
+                    <p:commandButton icon="ui-icon-close" actionListener="#{cursoBean.setCurso(curso)}" action="#{cursoBean.excluir()}" update="cursos-table">
+                        <p:confirm  message="Desejar excluir esse docente?"  />
+                    </p:commandButton>
+                    <p:commandButton  update=":form:display2" oncomplete="PF('visualizar').show()" icon="ui-icon-search" title="View" actionListener="#{cursoBean.setCurso(curso)}">                       
+                    </p:commandButton>                   
+                    <p:commandButton  id="editar" action="#{myNavigationHandler.goToCursoForm()}" actionListener="#{cursoBean.setCurso(curso)}"  icon="ui-icon-refresh">
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>         
+            <p:dialog widgetVar="visualizar" closable="false" showEffect="fade" hideEffect="fade" header="Consulta Curso">
+                <h:panelGrid id="display2" columns="2" cellpadding="5">                  
+                    <h:outputText value="Codigo:" />
+                    <h:outputText value="#{cursoBean.curso.cod}" />
+                    <h:outputText value="Nome:" />
+                    <h:outputText value="#{cursoBean.curso.nome}" />
+                    <h:outputText value="Coordenador" />
+                    <h:outputText value="#{cursoBean.curso.docente.nome}"/>                           
+                    <p:commandButton value="OK" id="OK" actionListener="#{cursoBean.limparCurso()}" oncomplete="PF('visualizar').hide()" />              
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>  
+    </ui:define>
+</ui:composition>
+

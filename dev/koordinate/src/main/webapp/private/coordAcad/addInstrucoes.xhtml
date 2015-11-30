@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../Template.xhtml">
+    <ui:define name="content">
+
+        <div class="well" align="right" >
+            <h:form>
+                <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainOferta()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w"/>    
+            </h:form>
+        </div>
+        <h:form>  
+            <p:growl id="msgs" showDetail="true" autoUpdate="true" />
+
+            <h3 style="margin-top:0;font-family: serif;font-size: x-large">Adicionar instruções</h3>
+            <p:tabView style="text-align: left">
+                <p:tab title="Instruções Gerais" >
+                    <h:panelGrid >
+
+
+                        <p:outputLabel value="Adiconar Instrução :"   />
+                        <p:inputTextarea value="#{instrucoesBean.descricaoGeral}" rows="5" cols="70"  style="margin-left:25%" ></p:inputTextarea>
+                        <p:commandButton value="Salvar" style="margin-left: 135%;top: -80px" action="#{instrucoesBean.salvarGeral()}"/> 
+                    </h:panelGrid>
+
+                    <p:dataTable id="basicDT" var="o" value="#{instrucoesBean.instrucoes}">
+
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{o.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Ações" style="width:100px;text-align: center">
+                            <p:commandButton icon="ui-icon-close" action="#{instrucoesBean.excluir(o.id)}" >
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Intruções de Componente Curricular">
+                    <h:panelGrid >
+                        <p:outputLabel value="Componente Curricular:"  for="dd" />
+                        <p:autoComplete id="dd" dropdown="true" value="#{instrucoesBean.componente}" completeMethod="#{autoCompleteView.completeText}"  style="margin-left:25%" />
+                        <p:outputLabel value="Adiconar Instrução :"   />
+                        <p:inputTextarea value="#{instrucoesBean.descricaoComponente}" rows="5" cols="70"  style="margin-left:25%" ></p:inputTextarea>
+                        <p:commandButton value="Salvar"  action="#{instrucoesBean.salvarComp()}"  style="margin-left: 135%;top: -80px"/> 
+                    </h:panelGrid>
+
+                    <p:dataTable id="basi" var="o" value="#{instrucoesBean.instrucoesComp}">
+
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{o.instrucao.descricao}" />
+                        </p:column>
+ 
+                        <p:column headerText="Escopo">
+                            <h:outputText value="#{o.componenteCurricular.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Ações" style="width:100px;text-align: center">
+                            <p:commandButton icon="ui-icon-close" action="#{instrucoesBean.excluir(o.instrucao.id)}">
+
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Intruções de Docente">
+                     <h:panelGrid >
+                        <p:outputLabel value="Docente:"  for="dd" />
+                        <p:autoComplete id="docenteAutocomplete" dropdown="true" value="#{instrucoesBean.docente}" completeMethod="#{cursoBean.completeCurso(query)}"
+                                            var="docente" itemLabel="#{docente.nome}" itemValue="#{docente}" forceSelection="true" converter="docenteConverter" style="margin-left:25%"/> 
+                        <p:outputLabel value="Adiconar Instrução :"   />
+                        <p:inputTextarea rows="5" cols="70" value="#{instrucoesBean.descricaoDocente}" style="margin-left:25%" ></p:inputTextarea>
+                        <p:commandButton value="Salvar" action="#{instrucoesBean.salvarDoc()}" style="margin-left: 135%;top: -80px"/> 
+                    </h:panelGrid>
+
+                    <p:dataTable id="basic" var="o" value="#{instrucoesBean.instrucoesDoc}">
+
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{o.instrucao.descricao}" />
+                        </p:column>
+ 
+                        <p:column headerText="Escopo">
+                            <h:outputText value="#{o.docente.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Ações" style="width:100px;text-align: center">
+                            <p:commandButton icon="ui-icon-close" action="#{instrucoesBean.excluir(o.instrucao.id)}">
+
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                   
+                </p:tab>
+            </p:tabView>
+
+        </h:form>  
+    </ui:define>
+</ui:composition>
+

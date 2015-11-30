@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+                <title>SOPL</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="90"  closable="true" collapsible="true">
+
+
+                    <h:form>  
+                        <p:growl id="messages"/>
+
+                        <p:menubar>
+
+                            <p:menuitem value="Inicio" outcome="index.xhtml">
+                            </p:menuitem>
+
+
+                            <f:facet name="options">
+                                <p:inputText style="margin-right:10px" placeholder="Pesquisar"/>
+                                <p:commandButton type="button" value="Sair" />
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
+
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="250" closable="true" collapsible="true">
+                    <h:form>
+                        <p:growl autoUpdate="true"/>
+
+                        <p:panelMenu style="width:240px">
+                            <p:submenu label="Cadastros">
+                                <p:menuitem value="Cadastrar Disciplina" outcome="CadastroDisciplina"/>
+                                <p:menuitem value="Cadastrar Docente"  outcome="CadastroDocente"/>
+                                <p:menuitem value="Cadastrar Concurso" outcome="index" />
+                                <p:menuitem value="Cadastrar Usuário" outcome="index" />
+                                <p:menuitem value="Cadastrar Curso" outcome="index" />
+
+                            </p:submenu>
+
+                        </p:panelMenu>
+                    </h:form>
+                </p:layoutUnit>
+
+
+
+                <p:layoutUnit position="center">
+                    <f:facet name="header">
+                        Cadastrar Docente
+                    </f:facet>
+                    <h:form>     
+
+
+
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Código da Disciplina: " />
+                            <p:inputText  />
+
+                            <h:outputText value="Nome da Disciplina: " />
+                            <p:inputText  />
+
+                            <h:outputText value="Carga Horária: " />
+                            <p:inputText  />
+
+                            <h:outputText value="Tipo da Disciplina: " />
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
+
+                                <p:selectManyMenu id="basic" value="#{selectManyView.selectedOptions}">
+                                    <f:selectItem itemLabel="Obrigatória" itemValue="1" />
+                                    <f:selectItem itemLabel="Opcional" itemValue="2" />
+
+                                </p:selectManyMenu>
+
+
+                            </h:panelGrid>
+
+                            <h:outputText value="Adicionar Ementa: " />
+                            <p:inputText />
+
+
+                        </h:panelGrid>
+
+                        <p:commandButton value="Adicionar" update="display" oncomplete="PF('dlg').show()" />
+
+                        <p:dialog widgetVar="dlg" showEffect="fade" hideEffect="fade" header="Values">
+                            <h:panelGrid id="display" columns="2" cellpadding="5">
+                                <h:outputText value="Value1: " />
+
+
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:form>
+
+
+
+
+
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+
+</html>

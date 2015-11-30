@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
++To change this license header, choose License Headers in Project Properties.
++To change this template file, choose Tools | Templates
++and open the template in the editor.
++-->
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../Template.xhtml">
+    <ui:define name="content">
+       
+       
+            <h:body>
+                <p:growl autoUpdate="true"/>
+                <p:panel header="Editar  Docente" style="text-align:left">
+                     <p:commandButton value="Voltar" id="voltar" actionListener="#{myNavigationHandler.goToMainDocente()}" update="voltar" icon="ui-icon-arrowreturnthick-1-w" style="float: right"/>   
+                    <h:form id="cadastroDocente" >     
+                        <h:panelGrid columns="2" cellpadding="5" >
+                            <h:outputText value="SIAPE: " />
+                            <p:inputText id="siape" value="#{docenteBean.docente.siape}" style="width:200%" required="true" requiredMessage="O campo deve ser preenchido." converterMessage="Digite somente números inteiros." >
+                                <f:validator validatorId="validacao.view.InteiroValidator" />
+                            </p:inputText>
+                            <h:outputText value="Nome Completo: " />
+                            <p:inputText value="#{docenteBean.docente.nome}" id="nome" style="width: 200%" required="true" requiredMessage="O campo deve ser preenchido.">
+                                <f:validator validatorId="validacao.view.StringValidator" />
+                            </p:inputText>
+                            <h:outputText value="Area da Graduação: " />
+                            <p:inputText  value="#{docenteBean.docente.areagraduacao}" style="width: 200%">
+                                <f:validator validatorId="validacao.view.StringValidator" />
+                            </p:inputText>
+                            <h:outputText value="Adicionar Currículo Lattes: " />
+                            <p:inputText  value="#{docenteBean.docente.linklattes}" style="width: 200%"> 
+                                <f:validator validatorId="validacao.view.LinkValidator" />
+                            </p:inputText>
+                            <p:outputLabel value="Adicionar Concurso:" for="themePojo" />
+                            <p:autoComplete id="themePojo" style="width:200%" value="#{docenteBean.docente.concurso}" completeMethod="#{docenteBean.completeTheme(query)}"
+                                            var="concurso" itemLabel="#{concurso.area}" itemValue="#{concurso}" forceSelection="true" converter="concursoConverter" /> 
+                            <h:outputText value="Atua na Pós Graduação: " />
+                            <p:selectBooleanButton id="value1" value="#{docenteBean.docente.atuaposgraduacao}" onLabel="Sim" offLabel="Não"  /> 
+
+                        </h:panelGrid>
+                        <p:commandButton value="Adicionar" update="cadastroDocente" actionListener="#{myNavigationHandler.goToMainDocente2()}"  />                     
+                    </h:form>
+                    </p:panel>
+            </h:body>
+    </ui:define>
+</ui:composition>
